@@ -1,0 +1,237 @@
+ @charset "UTF-8";
+ body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: rgba(49, 57, 251, 1);
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Top container that holds navbar and search */
+        .topcontainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(49, 57, 251, 1);
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+            padding-bottom: 20px;
+        }
+        
+        /* Navbar styling - now properly centered */
+        .navbar {
+            padding: 15px 0;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .navbar a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 18px;
+        }
+        
+        /* Search bar styling - now properly fixed */
+        .search-container {
+            display: flex;
+            justify-content: center;
+            width: 80%;
+            margin: 0 auto;
+            height: 40px;
+        }
+        
+        .search-bar {
+            width: 90%;
+            padding: 12px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+        
+        /* Main container */
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 120px auto 0; /* Added top margin to account for fixed navbar/search */
+            position: relative;
+        }
+        
+        /* Sidebar styling - fixed position */
+        .sidebar {
+            position: fixed;
+            top: 120px; /* Position below navbar */
+            left: calc((100% - 1200px) / 2); /* Center align with container */
+            width: 280px;
+            background-color: #b8bbff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        /* Profile section in sidebar */
+        .profile-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .profile-background {
+            height: 80px;
+            background-image: linear-gradient(to right, #4a6fdc, #6a8af2);
+            border-radius: 8px 8px 0 0;
+            margin-bottom: -40px;
+        }
+        
+        .profile-pic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #fff;
+            margin: 0 auto;
+            display: block;
+        }
+        
+        .profile-name {
+            margin-top: 45px;
+            font-weight: 600;
+            font-size: 18px;
+            color: #333;
+        }
+        
+        .applications-count {
+            background-color: #e3e6ff;
+            color: #3f51b5;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        /* Main content styling */
+        .main-content {
+            width: 75%;
+            margin-left: 320px; /* Space for sidebar */
+        }
+        
+        .job-section {
+            background-color: #f6f7ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            margin-left:20px;
+            
+        }
+        
+        .job {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .job-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .job-logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-right: 20px;
+            border-radius: 5px;
+        }
+        
+        .job-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 0 0 5px 0;
+            color: #333;
+        }
+        
+        .company-name {
+            font-size: 18px;
+            color: #555;
+            margin: 0;
+        }
+        
+        .jobinfo {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
+        .jobinfoitem {
+            background-color: #f0f2fa;
+            padding: 5px 12px;
+            border-radius: 15px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .job-description {
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
+        .skill {
+            background-color: #e3e6ff;
+            color: #3f51b5;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+        
+        .job-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+        
+        .posted-date {
+            color: #777;
+            font-size: 14px;
+        }
+        
+        .apply-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .save-btn {
+            background-color: white;
+            color: #4CAF50;
+            border: 1px solid #4CAF50;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            font-weight: 500;
+        }
+        
+       
