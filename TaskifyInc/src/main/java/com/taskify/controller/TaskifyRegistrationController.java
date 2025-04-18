@@ -48,6 +48,8 @@ public class TaskifyRegistrationController extends HttpServlet {
 			String validationMessage = validateRegistrationForm(request);
 			System.out.println(validationMessage);
 			if (validationMessage != null) {
+	
+				request.setAttribute("alertMessage", validationMessage);
 				
 				handleError(request, response, validationMessage);
 				return;
@@ -118,11 +120,12 @@ public class TaskifyRegistrationController extends HttpServlet {
 		if (!ValidationUtil.isAlphanumericStartingWithLetter(username))
 			return "Username must start with a letter and contain only letters and numbers.";
 		if (!ValidationUtil.isValidGender(gender))
+			
 			return "Gender must be 'male' or 'female'.";
 		if (!ValidationUtil.isValidEmail(email))
 			return "Invalid email format.";
 		if (!ValidationUtil.isValidPhoneNumber(number))
-			return "Phone number must be 10 digits and start with 98.";
+			return "Phone number must be 10 digits and start with the digits 98.";
 		if (!ValidationUtil.isValidPassword(password))
 			return "Password must be at least 8 characters long, with 1 uppercase letter, 1 number, and 1 symbol.";
 		if (!ValidationUtil.doPasswordsMatch(password, retypePassword))
@@ -170,7 +173,6 @@ public class TaskifyRegistrationController extends HttpServlet {
 			req.setAttribute("gender", req.getParameter("gender"));
 			req.setAttribute("email", req.getParameter("email"));
 			req.setAttribute("phoneNumber", req.getParameter("phoneNumber"));
-			req.setAttribute("subject", req.getParameter("subject"));
 			req.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(req, resp);
 		}
 }
