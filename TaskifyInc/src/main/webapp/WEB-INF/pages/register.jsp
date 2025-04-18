@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +11,11 @@
 	href="${pageContext.request.contextPath}/css/register.css" />
 </head>
 <body>
+	<c:if test="${not empty alertMessage}">
+    	<script>
+     	   alert("${alertMessage}");
+   	 	</script>
+	</c:if>
 	<div class="login-box">
 		<h2>Registration Form</h2>
 	<!-- Submit form to processLogin.jsp -->
