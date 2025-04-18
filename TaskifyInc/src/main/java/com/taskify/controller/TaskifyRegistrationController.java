@@ -125,7 +125,7 @@ public class TaskifyRegistrationController extends HttpServlet {
 		if (!ValidationUtil.isValidEmail(email))
 			return "Invalid email format.";
 		if (!ValidationUtil.isValidPhoneNumber(number))
-			return "Phone number must be 10 digits and start with 98.";
+			return "Phone number must be 10 digits and start with the digits 98.";
 		if (!ValidationUtil.isValidPassword(password))
 			return "Password must be at least 8 characters long, with 1 uppercase letter, 1 number, and 1 symbol.";
 		if (!ValidationUtil.doPasswordsMatch(password, retypePassword))
