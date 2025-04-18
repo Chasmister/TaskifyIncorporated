@@ -42,7 +42,7 @@
 		            <label for="lastname">Last Name:</label>
 		            <input type="text" id="lastname" name="lastName" >
 		
-		            <label for="birthday">Birthday:</label>
+		            <label for="birthday">Date of birth:</label>
 		            <input type="date" id="dob" name="dob" >
 		
 		            <label for="email">Email:</label>
