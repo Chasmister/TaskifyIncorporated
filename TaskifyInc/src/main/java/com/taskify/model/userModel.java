@@ -9,6 +9,7 @@ public class userModel {
 	public userModel(String username,String password) {
 		this.username=username;
 		this.password=password;
+		this.usertype="NON-ADMIN";
 		
 	}
 	
@@ -20,6 +21,9 @@ public class userModel {
 	}
 	public String getpassword() {
 		return this.password;
+	}
+	public String getusertype() {
+		return this.usertype;
 	}
 
 }

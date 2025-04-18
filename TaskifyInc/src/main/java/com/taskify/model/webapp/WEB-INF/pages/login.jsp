@@ -15,7 +15,7 @@
 			<div class="row">
 				<div class="col">
 					<label for="username">Username:</label> <input type="text"
-						id="username" name="username" required>
+						id="username" name="userName" required>
 				</div>
 			</div>
 			<div class="row">

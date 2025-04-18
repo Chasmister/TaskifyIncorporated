@@ -43,5 +43,10 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Manas/Documents/SECOND YEAR/sem 4/ADVANCED PROGRAMMING/mysql-connector-j-9.2.0/mysql-connector-j-9.2.0.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
