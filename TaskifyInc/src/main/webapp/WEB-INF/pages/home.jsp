@@ -19,7 +19,7 @@
 		<div class="hero-wrapper">
 			<section class="hero">
 				<div class="hero-content">
-					<h1>Connecting workers and employers</h1>
+					<h1>Connecting workers and</h1>
 					<a href="#" class = "btn btn-outline btn-arrow">
 						Register <span class="arrow">-></span>
 					</a>
