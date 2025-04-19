@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Login to your account</title>
+<title>Register your account</title>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/register.css" />
 </head>
