@@ -123,7 +123,7 @@ nav {
         </div>
         
         <div class="auth-buttons">
-            <a href="${pageContext.request.contextPath}/login.jsp" class="btn btn-primary">Login →</a>
+            <a href="${pageContext.request.contextPath}/login" class="btn btn-primary">Login →</a>
             <a href="#" class="btn btn-secondary">Register</a>
         </div>
     </div>
