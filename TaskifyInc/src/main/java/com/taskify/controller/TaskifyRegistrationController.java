@@ -57,14 +57,14 @@ public class TaskifyRegistrationController extends HttpServlet {
 			userModel userModelDetails = extractUserModel(request);
 			memberModel memberModelDetails= extractMemberModel(request);
 			
-			Boolean isAdded=taskifyRegistrationService.registerUserandMember(userModelDetails,memberModelDetails);
-			if (isAdded == null) {
+			String isAdded=taskifyRegistrationService.registerUserandMember(userModelDetails,memberModelDetails);
+			if (isAdded.equals("failed")) {
 				handleError(request, response, "Our server is under maintenance. Please try again later!");
-			} else if (isAdded) {
+			} else if (isAdded.equals("success")) {
 				handleSuccess(request, response, "Your account is successfully created!", "/WEB-INF/pages/login.jsp");
 				
 			} else {
-				handleError(request, response, "Could not register your account. Please try again later!");
+				handleError(request, response, "Could not register your account. User already exists!");
 			}
 			
 		} catch (Exception e) {
@@ -75,7 +75,7 @@ public class TaskifyRegistrationController extends HttpServlet {
 		
 		
 	}
-
+	
 	private String validateRegistrationForm(HttpServletRequest req) {
 		String firstName = req.getParameter("firstName");
 		String lastName = req.getParameter("lastName");
@@ -159,13 +159,13 @@ public class TaskifyRegistrationController extends HttpServlet {
 	    }
 	    private void handleSuccess(HttpServletRequest req, HttpServletResponse resp, String message, String redirectPage)
 				throws ServletException, IOException {
-			req.setAttribute("success", message);
+			req.setAttribute("alertMessage", message);
 			req.getRequestDispatcher(redirectPage).forward(req, resp);
 		}
 
 		private void handleError(HttpServletRequest req, HttpServletResponse resp, String message)
 				throws ServletException, IOException {
-			req.setAttribute("error", message);
+			req.setAttribute("alertMessage", message);
 			req.setAttribute("firstName", req.getParameter("firstName"));
 			req.setAttribute("lastName", req.getParameter("lastName"));
 			req.setAttribute("username", req.getParameter("username"));

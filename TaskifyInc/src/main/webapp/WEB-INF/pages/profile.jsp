@@ -166,6 +166,18 @@
             font-size: 22px;
             margin-bottom: 15px;
         }
+        .editprofile{
+        	display:flex;
+        	justify-content:flex-end;
+        }
+        .editprofilebutton{
+        	border-radius:5px;
+        	padding:5px;
+        	background-color:#3139FB;
+        	color:white;
+        	border:none;
+        	
+        }
     </style>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
@@ -193,13 +205,16 @@
                     <h1><%= name %></h1>
                     <p class="location">📍<%= location %></p>
                 </div>
+                
             </div>
-
+            
             <!-- Horizontal line -->
             <div class="full-width-divider"></div>
 
             <!-- Contact Section -->
             <div class="contact-section">
+            	
+            	
                 <h2>Contact info: <i class="fas fa-edit">📞</i></h2>
                 <ul class="contact-list">
                     <li><span class="contact-item"><%= phone %></span></li>
@@ -225,6 +240,9 @@
 
         <!-- Right Section -->
         <div class="content-section">
+      		  	<div class="editprofile">
+                	<button type="submit" class="editprofilebutton" name="editprofilebutton">Edit profile</button>
+                </div>
             <div class="job-title-section">
                 <h2><%= jobTitle %></h2>
                 <p class="job-description">
