@@ -1,7 +1,5 @@
 @charset "UTF-8";
 
-@charset "UTF-8";
-
 /* Reset & base styles */
 * {
 	font-family: 'Manrope', sans-serif;
@@ -92,7 +90,7 @@ label {
   font-size: 1.0rem;
   margin-bottom: 0.2rem;
   color: #000354;
-  font-family: CaskaydiaMonoRegular;
+  font-family: 'CaskaydiaMonoRegular', 'Manrope', sans-serif;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -111,7 +109,7 @@ input {
 
 
 button {
-	font-family: 'CaskaydiaMonoRegular';
+	font-family: 'CaskaydiaMonoRegular', sans-serif;
 	width: 75%;
 	margin-top: 1.1rem;
   padding: 0.7rem 0.7rem;
@@ -129,7 +127,7 @@ button {
 	text-underline-offset: 10px;
 	font-size: 1.1rem;
 	color: #000354;
-	font-family: 'CaskaydiaMonoRegular';
+	font-family: 'CaskaydiaMonoRegular','Manrope',sans-serif;
 }
 
 /* Right panel image */

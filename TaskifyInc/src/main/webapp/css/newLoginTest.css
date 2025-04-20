@@ -99,7 +99,7 @@ button {
 	color: #FFFCEC;
     text-decoration: underline wavy;
     text-underline-offset: 10px;
-    font-family: 'CaskaydiaMonoRegular';
+ 	font-family: 'CaskaydiaMonoRegular','Manrope',sans-serif;
     text-align: center;
 }
 

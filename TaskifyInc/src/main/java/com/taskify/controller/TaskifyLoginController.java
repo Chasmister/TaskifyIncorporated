@@ -16,7 +16,7 @@ import com.taskify.service.taskifyRegisterService;
 /**
  * Servlet implementation class login
  */
-@WebServlet("/login")
+@WebServlet(asyncSupported = true, urlPatterns = { "/login" })
 public class TaskifyLoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final taskifyLoginService taskifyLoginService=new taskifyLoginService();
@@ -35,7 +35,7 @@ public class TaskifyLoginController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/pages/newLoginTest.jsp").forward(request, response);
 	}
 
 	/**

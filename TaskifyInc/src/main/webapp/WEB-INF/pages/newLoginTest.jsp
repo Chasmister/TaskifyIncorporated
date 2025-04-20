@@ -21,17 +21,17 @@
       		<h2>Sign In</h2>
       		<p class="welcome">Welcome back</p>
       		<hr />
-      		<form>
+      		<form action="login" method="post">
         		<label for="username">Username</label>
-        		<input type="text" id="username" />
+        		<input type="text" id="username" name="userName" />
         
         		<div class="password-row">
           			<label for="password">Password</label>
           			<a href="#" class="forgot">Forgot?</a>
         		</div>
-        		<input type="password" id="password"/>
+        		<input type="password" id="password" name="password"/>
 
-        		<button type="submit">Sign In</button>
+        		<button type="submit" class="login-button">Sign In</button>
         		<a href="#" class="noAccount">Don't have an Account? Register Now</a>
       		</form>
     	</div>

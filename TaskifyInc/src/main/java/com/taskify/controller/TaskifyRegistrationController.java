@@ -36,7 +36,7 @@ public class TaskifyRegistrationController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		 request.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(request, response);
+		 request.getRequestDispatcher("/WEB-INF/pages/newRegister.jsp").forward(request, response);
     }
 
 	/**
@@ -47,6 +47,7 @@ public class TaskifyRegistrationController extends HttpServlet {
 		try {
 			String validationMessage = validateRegistrationForm(request);
 			System.out.println(validationMessage);
+			
 			if (validationMessage != null) {
 	
 				request.setAttribute("alertMessage", validationMessage);
@@ -61,7 +62,7 @@ public class TaskifyRegistrationController extends HttpServlet {
 			if (isAdded.equals("failed")) {
 				handleError(request, response, "Our server is under maintenance. Please try again later!");
 			} else if (isAdded.equals("success")) {
-				handleSuccess(request, response, "Your account is successfully created!", "/WEB-INF/pages/login.jsp");
+				handleSuccess(request, response, "Your account is successfully created!", "/WEB-INF/pages/newLoginTest.jsp");
 				
 			} else {
 				handleError(request, response, "Could not register your account. User already exists!");

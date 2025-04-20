@@ -24,7 +24,7 @@
     <div class="right-panel">
   		<div class="lottie-animation">
   			<h2>Create an account</h2>
-  			<form>
+  			<form action="register" method="post">
   				<div class="form-row">
   					<div class="input-group">
 		 				<label for="firstname">First Name</label>
@@ -32,14 +32,14 @@
 		        	</div>
 					<div class="input-group">
 			            <label for="lastname">Last Name</label>
-			            <input type="text" id="username" name="userName" >
+			            <input type="text" id="lastname" name="lastName" >
 			        </div>
 		        </div>
 		        
 		        <div class="form-row">
 		        	<div class="input-group">
-			            <label for="gender">Username:</label>
-			            <input type="text" id="gender" name="gender" >
+			            <label for="username">Username:</label>
+			            <input type="text" id="username" name="userName" >
 		            </div>
 					<div class="input-group">
 			            <label for="birthday">Date of birth:</label>
@@ -59,7 +59,7 @@
 	            <div class="form-row">
 	            	<div class="input-group">
 	            		<label for="phonenumber">Phone Number:</label>
-			            <input type="text" id="phonenumber" name="phonenumber" >
+			            <input type="text" id="phonenumber" name="phoneNumber" >
 	            	</div>
 	            	<div class="input-group">
 	            		<label for="password">Password:</label>
@@ -72,11 +72,13 @@
 			            <input type="password" id="retypepassword" name="retypePassword" >	            		
 	            	</div>
 	            </div>
+	            <button type="submit" class="submit-btn" name="registerbutton">Submit</button>
+  			
+  		
   			</form>
-  			
-  			<button class="submit-btn">Submit</button>
-  			
   			<a href="#" id="noAccount">Already have an account? Sign In</a>
+  			
+  			
   			
   		</div>    
 	</div>
