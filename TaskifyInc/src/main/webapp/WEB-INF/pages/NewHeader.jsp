@@ -23,7 +23,7 @@ nav {
     max-width: 1160px; /* 1200px - 40px padding */
     left: 50%;
     transform: translateX(-50%);
-    z-index: 100;
+    z-index: 2;
 }
 
 
@@ -51,6 +51,15 @@ nav {
     color: #2243ff;
     font-weight: 800;
     letter-spacing: -1px;
+    border-radius: 3px;
+    padding: 0.2rem 0.4rem;
+    transition: background-color 0.2s ease-in 0s, box-shadow 0.2s ease-in 0s;    
+}
+
+.nav-links a:hover {
+	background-color: #2243ff;
+	color: #FFFCEC;
+	box-shadow: rgb(38, 57, 77) 0px 20px 50px -5px;
 }
 
 .auth-buttons {

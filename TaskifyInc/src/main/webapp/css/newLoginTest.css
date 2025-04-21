@@ -93,6 +93,12 @@ button {
   font-size: 1.3rem;
   cursor: pointer;
   margin-bottom: 1.3rem;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+button:hover {
+	background-color: #FFFCEC;
+	color: #3139FB;
 }
 
 .noAccount {

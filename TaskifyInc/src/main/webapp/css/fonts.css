@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 @font-face {
-	font-family: CaskaydiaMonoRegular;
-	src: url(../resources/fonts/CaskaydiaMonoNerdFont-Regular.ttf);
+	font-family: 'CaskaydiaMonoRegular';
+	src: url('../Fonts/CaskaydiaMonoNerdFont-Regular.ttf') format('truetype');
 }
 

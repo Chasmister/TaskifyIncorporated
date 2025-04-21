@@ -90,7 +90,7 @@ label {
   font-size: 1.0rem;
   margin-bottom: 0.2rem;
   color: #000354;
-  font-family: 'CaskaydiaMonoRegular', 'Manrope', sans-serif;
+  font-family: 'CaskaydiaMonoRegular','JetBrains Mono', monospace;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -109,7 +109,7 @@ input {
 
 
 button {
-	font-family: 'CaskaydiaMonoRegular', sans-serif;
+	font-family: 'CaskaydiaMonoRegular', 'JetBrains Mono', monospace;
 	width: 75%;
 	margin-top: 1.1rem;
   padding: 0.7rem 0.7rem;
@@ -118,7 +118,20 @@ button {
   border: solid 2px #3139FB;
   border-radius: 6px;
   font-size: 1.3rem;
+  font-weight: 700;
   cursor: pointer;
+  transition: background-color 0.1s ease-in-out, 
+  			  color 0.1s ease-in-out, 
+  			  box-shadow 0.1s ease-in-out,
+  			  margin-bottom 0.1s ease-in-out,
+  			  transform 0.1s ease-in-out;
+}
+
+button:hover {
+	transform: scale(1.05);
+	background-color: #3139FB;
+	color: #FFFCEC;
+	box-shadow: rgb(38, 57, 77) 0px 20px 50px -5px;
 }
 
 #noAccount {
@@ -127,7 +140,13 @@ button {
 	text-underline-offset: 10px;
 	font-size: 1.1rem;
 	color: #000354;
-	font-family: 'CaskaydiaMonoRegular','Manrope',sans-serif;
+	font-family: 'CaskaydiaMonoRegular', 'JetBrains Mono', monospace;
+	font-weight: bold;
+	transition: color 0.1s ease-in-out;
+}
+
+#noAccount:hover {
+	color: #3139FB;
 }
 
 /* Right panel image */
