@@ -4,13 +4,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Navigation Bar</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* Navigation Styles */
 nav {
-	
     position: fixed;
     background-color: #FFFCEC;
     border-radius: 10px;
@@ -46,11 +42,10 @@ nav {
 }
 
 .nav-links a {
-	font-family: 'Manrope', sans-serif;
     text-decoration: none;
     color: #2243ff;
     font-weight: 800;
-    letter-spacing: -1px;
+    margin-top:7px;
 }
 
 .auth-buttons {
@@ -115,14 +110,20 @@ nav {
         font-size: 1.5rem;
     }
 }
+.profilebtn{
+	display:flex;
+	border-radius:10px;
+	padding:5px;
+}
 </style>
 </head>
 <body>
 <nav>
-    <a href="#" class="logo">LOGO</a>
+    <a href="#" class="logo">taskify</a>
     
     <div class="navigation-section">
         <div class="nav-links">
+           
             <a href="${pageContext.request.contextPath}/home">Home</a>
             <a href="${pageContext.request.contextPath}/aboutus">About Us</a>
             <a href="${pageContext.request.contextPath}/jobpage2">Jobs</a>
@@ -130,12 +131,16 @@ nav {
             <a href="${pageContext.request.contextPath}/myApplications">My Applications</a>
             <a href="${pageContext.request.contextPath}/myJobs">My Jobs</a>
             
-        </div>
-        
-        <div class="auth-buttons">
-            <a href="${pageContext.request.contextPath}/login" class="btn btn-primary">Login →</a>
-            <a href="${pageContext.request.contextPath}/register" class="btn btn-secondary">Register</a>
-        </div>
+       
+            
+		     <div style="border-radius: 10px; height: 50px;">
+		    <a href="${pageContext.request.contextPath}/profile" class="profilebtn">
+		        <img src="${pageContext.request.contextPath}/images/Default_pfp.png" alt="Profile" style="height: 40px; border-radius: 50%;">
+		    </a>
+			</div>
+           
+  		</div>
+           
     </div>
     
     <button class="mobile-menu-btn">☰</button>

@@ -166,7 +166,7 @@ public class TaskifyRegistrationController extends HttpServlet {
 
 		private void handleError(HttpServletRequest req, HttpServletResponse resp, String message)
 				throws ServletException, IOException {
-			req.setAttribute("alertMessage", message);
+			
 			req.setAttribute("firstName", req.getParameter("firstName"));
 			req.setAttribute("lastName", req.getParameter("lastName"));
 			req.setAttribute("username", req.getParameter("username"));
@@ -174,6 +174,7 @@ public class TaskifyRegistrationController extends HttpServlet {
 			req.setAttribute("gender", req.getParameter("gender"));
 			req.setAttribute("email", req.getParameter("email"));
 			req.setAttribute("phoneNumber", req.getParameter("phoneNumber"));
-			req.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(req, resp);
+			req.setAttribute("alertMessage", message);
+			req.getRequestDispatcher("/WEB-INF/pages/newRegister.jsp").forward(req, resp);
 		}
 }

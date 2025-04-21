@@ -12,6 +12,8 @@ import com.taskify.model.memberModel;
 import com.taskify.model.userModel;
 import com.taskify.service.taskifyLoginService;
 import com.taskify.service.taskifyRegisterService;
+import com.taskify.util.CookieUtil;
+import com.taskify.util.SessionUtil;
 
 /**
  * Servlet implementation class login
@@ -51,12 +53,15 @@ public class TaskifyLoginController extends HttpServlet {
 			boolean loggedin=taskifyLoginService.verifyuser(userModelDetails);
 			//System.out.println(loggedin);
 			if(loggedin==true) {
+				SessionUtil.setAttribute(request,"userName",userModelDetails.getusername());
 				boolean memberuser=taskifyLoginService.checkusertype(userModelDetails);
 						
 				if(memberuser==true) {
+					CookieUtil.addCookie(response, "userType", "NON-ADMIN", 5*30);
 					request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request, response);
 					
 				}else {
+					CookieUtil.addCookie(response, "userType", "ADMIN", 5*30);
 					request.getRequestDispatcher("/WEB-INF/pages/admindashboard.jsp").forward(request, response);
 						
 				}
