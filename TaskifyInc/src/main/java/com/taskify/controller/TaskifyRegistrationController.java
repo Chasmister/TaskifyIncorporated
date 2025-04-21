@@ -11,9 +11,11 @@ import java.time.LocalDate;
 
 
 import com.taskify.model.memberModel;
+import com.taskify.model.profileModel;
 import com.taskify.model.userModel;
 import com.taskify.service.taskifyRegisterService;
 import com.taskify.util.ValidationUtil;
+import com.taskify.util.RequestModelExtractorUtil;
 
 /**
  * Servlet implementation class registrationController
@@ -55,10 +57,12 @@ public class TaskifyRegistrationController extends HttpServlet {
 				handleError(request, response, validationMessage);
 				return;
 			}
-			userModel userModelDetails = extractUserModel(request);
-			memberModel memberModelDetails= extractMemberModel(request);
+			userModel userModelDetails = RequestModelExtractorUtil.extractUserModel(request);
+			memberModel memberModelDetails=RequestModelExtractorUtil.extractMemberModel(request);
+			profileModel profileModelDetails = new profileModel(); // This will initialize the profile with default values
 			
-			String isAdded=taskifyRegistrationService.registerUserandMember(userModelDetails,memberModelDetails);
+			
+			String isAdded=taskifyRegistrationService.registerUserandMember(userModelDetails,memberModelDetails,profileModelDetails);
 			if (isAdded.equals("failed")) {
 				handleError(request, response, "Our server is under maintenance. Please try again later!");
 			} else if (isAdded.equals("success")) {
@@ -142,22 +146,7 @@ public class TaskifyRegistrationController extends HttpServlet {
 	}
 
 	
-	  private userModel extractUserModel(HttpServletRequest req) throws Exception {
-	        String username = req.getParameter("userName");
-	        String password = req.getParameter("password");
-	        return new userModel(username, password);
-	    }
-
-	    private memberModel extractMemberModel(HttpServletRequest req) throws Exception {
-	        String firstName = req.getParameter("firstName");
-	        String lastName = req.getParameter("lastName");
-	        LocalDate dob = LocalDate.parse(req.getParameter("dob"));
-	        String gender = req.getParameter("gender");
-	        String email = req.getParameter("email");
-	        String number = req.getParameter("phoneNumber");
-	
-	        return new memberModel(firstName, lastName, dob, gender, email, number);
-	    }
+	 
 	    private void handleSuccess(HttpServletRequest req, HttpServletResponse resp, String message, String redirectPage)
 				throws ServletException, IOException {
 			req.setAttribute("alertMessage", message);

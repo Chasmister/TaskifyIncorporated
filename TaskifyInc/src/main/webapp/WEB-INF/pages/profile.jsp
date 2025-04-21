@@ -203,8 +203,8 @@
                     <img src="${pageContext.request.contextPath}/images/profile.jpg" alt="Profile">
                 </div>
                 <div class="profile-name">
-                    <h1><%= name %></h1>
-                    <p class="location">📍<%= location %></p>
+                    <h1>${user.username}</h1>
+                    <p class="location">${member.firstName}  ${member.lastName}</p>
                 </div>
                 
             </div>
@@ -218,8 +218,8 @@
             	
                 <h2>Contact info: <i class="fas fa-edit">📞</i></h2>
                 <ul class="contact-list">
-                    <li><span class="contact-item"><%= phone %></span></li>
-                    <li><span class="contact-item"><%= email %></span></li>
+                    <li><span class="contact-item"></span></li>
+                    <li><span class="contact-item"></span></li>
                 </ul>
             </div>
 

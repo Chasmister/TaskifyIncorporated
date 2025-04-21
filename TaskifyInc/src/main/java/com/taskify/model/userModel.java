@@ -7,10 +7,14 @@ public class userModel {
 	private String password;
 	
 	public userModel(String username,String password) {
+		this.userID=-1;
 		this.username=username;
 		this.password=password;
 		this.usertype="NON-ADMIN";
 		
+	}
+	public void setuser_ID(int userid) {
+		this.userID=userid;
 	}
 	
 	public void setusertype(String usertype) {
@@ -24,6 +28,9 @@ public class userModel {
 	}
 	public String getusertype() {
 		return this.usertype;
+	}
+	public int getuserid() {
+		return this.userID;
 	}
 
 }

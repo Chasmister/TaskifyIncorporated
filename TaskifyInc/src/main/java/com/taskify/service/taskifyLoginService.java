@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import com.taskify.config.TaskifyDBconfig;
+import com.taskify.model.memberModel;
 import com.taskify.model.userModel;
 
 public class taskifyLoginService {
@@ -22,9 +24,9 @@ public class taskifyLoginService {
             ex.printStackTrace();
         }
     }
-    public Boolean checkusertype(userModel userdata) {
-        String checkuserQuery = "SELECT User_Type FROM users WHERE User_name=?";
-        boolean isNonAdmin = false;
+    public String checkusertype(userModel userdata) {
+        String checkuserQuery = "SELECT User_Type FROM users WHERE User_Name=?";
+        String currentuser = "NON-ADMIN";
         
         try (PreparedStatement usertypestmt = dbConn.prepareStatement(checkuserQuery)) {
             usertypestmt.setString(1, userdata.getusername());
@@ -32,53 +34,81 @@ public class taskifyLoginService {
             
             if (usertype.next()) {
                 String dbUserType = usertype.getString("User_Type");
-                isNonAdmin = "NON-ADMIN".equals(dbUserType);
-                System.out.println("User type from DB: " + dbUserType);
+             
+                if(dbUserType.equals("NON-ADMIN")) {
+                	return "NON-ADMIN";
+                }else {
+                	return "ADMIN";
+                }
             } else {
                 System.out.println("User not found in database");
+                return "NO-USER";
             }
         } catch (SQLException e) {
             System.err.println("Error during database operation: " + e.getMessage());
             e.printStackTrace();
         }
         
-        return isNonAdmin;
+        return currentuser;
     }
-    
-    
-    
-    
-    public Boolean verifyuser(userModel userdata) {
-    	String userQuery="SELECT User_Name from users WHERE User_name=?";
-    	
-    	
-    	try(PreparedStatement selectstmt=dbConn.prepareStatement(userQuery)){
-    		selectstmt.setString(1,userdata.getusername());
-    		ResultSet rowsAffected=selectstmt.executeQuery();
-    		if(rowsAffected.next()) {
-    			String verifyQuery="SELECT User_Name,User_Password from users WHERE User_Name =? AND User_Password=?";
-    			
-    			try(PreparedStatement verifystmt=dbConn.prepareStatement(verifyQuery)){
-    	    		verifystmt.setString(1,userdata.getusername());   
-    	    		verifystmt.setString(2,userdata.getpassword());
-    	    		ResultSet rowsAffected2=verifystmt.executeQuery();
-    	    		
-    	    		if(rowsAffected2.next()) {
-    	    			return true;
-    	    		}
-    	    	}catch (SQLException e) {
-    	                System.err.println("Error during database operation: " + e.getMessage());
-    	                e.printStackTrace();
-    	            }
-    		}
-    		
-    	}
-    	catch (SQLException e) {
+    public memberModel getuserinfo(int userid) {
+        String getuserQuery = "SELECT * FROM members WHERE User_ID=?";
+        memberModel currentUser = null;  // Initialize the currentUser to be returned
+
+        try (PreparedStatement userinfostmt = dbConn.prepareStatement(getuserQuery)) {
+            // Set the parameter for the query
+            userinfostmt.setInt(1, userid);  // Use setInt for integer type
+            System.out.println(userid);
+            
+            // Execute the query and get the ResultSet
+            ResultSet userinfo = userinfostmt.executeQuery();
+            
+            if (userinfo.next()) {
+                // Extract the data from the ResultSet and populate the memberModel
+                String firstName = userinfo.getString("Member_FirstName");
+                String lastName = userinfo.getString("Member_LastName");
+                LocalDate dob = userinfo.getDate("Member_DOB").toLocalDate();  
+                String gender = userinfo.getString("Member_Gender");
+                String email = userinfo.getString("Member_Email");
+                String phonenumber = userinfo.getString("Member_ContactNumber");
+                
+                // Populate the memberModel object with extracted data
+                currentUser = new memberModel(firstName, lastName, dob, gender, email, phonenumber);
+                
+               
+                currentUser.setId(userinfo.getInt("Member_ID"));
+            }
+        } catch (SQLException e) {
             System.err.println("Error during database operation: " + e.getMessage());
             e.printStackTrace();
         }
-    	return false;
-    	
+        
+        return currentUser;  // Return the populated memberModel object
     }
+
+    
+    
+    
+    
+    public boolean verifyuser(userModel user) {
+        String sql = "SELECT * FROM users WHERE User_Name=? AND User_Password=?";
+
+        try (PreparedStatement stmt = dbConn.prepareStatement(sql)) {
+            stmt.setString(1, user.getusername());
+            stmt.setString(2, user.getpassword());
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                int userIdFromDB = rs.getInt("User_ID");
+                user.setuser_ID(userIdFromDB); // ✅ set actual user ID into the model
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
 
 }

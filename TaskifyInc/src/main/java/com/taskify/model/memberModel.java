@@ -104,4 +104,12 @@ public class memberModel {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+    public void setUser_ID(int userid) {
+    	this.User_ID=userid;
+    	
+    }
+    public int getUser_ID() {
+    	return this.User_ID;
+    }
 }

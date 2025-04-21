@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.ResultSet;
 
 import com.taskify.model.memberModel;
 import com.taskify.model.userModel;
@@ -14,6 +15,7 @@ import com.taskify.service.taskifyLoginService;
 import com.taskify.service.taskifyRegisterService;
 import com.taskify.util.CookieUtil;
 import com.taskify.util.SessionUtil;
+import com.taskify.util.RequestModelExtractorUtil;
 
 /**
  * Servlet implementation class login
@@ -46,24 +48,38 @@ public class TaskifyLoginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
-			userModel userModelDetails = extractUserModel(request);
+			userModel userModelDetails = RequestModelExtractorUtil.extractUserModel(request);
+			//memberModel memberModelDetails=RequestModelExtractorUtil.extractMemberModel(request);
 			
 			//verify the user for login
 			
 			boolean loggedin=taskifyLoginService.verifyuser(userModelDetails);
 			//System.out.println(loggedin);
 			if(loggedin==true) {
-				SessionUtil.setAttribute(request,"userName",userModelDetails.getusername());
-				boolean memberuser=taskifyLoginService.checkusertype(userModelDetails);
+				SessionUtil.setAttribute(request, "user", userModelDetails);
+				
+				int userid=userModelDetails.getuserid();
+				
+				memberModel memberinfo=taskifyLoginService.getuserinfo(userid);
+				
+				System.out.println(memberinfo);
+				SessionUtil.setAttribute(request,"member",memberinfo);
+
+				
+				String memberuser=taskifyLoginService.checkusertype(userModelDetails);
+				System.out.println(memberuser);
 						
-				if(memberuser==true) {
+				if(memberuser.equals("NON-ADMIN")) {
 					CookieUtil.addCookie(response, "userType", "NON-ADMIN", 5*30);
+					
 					request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request, response);
 					
-				}else {
+				}else if(memberuser.equals("ADMIN")){
 					CookieUtil.addCookie(response, "userType", "ADMIN", 5*30);
 					request.getRequestDispatcher("/WEB-INF/pages/admindashboard.jsp").forward(request, response);
 						
+				}else {
+					System.out.println("ERROR");
 				}
 				
 			}
@@ -75,11 +91,7 @@ public class TaskifyLoginController extends HttpServlet {
 		}
 		
 	}
-	private userModel extractUserModel(HttpServletRequest req) throws Exception {
-        String username = req.getParameter("userName");
-        String password = req.getParameter("password");
-        return new userModel(username, password);
-    }
+	
 
 	
 }
