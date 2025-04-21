@@ -182,6 +182,7 @@
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
+	<jsp:include page="loggedin.jsp"/>
     <%
         String name = "Bigyan Nemkul";
         String location = "Kathmandu, Nepal";
@@ -199,7 +200,7 @@
         <div class="profile-section">
             <div class="profile-header">
                 <div class="profile-picture">
-                    <img src="../Pages/pictures/webimages/profile.jpg" alt="Profile">
+                    <img src="${pageContext.request.contextPath}/images/profile.jpg" alt="Profile">
                 </div>
                 <div class="profile-name">
                     <h1><%= name %></h1>

@@ -6,7 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body><div style="font-family: 'Segoe UI', sans-serif; background: #fdfdff; color: #0d0d4d; padding: 0; margin: 0;">
+<body>
+<jsp:include page="NewHeader.jsp"/>
+<div style="font-family: 'Segoe UI', sans-serif; background: #fdfdff; color: #0d0d4d; padding: 0; margin: 0;">
 
     <!-- Hero Section -->
     <section style="background: linear-gradient(135deg, #eef2ff, #f5f7ff); padding: 5rem 2rem;">

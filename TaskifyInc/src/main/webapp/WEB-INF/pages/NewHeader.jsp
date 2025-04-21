@@ -119,7 +119,7 @@ nav {
 </head>
 <body>
 <nav>
-    <a href="#" class="logo">LOGO</a>
+    <a href="#" class="logo">taskify</a>
     
     <div class="navigation-section">
         <div class="nav-links">

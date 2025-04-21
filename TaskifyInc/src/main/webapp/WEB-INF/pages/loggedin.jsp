@@ -7,6 +7,7 @@
 <style>
 /* Navigation Styles */
 nav {
+	font-family: 'Manrope', sans-serif;
     position: fixed;
     background-color: #FFFCEC;
     border-radius: 10px;
@@ -24,6 +25,7 @@ nav {
 
 
 .logo {
+	font-family: 'Manrope', sans-serif;
     font-size: 2rem;
     font-weight: 800;
     color: #2243ff;
@@ -45,7 +47,7 @@ nav {
     text-decoration: none;
     color: #2243ff;
     font-weight: 800;
-    margin-top:7px;
+    margin-top:10px;
 }
 
 .auth-buttons {
@@ -110,11 +112,7 @@ nav {
         font-size: 1.5rem;
     }
 }
-.profilebtn{
-	display:flex;
-	border-radius:10px;
-	padding:5px;
-}
+
 </style>
 </head>
 <body>
@@ -134,8 +132,8 @@ nav {
        
             
 		     <div style="border-radius: 10px; height: 50px;">
-		    <a href="${pageContext.request.contextPath}/profile" class="profilebtn">
-		        <img src="${pageContext.request.contextPath}/images/Default_pfp.png" alt="Profile" style="height: 40px; border-radius: 50%;">
+		    <a href="${pageContext.request.contextPath}/profile" >
+		        <img src="${pageContext.request.contextPath}/images/profile.jpg" alt="Profile" style="height: 40px; width:40px; border-radius: 50%; margin-top:5px;">
 		    </a>
 			</div>
            
