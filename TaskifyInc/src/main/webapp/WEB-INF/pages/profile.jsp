@@ -166,6 +166,7 @@
             font-size: 22px;
             margin-bottom: 15px;
         }
+
         .editprofile{
         	display:flex;
         	justify-content:flex-end;
@@ -176,37 +177,28 @@
         	background-color:#3139FB;
         	color:white;
         	border:none;
-        	
         }
     </style>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
 	<jsp:include page="loggedin.jsp"/>
-    <%
-        String name = "Bigyan Nemkul";
-        String location = "Kathmandu, Nepal";
-        String phone = "+977 9810274436";
-        String email = "bigyan.nemkul@gmail.com";
-        String jobTitle = "Graphic Designer";
-        String jobDescription = "I am geologist, studying earth processes and materials, with a focus on natural resource management and environmental conservation.";
-        
-        // Skills array
-        String[] skills = {"Graphic Design", "HTML / CSS"};
-    %>
 
+    <!-- Display User's Profile Data -->
     <div class="container">
         <!-- Left Section -->
         <div class="profile-section">
             <div class="profile-header">
                 <div class="profile-picture">
-                    <img src="${pageContext.request.contextPath}/images/profile.jpg" alt="Profile">
+                    <!-- Profile Picture -->
+                    <img src= "${pageContext.request.contextPath}/images/defaultprofile.png" alt="Profile Picture">
                 </div>
                 <div class="profile-name">
+                    <!-- Display User's Username -->
                     <h1>${user.username}</h1>
-                    <p class="location">${member.firstName}  ${member.lastName}</p>
+                    <!-- Display Member's Full Name -->
+                    <p class="location">${member.firstName} ${member.lastName}</p>
                 </div>
-                
             </div>
             
             <!-- Horizontal line -->
@@ -214,51 +206,53 @@
 
             <!-- Contact Section -->
             <div class="contact-section">
-            	
-            	
                 <h2>Contact info: <i class="fas fa-edit">📞</i></h2>
                 <ul class="contact-list">
-                    <li><span class="contact-item"></span></li>
-                    <li><span class="contact-item"></span></li>
+                    <!-- Display Member's Email -->
+                    <li>Email: ${member.email}</li>
+                    <!-- Display Member's Phone Number -->
+                    <li>Phone: ${member.phonenumber}</li>
                 </ul>
             </div>
 
             <!-- Skills Section -->
             <div class="skills-section">
                 <h2>Skills <i class="fas fa-edit">🛠️</i></h2>
+       
                 <div class="skills-container">
-                    <% for(String skill : skills) { %>
-                        <span class="skill-tag"><%= skill %></span>
-                    <% } %>
-                </div>
-                <div class="skills-container">
-                    <% for(String skill : skills) { %>
-                        <span class="skill-tag"><%= skill %></span>
-                    <% } %>
+                    <!-- Display User's Skills -->
+                    <%-- Assuming skills are a part of the profile model or an attribute --%>
+                       <span class="skill-tag"></span>
+                    
                 </div>
             </div>
         </div>
 
         <!-- Right Section -->
         <div class="content-section">
-      		  	<div class="editprofile">
-                	<button type="submit" class="editprofilebutton" name="editprofilebutton">Edit profile</button>
-                </div>
+            <div class="editprofile">
+                <!-- Button to Edit Profile -->
+                <button type="submit" class="editprofilebutton" name="editprofilebutton">Edit profile</button>
+            </div>
             <div class="job-title-section">
-                <h2><%= jobTitle %></h2>
+                <!-- Display Job Title -->
+                
                 <p class="job-description">
-                    <%= jobDescription %>
+                    <!-- Display Job Description -->
+                   
                 </p>
             </div>
 
             <!-- Recent Jobs Section -->
             <div class="recent-jobs">
                 <h3>Recent Jobs taken:</h3>
+                <h2>${profile.experience}</h2>
             </div>
 
             <!-- Reviews Section -->
             <div class="reviews">
                 <h3>Reviews:</h3>
+                <h2> ${profile.achievements}</h2>
             </div>
         </div>
     </div>

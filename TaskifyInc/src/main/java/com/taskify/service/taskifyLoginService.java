@@ -47,6 +47,7 @@ public class taskifyLoginService {
         } catch (SQLException e) {
             System.err.println("Error during database operation: " + e.getMessage());
             e.printStackTrace();
+            
         }
         
         return currentuser;
@@ -89,26 +90,36 @@ public class taskifyLoginService {
     
     
     
-    
-    public boolean verifyuser(userModel user) {
-        String sql = "SELECT * FROM users WHERE User_Name=? AND User_Password=?";
-
+    public boolean verifyUser(userModel user) {
+        String sql = "SELECT User_Password, User_ID FROM users WHERE User_Name=?";
+        
         try (PreparedStatement stmt = dbConn.prepareStatement(sql)) {
-            stmt.setString(1, user.getusername());
-            stmt.setString(2, user.getpassword());
-
+            stmt.setString(1, user.getusername());  // Use username to query
+            
             ResultSet rs = stmt.executeQuery();
+            
+            // Check if the username exists
             if (rs.next()) {
-                int userIdFromDB = rs.getInt("User_ID");
-                user.setuser_ID(userIdFromDB); // ✅ set actual user ID into the model
-                return true;
+                String storedPassword = rs.getString("User_Password");  // Get the stored password
+                int userIdFromDB = rs.getInt("User_ID");  // Get the user ID from the DB
+                
+                // Now verify if the provided password matches the stored password
+                if (storedPassword.equals(user.getpassword())) {
+                    user.setuser_ID(userIdFromDB);  // Set actual user ID into the model
+                    return true;  // Credentials are valid
+                } else {
+                    // Password doesn't match
+                    return false;
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return false;
+        
+        return false;  // Username doesn't exist
     }
+
+
 
 
 }

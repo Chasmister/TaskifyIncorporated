@@ -40,6 +40,7 @@ public class TaskifyLoginController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.getRequestDispatcher("/WEB-INF/pages/newLoginTest.jsp").forward(request, response);
+		
 	}
 
 	/**
@@ -47,13 +48,14 @@ public class TaskifyLoginController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 		try {
 			userModel userModelDetails = RequestModelExtractorUtil.extractUserModel(request);
 			//memberModel memberModelDetails=RequestModelExtractorUtil.extractMemberModel(request);
 			
 			//verify the user for login
 			
-			boolean loggedin=taskifyLoginService.verifyuser(userModelDetails);
+			boolean loggedin=taskifyLoginService.verifyUser(userModelDetails);
 			//System.out.println(loggedin);
 			if(loggedin==true) {
 				SessionUtil.setAttribute(request, "user", userModelDetails);
@@ -63,11 +65,12 @@ public class TaskifyLoginController extends HttpServlet {
 				memberModel memberinfo=taskifyLoginService.getuserinfo(userid);
 				
 				System.out.println(memberinfo);
+				
 				SessionUtil.setAttribute(request,"member",memberinfo);
 
 				
 				String memberuser=taskifyLoginService.checkusertype(userModelDetails);
-				System.out.println(memberuser);
+				
 						
 				if(memberuser.equals("NON-ADMIN")) {
 					CookieUtil.addCookie(response, "userType", "NON-ADMIN", 5*30);
@@ -80,7 +83,12 @@ public class TaskifyLoginController extends HttpServlet {
 						
 				}else {
 					System.out.println("ERROR");
+					request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request, response);
+					
 				}
+				
+			}else {
+				request.getRequestDispatcher("/WEB-INF/pages/newLoginTest.jsp").forward(request, response);
 				
 			}
 		

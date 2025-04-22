@@ -61,6 +61,13 @@ public class TaskifyRegistrationController extends HttpServlet {
 			memberModel memberModelDetails=RequestModelExtractorUtil.extractMemberModel(request);
 			profileModel profileModelDetails = new profileModel(); // This will initialize the profile with default values
 			
+
+	        // Set attributes in the request scope
+	        request.setAttribute("member", userModelDetails);
+	        request.setAttribute("profile", profileModelDetails);
+	        request.setAttribute("user", userModelDetails);
+	        
+	        
 			
 			String isAdded=taskifyRegistrationService.registerUserandMember(userModelDetails,memberModelDetails,profileModelDetails);
 			if (isAdded.equals("failed")) {

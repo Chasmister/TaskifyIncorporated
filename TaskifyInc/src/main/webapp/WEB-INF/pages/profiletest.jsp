@@ -191,6 +191,7 @@
         	align-items: center;
         	background-color: rgb(0,3,84,0.65);
         	backdrop-filter: blur(10px);
+        	display:none;
         }
         
         .popup-background {

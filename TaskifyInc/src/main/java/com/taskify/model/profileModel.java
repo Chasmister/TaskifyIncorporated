@@ -38,7 +38,7 @@ public class profileModel {
      * @return the profileId
      */
     public int getProfileId() {
-        return profileId;
+        return this.profileId;
     }
     
     /**
@@ -52,7 +52,7 @@ public class profileModel {
      * @return the profileDescription
      */
     public String getProfileDescription() {
-        return profileDescription;
+        return this.profileDescription;
     }
     
     /**
@@ -66,7 +66,7 @@ public class profileModel {
      * @return the displayPicture
      */
     public String getDisplayPicture() {
-        return displayPicture;
+        return this.displayPicture;
     }
     
     /**
@@ -80,7 +80,7 @@ public class profileModel {
      * @return the achievements
      */
     public String getAchievements() {
-        return achievements;
+        return this.achievements;
     }
     
     /**
@@ -94,7 +94,7 @@ public class profileModel {
      * @return the experience
      */
     public String getExperience() {
-        return experience;
+        return this.experience;
     }
     
     /**
