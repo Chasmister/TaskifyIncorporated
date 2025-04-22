@@ -32,7 +32,7 @@ public class Profilepage extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/pages/profiletest.jsp").forward(request, response);
 		 // Extract the user model from the session
         userModel userModelDetails = (userModel) request.getSession().getAttribute("user");
 
