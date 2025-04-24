@@ -73,12 +73,12 @@ public class TaskifyLoginController extends HttpServlet {
 				
 						
 				if(memberuser.equals("NON-ADMIN")) {
-					CookieUtil.addCookie(response, "userType", "NON-ADMIN", 5*30);
+					CookieUtil.addCookie(response, "userType", "NON-ADMIN", 5*120);
 					
 					request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request, response);
 					
 				}else if(memberuser.equals("ADMIN")){
-					CookieUtil.addCookie(response, "userType", "ADMIN", 5*30);
+					CookieUtil.addCookie(response, "userType", "ADMIN", 5*120);
 					request.getRequestDispatcher("/WEB-INF/pages/admindashboard.jsp").forward(request, response);
 						
 				}else {

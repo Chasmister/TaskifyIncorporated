@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bigyan Nemkul - Profile</title>
+    <title>${user.username} - Profile</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/fonts.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -178,21 +178,33 @@
             color: var(--text-dark);
         }
         
+        button {
+        	cursor: pointer;
+        }
+        
+        .edit-btn {
+        	background: none;
+        	border: none;
+        }
+        
         .edit-name-popup {
-        	display: block;
         	position: fixed;
         	top: 0;
         	left: 0;
         	right: 0;
         	bottom: 0;
         	z-index: 2;
-        	display: flex;
+        	display: none;
         	justify-content: center;
         	align-items: center;
         	background-color: rgb(0,3,84,0.65);
         	backdrop-filter: blur(10px);
         	display:none;
         }
+        
+        /*.edit-name-popup.visible {
+        	display: flex;
+        }*/
         
         .popup-background {
         	position: absolute;
@@ -314,12 +326,12 @@
                 <img src="${pageContext.request.contextPath}/images/Profile pic placeholder.jpg" alt="Bigyan Nemkul">
             </div>
             <div class="profile-name">
-                <h1>Bigyan Nemkul
-					<img src="${pageContext.request.contextPath}/images/Edit Vector blue.svg" alt="Edit Profile" style="padding-left: 20px;">                
+                <h1>BigyanNemkul
+					<button data-type="name" class="edit-btn"><img src="${pageContext.request.contextPath}/images/Edit Vector blue.svg" alt="Edit Profile" style="padding-left: 20px;"></button>                
                 </h1>
                 <div class="profile-location">
                     <img src="${pageContext.request.contextPath}/images/Location vector.svg" alt="location">
-                    Kathmandu, Nepal
+                    Bigyan Nemkul
                 </div>
             </div>
     </div>
@@ -330,16 +342,16 @@
                 <div class="contact-info">
                     	<div class="section-title">
                     		Contact info:
-                    		<img src="${pageContext.request.contextPath}/images/Edit Vector.svg" alt="Edit Profile" style="padding-left: 20px;">                
+                    		<button data-type="contact" class="edit-btn"><img src="${pageContext.request.contextPath}/images/Edit Vector.svg" alt="Edit Profile" style="padding-left: 20px;"></button>          
                     	</div>
-                    <div class="contact-item">+977 9818774436</div>
+                    <div class="contact-item">${member.phonenumber}</div>
                     <div class="contact-item">bigyan.nemkul@gmail.com</div>
                 </div>
 
                 <div class="skills-section">
                     <div class="section-title">
                         Skills
-                    <img src="${pageContext.request.contextPath}/images/Edit Vector.svg" alt="Edit Profile" style="padding-left: 20px;">
+                    <button data-type="Skills" class="edit-btn"><img src="${pageContext.request.contextPath}/images/Edit Vector.svg" alt="Edit Profile" style="padding-left: 20px;"></button>
                     </div>
                     <div class="skills-list">
                         <div class="skill-tag">Graphic Design</div>
@@ -353,7 +365,7 @@
             <div class="content">
                 <div class="content-section">
                     <h2>Graphic Designer
-                    	<img src="${pageContext.request.contextPath}/images/Edit Vector blue.svg" alt="Edit Profile" style="padding-left: 20px;">                
+                    	<button data-type="title" class="edit-btn"><img src="${pageContext.request.contextPath}/images/Edit Vector blue.svg" alt="Edit Profile" style="padding-left: 20px;">                
                     </h2>
                     <p>I am a geologist, studying earth processes and materials, with a focus on natural resource management and environmental conservation.</p>
                 </div>
@@ -375,15 +387,53 @@
 <div class = "edit-name-popup">
 	<div class = "popup-background"></div>
 	<div class="popup-inner">
+	<form type="submit" method="post">
+	
 		<h2>Change your name</h2>
 		<p>Change your name to something good and professional</p>
 		<input type="text" id="edit-name-input" name="edit-fname">
 		<div class="action-btn-grp">
 			<button type="submit" class="save-btn">Save</button>
-			<button class="discard-btn">Discard</button>
+			<button type="button" class="discard-btn" >Discard</button>
 		</div>
+	</form>
 	</div>
 	
 </div>
+
+<script>
+	function showPopup() {
+		popup.classList.add('visible');
+	}
+	
+	function hidePopup() {
+		popup.classList.remoev('visible');
+	}
+
+	document.querySelectorAll('.edit-btn').forEach(button => {
+		button.addEventListener('click', function() {
+			const type = this.dataset.type;
+			const popup = document.querySelector('.edit-name-popup');
+			const header = popup.querySelector('h2');
+			
+			if (type === 'name') {
+				header.textContent = 'Change your name';
+			} else if (type === 'contact') {
+				header.textContent = 'Change your contact'; 
+			} else if (type === 'title') {
+				header.textContent = 'Change your title';
+			} else if (type === 'skills') {
+				header.textContent = 'Change your skills';
+			}
+			
+			popup.style.display = 'flex';
+			
+		})
+	})
+	
+	document.querySelector('.discard-btn').addEventListener('click', () => {
+		document.querySelector('.edit-name-popup').style.display = 'none';
+	});
+</script>
 
 </html>

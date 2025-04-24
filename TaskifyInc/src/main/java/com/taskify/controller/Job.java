@@ -16,7 +16,7 @@ import com.taskify.service.jobService;
 /**
  * Servlet implementation class Job
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/jobpage2" })
+@WebServlet(asyncSupported = true, urlPatterns = { "/jobs" })
 public class Job extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	/*private jobService jobService=new jobService();*/

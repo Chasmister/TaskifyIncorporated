@@ -11,8 +11,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 
-
-
 </head>
 <body>
 <jsp:include page="NewHeader.jsp"/>
@@ -21,7 +19,7 @@
 		<div class="hero-wrapper">
 			<section class="hero">
 				<div class="hero-content">
-					<h1>Connecting clients and freelancers c</h1>
+					<h1>Connecting clients and freelancers </h1>
 					<a href="#" class = "btn btn-outline btn-arrow">
 						Register <span class="arrow">-></span>
 					</a>
@@ -44,14 +42,14 @@
 					<!-- Red background cards -->
 					<div class="category-card red">
 						<div class="card-content">
-							<h3>GRAPHIC DESIGN</h3>
+							<h3>WEB DEVELOPMENT</h3>
 							<div class="card-icon design-icon"></div>
 						</div>
 					</div>
 					
 					<div class="category-card red">
 						<div class="card-content">
-							<h3>PRODUCT DEVELOPMENT</h3>
+							<h3>GRAPHIC DESIGN</h3>
 							<div class="card-icon dev-icon"></div>
 						</div>
 					</div>
@@ -59,7 +57,7 @@
 					<div class="category-card red">
 						<div class="card-content">
 							<h3>BLOG WRITING</h3>
-							<div class="card-icon design-icon"></div>
+							<div class="card-icon blog-icon"></div>
 						</div>
 					</div>
 					
@@ -68,15 +66,15 @@
 					
 					<div class="category-card blue">
 						<div class="card-content">
-							<h3>GRAPHIC DESIGN</h3>
-							<div class="card-icon design-icon"></div>
+							<h3>PRODUCT DEVELOPMENT</h3>
+							<div class="card-icon dev-icon"></div>
 						</div>
 					</div>
 					
 					<div class="category-card blue">
 						<div class="card-content">
-							<h3>MARKETING</h3>
-							<div class="card-icon dev-icon"></div>
+							<h3>VIDEO EDITING</h3>
+							<div class="card-icon video-editing-icon"></div>
 						</div>
 					</div>
 					

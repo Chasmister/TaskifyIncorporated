@@ -177,14 +177,16 @@ body::before {
 }
 
 .category-card.red {
-	background: url('../images/Red Background.png');
+	background: url('../images/Card mask.png');
+	background-color: #967E76;
 	background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .category-card.blue {
-	background: url('../images/Blue Background.png');
+	background: url('../images/Card mask.png');
+	background-color: #3139FB;
 	background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -199,8 +201,11 @@ body::before {
 
 
 .card-content h3 {
-	font-size: 3.0rem;
+	font-size: 2.7rem;
 	font-weight: 700;
+	font-family: 'Jetbrains mono';
+	text-align: center;
+	letter-spacing: -3px;
 	margin-bottom: 20px;
 	letter-spacing: 1px;
 }
@@ -216,12 +221,25 @@ body::before {
 }
 
 .design-icon {
-  background-image: url('../images/web design.png');
+  background-image: url('../images/web development.png');
+  mix-blend-mode: overlay;
 }
 
 .dev-icon {
-  background-image: url('../images/web design.png');
-  /* If you don't have this image, you can replace with another or use a simple shape */
+  background-image: url('../images/graphic-design image.png');
+  mix-blend-mode: luminosity;
+}
+
+.blog-icon {
+	background-image: url('../images/blog writing.png');
+	mix-blend-mode: lighten;
+	
+}
+
+.video-editing-icon {
+	background-image: url('../images/video editing.png');
+	mix-blend-mode: lighten;
+	
 }
 
 .view-all {
@@ -428,6 +446,7 @@ body::before {
 .handshake-image img {
   max-width: 100%;
   height: auto;
+  mix-blend-mode: hard-light;
 }
 
 

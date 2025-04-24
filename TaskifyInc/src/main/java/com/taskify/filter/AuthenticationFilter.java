@@ -18,83 +18,76 @@ import com.taskify.util.SessionUtil;
 @WebFilter(asyncSupported = true, urlPatterns = "/*")
 public class AuthenticationFilter implements Filter {
 
-	private static final String LOGIN = "/login";
-	private static final String REGISTER = "/register";
-	private static final String HOME = "/home";
-	private static final String ROOT = "/";
-	private static final String DASHBOARD = "/admindashboard";
+    private static final String LOGIN = "/login";
+    private static final String REGISTER = "/register";
+    private static final String HOME = "/home";
+    private static final String ROOT = "/";
+    private static final String DASHBOARD = "/admindashboard";
+    private static final String PROFILE = "/profile";
+    private static final String ABOUT = "/aboutus";
+    private static final String MYJOBS = "/myJobs";
+    private static final String MYAPPS = "/myApplications";
+    private static final String JOBS = "/jobs";
 
-	private static final String PROFILE = "/profile";
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        // Initialization logic, if required
+    }
 
-	private static final String ABOUT = "/about";
-	private static final String PORTFOLIO = "/portfolio";
-	private static final String CONTACT = "/contact";
-	private static final String ORDER_LIST = "/orderlist";
-	private static final String CART_LIST = "/cartlist";
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
 
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-		// Initialization logic, if required
-	}
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
 
-	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+        String uri = req.getRequestURI();
+        
+        // Check if response is already committed
+        if (res.isCommitted()) {
+            return; // If the response is committed, do nothing further
+        }
 
-		HttpServletRequest req = (HttpServletRequest) request;
-		HttpServletResponse res = (HttpServletResponse) response;
+        // Allow access to resources (images, CSS files, etc.)
+        if (uri.endsWith(".png") || uri.endsWith(".jpg") || uri.endsWith(".css")) {
+            chain.doFilter(request, response);
+            return;
+        }
 
-		String uri = req.getRequestURI();
-		
-		// Allow access to resources
-		if (uri.endsWith(".png") || uri.endsWith(".jpg") || uri.endsWith(".css")) {
-			chain.doFilter(request, response);
-			return;
-		}
-		
-		boolean isLoggedIn = SessionUtil.getAttribute(req, "username") != null;
-		String userRole = CookieUtil.getCookie(req, "role") != null ? CookieUtil.getCookie(req, "role").getValue()
-				: null;
+        boolean isLoggedIn = SessionUtil.getAttribute(req, "username") != null;
+        String userRole = CookieUtil.getCookie(req, "userType") != null ? CookieUtil.getCookie(req, "userType").getValue() : null;
 
-		if ("admin".equals(userRole)) {
-			// Admin is logged in
-			if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER)) {
-				res.sendRedirect(req.getContextPath() + DASHBOARD);
-			} else if (uri.endsWith(DASHBOARD)  
-					|| uri.endsWith(HOME) || uri.endsWith(ROOT)) {
-				chain.doFilter(request, response);
-			} else if (uri.endsWith(PROFILE)) {
-				res.sendRedirect(req.getContextPath() + DASHBOARD);
-			} else {
-				res.sendRedirect(req.getContextPath() + DASHBOARD);
-			}
-			
-			
-		// now for users logged in
-		} else if ("user".equals(userRole)) {
-			// User is logged in
-			if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER)) {
-				res.sendRedirect(req.getContextPath() + HOME);
-			} else if (uri.endsWith(HOME) || uri.endsWith(ROOT) || uri.endsWith(ABOUT) || uri.endsWith(PORTFOLIO)
-					) {
-				chain.doFilter(request, response);
-			} else if (uri.endsWith(DASHBOARD)) {
-				res.sendRedirect(req.getContextPath() + HOME);
-			} else {
-				res.sendRedirect(req.getContextPath() + HOME);
-			}
-		} else {
-			// Not logged in
-			if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.endsWith(HOME) || uri.endsWith(ROOT)) {
-				chain.doFilter(request, response);
-			} else {
-				res.sendRedirect(req.getContextPath() + LOGIN);
-			}
-		}
-	}
+        if ("ADMIN".equals(userRole)) {
+            // Admin is logged in
+            if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.endsWith(PROFILE)) {
+                res.sendRedirect(req.getContextPath() + DASHBOARD);
+            } else if (uri.endsWith(DASHBOARD) || uri.endsWith(HOME) || uri.endsWith(ROOT)) {
+                chain.doFilter(request, response); // Proceed with the filter chain
+            } else {
+                res.sendRedirect(req.getContextPath() + DASHBOARD);
+            }
 
-	@Override
-	public void destroy() {
-		// Cleanup logic, if required
-	}
+        } else if ("NON-ADMIN".equals(userRole)) {
+            // Non-admin user is logged in
+            if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.endsWith(DASHBOARD)) {
+                res.sendRedirect(req.getContextPath() + HOME);
+            } else if (uri.endsWith(HOME) || uri.endsWith(PROFILE) || uri.endsWith(ROOT) || uri.endsWith(ABOUT) || uri.endsWith(MYJOBS) || uri.endsWith(MYAPPS)) {
+                chain.doFilter(request, response); // Proceed with the filter chain
+            } else {
+                res.sendRedirect(req.getContextPath() + REGISTER);
+            }
+        } else {
+            // Not logged in
+            if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.endsWith(HOME)) {
+                chain.doFilter(request, response); // Allow access to these pages
+            } else {
+                res.sendRedirect(req.getContextPath() + LOGIN); // Redirect to login if not logged in
+            }
+        }
+    }
+
+    @Override
+    public void destroy() {
+        // Cleanup logic, if required
+    }
 }
