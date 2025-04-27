@@ -42,7 +42,8 @@ body::before {
 .btn {
 	padding: 8px 16px;
 	border-radius: 5px;
-	font-weight: 500;
+	font-weight: 800;
+	font-size: 1.3rem;
 	text-decoration: none;
 	cursor: pointer;
 	display: inline-flex;
@@ -52,21 +53,19 @@ body::before {
 }
 
 .btn-primary {
-	background-color: #2243ff;
 	color: #FFFCEC;
 	border: none;
 }
 
 .btn-secondary {
-	background-color: #ff3a5c;
 	color: #FFFCEC;
 	border: none;
 }
 
 .btn-outline {
-	background-color: #FFFCEC;
-	color: #2243ff;
-	border: 2px solid #2243ff;
+	background: #EC9046;
+	background: linear-gradient(136deg,rgba(236, 144, 70, 1) 0%, rgba(122, 68, 25, 1) 61%);
+	color: #FFFCEC;
 }
 
 .btn-arrow {
@@ -80,9 +79,9 @@ body::before {
 /* Hero Section */
 
 .hero-wrapper {
-	background-image: url('../images/Hero background.png');
+	background-image: url('../images/renaissance man 1.png');
 	background-size: cover;
-    background-position: center;
+    background-position: 0rem 1rem;
     background-repeat: no-repeat;
     height: 750px;
     overflow: hidden;
@@ -112,14 +111,16 @@ body::before {
 .hero-content {
 	flex: 1;
 	max-width: 600px;
+	margin-top: 5rem;
 }
 
 .hero-content h1 {
 	font-size: 5rem;
-	letter-spacing: -3.5px;
+	letter-spacing: -4px;
 	line-height: 1.0;
 	margin-bottom: 80px;
 	font-weight: 800;
+	color: #001B2E;
 }
 
 .hero-image {
@@ -127,6 +128,71 @@ body::before {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.floating-btn1 {
+	position: relative;
+	top: 17rem;
+	right: 5rem;
+	padding: 0.5rem 1rem;
+	border-radius: 8px;
+	border: solid 1px rgb(255,255,255,0.3);
+	font-size: 1.3rem;
+	background: #001B2E;
+	background: linear-gradient(136deg, rgba(0, 27, 46, 0.7) 0%, rgba(228, 228, 228, 0.4) 75%);
+	box-shadow: 16px 30px 44px 0px rgba(33,40,42,0.7);
+	backdrop-filter: blur(7px);
+	color: #FFFCEC;
+	font-weight: 600;
+}
+
+.floating-btn2 {
+	position: relative;
+	top: 7rem;
+	right: -10rem;
+	padding: 0.5rem 1rem;
+	border-radius: 8px;
+	border: solid 1px rgb(255,255,255,0.3);
+	font-size: 1.3rem;
+	background: #001B2E;
+	background: linear-gradient(136deg, rgba(0, 27, 46, 0.7) 0%, rgba(228, 228, 228, 0.4) 75%);
+	box-shadow: 16px 30px 44px 0px rgba(33,40,42,0.7);
+	backdrop-filter: blur(7px);
+	color: #FFFCEC;
+	font-weight: 600;
+}
+
+.floating-bubble {
+	background: url('../images/chat bubble.svg');
+	background-repeat: no-repeat;
+	background-size: contain;
+	position: relative;
+	height: 200px;
+	width: 200px;
+	top: 7rem;
+	right: 15rem;
+	display: block;
+	padding: 1.5rem 1.5rem;
+	line-height: 1.5rem;
+	animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+	0% {
+		transform: translateY(0);
+	}
+	
+	50% {
+		transform: translateY(-20px);
+	}
+	
+	100% {
+		transform: translateY(0);
+	}
+}
+
+.floating-bubble h4 {
+	font-family: 'Jetbrains Mono';
 }
 
 .illustration {
@@ -147,7 +213,7 @@ body::before {
 	font-size: 3.5rem;
 	letter-spacing: -3px;
 	text-align: center;
-	color: #2243ff;
+	color: #294C60;
 	margin-bottom: 80px;
 	font-weight: 700;
 }
@@ -178,7 +244,8 @@ body::before {
 
 .category-card.red {
 	background: url('../images/Card mask.png');
-	background-color: #967E76;
+	background: #001B2E;
+	background: linear-gradient(180deg,rgba(0, 27, 46, 1) 19%, rgba(0, 87, 148, 1) 75%);
 	background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -186,7 +253,7 @@ body::before {
 
 .category-card.blue {
 	background: url('../images/Card mask.png');
-	background-color: #3139FB;
+	background-color: #7A4419;
 	background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -222,7 +289,7 @@ body::before {
 
 .design-icon {
   background-image: url('../images/web development.png');
-  mix-blend-mode: overlay;
+  mix-blend-mode: hard-light;
 }
 
 .dev-icon {
@@ -238,7 +305,7 @@ body::before {
 
 .video-editing-icon {
 	background-image: url('../images/video editing.png');
-	mix-blend-mode: lighten;
+	mix-blend-mode: hard-light;
 	
 }
 
@@ -249,7 +316,7 @@ body::before {
 
 
 .view-all a {
-  color: #2243ff;
+  color: #294C60;
   text-decoration: none;
   font-weight: 800;
   font-size: 2rem;
@@ -270,7 +337,7 @@ body::before {
 .best-freelancers h2 {
   font-size: 2.5rem;
   text-align: center;
-  color: #2243ff;
+  color: #294C60;
   margin-bottom: 50px;
   font-weight: 700;
 }
@@ -292,7 +359,7 @@ body::before {
 .freelancer-card {
   min-width: 300px;
   flex: 0 0 auto;
-  border: 1px solid #3139FB;
+  border: 1px solid #294C60;
   border-radius: 15px;
   padding: 20px;
   background-color: #FFFCEC;
@@ -331,19 +398,19 @@ body::before {
 .freelancer-name {
   font-size: 1rem;
   font-weight: 700;
-  color: #2243ff;
+  color: #294C60;
   margin: 0;
 }
 
 .freelancer-title {
   font-size: 0.9rem;
-  color: #3139FB;
+  color: #294C60;
   margin: 3px 0;
 }
 
 .freelancer-reviews {
   font-size: 0.85rem;
-  color: #3139FB;
+  color: #294C60;
   margin: 3px 0;
 }
 
@@ -356,13 +423,13 @@ body::before {
 .freelancer-rate {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #3139FB;
+  color: #294C60;
   margin: 0;
 }
 
 .profile-btn {
   padding: 8px 16px;
-  background-color: #2243ff;
+  background-color: #294C60;
   color: white;
   text-decoration: none;
   border-radius: 5px;
@@ -389,7 +456,7 @@ body::before {
 }
 
 .hire-talent {
-  background-color: #2243ff;
+  background-color: #294C60;
   color: #FFFCEC;
   width: 100%;
   overflow: hidden;
@@ -423,7 +490,7 @@ body::before {
   display: inline-flex;
   align-items: center;
   background-color: #FFFCEC;
-  color: #2243ff;
+  color: #294C60;
   text-decoration: none;
   padding: 12px 24px;
   border-radius: 30px;
@@ -456,7 +523,7 @@ body::before {
 	display: none;
 	background: none;
 	border: none;
-	color: #2243ff;
+	color: #294C60;
 	font-size: 1.5rem;
 	cursor: pointer;
 }

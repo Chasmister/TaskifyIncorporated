@@ -1,9 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Add New Job</title>
-    
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
     <style>
 		/*@font-face {
 		    font-family: 'Manrope';
@@ -11,81 +14,78 @@
 		    font-weight: 200; /* ExtraLight typically corresponds to weight 200 
 		    font-style: normal;
 		}*/
+		
+		/* width */
+		::-webkit-scrollbar {
+		  	width: 10px;
+		}
+		
+		/* Track */
+		::-webkit-scrollbar-track {
+		  	background: #f1f1f1;
+		}
+		
+		/* Handle */
+		::-webkit-scrollbar-thumb {
+		  	background: #000354;
+		}
+		
         body {
-      		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: rgba(49, 57, 251, 1);
+      		font-family: 'Manrope', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #234050;
             margin: 0;
             padding: 0;
         }
         
-        /* Top container that holds navbar and page title */
-        .topcontainer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: rgba(49, 57, 251, 1);
-            display: flex;
-            flex-direction: column;
-            z-index: 1000;
-            padding-bottom: 20px;
-        }
+        /* Top container that holds navbar and page title *
         
         /* Navbar styling */
-        .navbar {
-            padding: 15px 0;
-            text-align: center;
-            width: 100%;
-        }
-        
-        .navbar a {
-            color: #fff;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 18px;
-        }
         
         /* Page title */
         .page-title {
-            text-align: center;
-            color: white;
-            margin: 0;
-            padding: 0 0 15px 0;
-            font-size: 24px;
+           
         }
         
         /* Main container */
         .container {
             display: flex;
-            max-width: 1200px;
-            margin: 120px auto 50px;
-            position: relative;
+            justify-content: center;
+           	padding-top: 5rem;
+           	height: 55vh;
         }
+        
+        /*.line1 {
+        	position: absolute;
+        	top: 210px;
+        	background-color: #000000;
+        	height:1px;
+        	width: 100%;
+        }
+        
+        .line2 {
+        	position: absolute;
+        	top: 210px;
+        	left: 510px;
+        	background-color: #000000;
+        	width: 1px;
+        	height: calc(100vh - 210px);
+        	overflow: hidden;
+        }*/
         
         /* Sidebar styling */
         .sidebar {
-            position: fixed;
-            top: 120px;
-            left: calc((100% - 1200px) / 2);
-            width: 280px;
-            background-color: #b8bbff;
+        	margin-top: 4rem;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
         
         /* Profile section in sidebar */
         .profile-section {
-            text-align: center;
-            margin-bottom: 20px;
+           
         }
         
         .profile-background {
-            height: 80px;
-            background-image: linear-gradient(to right, #4a6fdc, #6a8af2);
-            border-radius: 8px 8px 0 0;
-            margin-bottom: -40px;
+            
         }
         
         .profile-pic {
@@ -94,48 +94,72 @@
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid #fff;
-            margin: 0 auto;
-            display: block;
         }
         
         .profile-name {
-            margin-top: 45px;
-            font-weight: 600;
-            font-size: 18px;
-            color: #333;
+            font-weight: 700;
+            letter-spacing: -1.5px;
+            font-size: 1.5rem;
+            color: #F3E9DC;
+            margin: 0;
+        }
+        
+        .profile-title {
+        	font-family: 'Jetbrains Mono';
+        	font-size: 0.8rem;
+        	margin-top: 0.1rem;
+        	color: #F3E9DC;
+        	opacity: 0.6;
         }
         
         .employer-status {
-            background-color: #e3e6ff;
-            color: #3f51b5;
+        	font-family: 'Jetbrains Mono';
+        	font-weight: 700;
+            background-color: #001B2E;
+            color: #FFFCEC;
             padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 14px;
+            border-radius: 5px;
+            font-size: 1rem;
             display: inline-block;
-            margin-top: 10px;
+        }
+        
+        .guide-section {
+        	color: #F3E9DC;
+        }
+        
+        .guide-section h4 {
+        	font-size: 1.5rem;
+        	margin-top: 2rem;
+        }
+        
+        .guide-section ul {
+        	padding-inline-start: 1.1rem;
         }
         
         /* Main content styling */
         .main-content {
-            width: 75%;
-            margin-left: 320px;
+            width: 60%;
+            
         }
         
         .job-form-section {
-            background-color: #f6f7ff;
+            background-color: #F3E9DC;
             border-radius: 10px;
             padding: 30px;
             margin-bottom: 20px;
             margin-left: 20px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            /*box-shadow: 0 3px 10px rgba(0,0,0,0.1);*/
+            height: 100%;
+            overflow-y: scroll;
         }
         
         .form-title {
-            font-size: 22px;
+            font-size: 3rem;
             margin-bottom: 25px;
-            color: #333;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 15px;
+            color: #F3E9DC;
+            padding-left: 15px;
+            font-weight: 800;
+            letter-spacing: -2.5px;
         }
         
         .form-group {
@@ -145,17 +169,22 @@
         .form-label {
             display: block;
             margin-bottom: 8px;
-            font-weight: 500;
-            color: #444;
+            font-family: 'Jetbrains Mono';
+            font-weight: 700;
+            color: #294C60;
+            text-transform: uppercase;
         }
         
         .form-control {
             width: 100%;
             padding: 12px;
             border-radius: 6px;
-            border: 1px solid #ddd;
+            border: none;
             font-size: 15px;
             box-sizing: border-box;
+            background-color: #FFFEFB;
+            font-family: 'Jetbrains Mono';
+            color: #001B2E;
         }
         
         .form-control:focus {
@@ -309,34 +338,26 @@
     </style>
 </head>
 <body>
-    <div class="topcontainer">
-        <div class="navbar">
-            <a href="#">Home</a>
-            <a href="#">Jobs</a>
-            <a href="#">Create Jobs</a>
-            <a href="#">About Us</a>
-            <a href="#">Profile</a>
-        </div>
-        
-        <h1 class="page-title">Create Jobs, Build Careers</h1>
-    </div>
+<jsp:include page="NewHeader.jsp"/>
     
     <div class="container">
+    	<div class="line1"></div>
+    	<div class="line2"></div>
         <div class="sidebar">
             <!-- Profile section -->
             <div class="profile-section">
                 <div class="profile-background"></div>
                 <img src="<%=request.getContextPath()%>/images/profile.jpg"  class="profile-pic" alt="Profile Picture">
                 <h3 class="profile-name">Susam Das Balami</h3>
-                <span style="font-size: 10px;">HR Manager at TechCorp</span>
+                <h4 class="profile-title">HR Manager at TechCorp</h4>
                 <br>
                 <div class="employer-status">5 Active Job Postings</div>
             </div>
             
             <!-- Guide section -->
-            <div style="margin-top: 30px; padding: 15px; background: #e3e6ff; border-radius: 8px;">
-                <h4 style="margin-top: 0; color: #333;">Job Posting Tips</h4>
-                <ul style="padding-left: 20px; margin-bottom: 0;">
+            <div class="guide-section">
+                <h4>Job Posting Tips</h4>
+                <ul>
                     <li>Be specific about qualifications</li>
                     <li>Clearly outline responsibilities</li>
                     <li>Include salary range for better visibility</li>
@@ -346,9 +367,9 @@
         </div>
         
         <div class="main-content">
+         <h2 class="form-title">Add jobs</h2>
             <div class="job-form-section">
-                <h2 class="form-title">Job Details</h2>
-                
+               
                 <form id="job-post-form" action="/submit-job" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label class="form-label" for="job-title">Job Title *</label>

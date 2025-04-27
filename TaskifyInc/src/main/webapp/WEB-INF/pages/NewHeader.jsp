@@ -7,20 +7,19 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 <style>
 /* Navigation Styles */
 nav {
 	
     position: fixed;
-    background-color: #FFFCEC;
-    border-radius: 10px;
-    margin: 20px auto;
-    padding: 6px 30px;
+    background-color: #CDBDA2;
+    border-bottom: solid 1px #294C60;
+    padding: 0.5rem 5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: calc(100% - 40px); /* Account for container padding */
-    max-width: 1160px; /* 1200px - 40px padding */
+    width: 100%; /* Account for container padding */
     left: 50%;
     transform: translateX(-50%);
     z-index: 100;
@@ -30,7 +29,7 @@ nav {
 .logo {
     font-size: 2rem;
     font-weight: 800;
-    color: #2243ff;
+    color: #294C60;
     text-decoration: none;
 }
 
@@ -46,11 +45,11 @@ nav {
 }
 
 .nav-links a {
-	font-family: 'Manrope', sans-serif;
+	font-family: 'Jetbrains Mono', sans-serif;
     text-decoration: none;
-    color: #2243ff;
-    font-weight: 800;
-    letter-spacing: -1px;
+    color: #001B2E;
+    font-weight: 700;
+    letter-spacing: -0px;
 }
 
 .auth-buttons {
@@ -61,7 +60,7 @@ nav {
 .btn {
     padding: 8px 16px;
     border-radius: 5px;
-    font-weight: 500;
+    font-weight: 600;
     text-decoration: none;
     cursor: pointer;
     display: inline-flex;
@@ -71,14 +70,13 @@ nav {
 }
 
 .btn-primary {
-    background-color: #2243ff;
-    color: #FFFCEC;
+    background-color: none;
+    color: #294C60;
     border: none;
 }
 
 .btn-secondary {
-    background-color: #ff3a5c;
-    color: #FFFCEC;
+    color: #294C60;
     border: none;
 }
 

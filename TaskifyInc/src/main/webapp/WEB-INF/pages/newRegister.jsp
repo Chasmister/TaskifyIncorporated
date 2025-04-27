@@ -10,6 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+
   <script
   src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
   type="module">
@@ -18,7 +20,7 @@
 <body>
   <div class="container">
     <div class="left-panel">
-      <img src="${pageContext.request.contextPath}/images/Flying2.png" alt="Flying-image"> 
+      <img src="${pageContext.request.contextPath}/images/flying woman.png" alt="Flying-image"> 
     </div>
 
     <div class="right-panel">
@@ -74,9 +76,9 @@
 	            </div>
 	            <button type="submit" class="submit-btn" name="registerbutton">Submit</button>
   			
-  		
+  				<a href="#" id="noAccount">Already have an account? Sign In</a>
   			</form>
-  			<a href="#" id="noAccount">Already have an account? Sign In</a>
+  			
   			
   			
   			

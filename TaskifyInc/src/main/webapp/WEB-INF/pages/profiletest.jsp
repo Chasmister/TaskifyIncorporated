@@ -13,7 +13,7 @@
     
     <style>
         :root {
-            --primary-color: #3139FB;
+            --primary-color: #294C60;
             --background-color: #FFFCEC;
             --white: #FFFCEC;
             --text-dark: #333333;
@@ -151,7 +151,7 @@
         }
 
         .skill-tag {
-            background-color: #000354;
+            background-color: #001B2E;
             color: var(--text-light);
             padding: 6px 12px;
             border-radius: 5px;

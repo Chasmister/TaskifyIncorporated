@@ -19,14 +19,16 @@
 		<div class="hero-wrapper">
 			<section class="hero">
 				<div class="hero-content">
-					<h1>Connecting clients and freelancers </h1>
+					<h1>Hire top talent, find your next gig. </h1>
 					<a href="#" class = "btn btn-outline btn-arrow">
 						Register <span class="arrow">-></span>
 					</a>
 				</div>
 				
 				<div class="hero-image">
-					<img src="${pageContext.request.contextPath}/images/Rectangle.png" alt="Person working on computer" class="illustration">
+					<button class="floating-btn1">Post a job !</button>
+					<button class="floating-btn2">Find work</button>
+					<div class="floating-bubble"><h4 class="bubble-content">50 copper coins for 1 hour of herding sheep</h4></div>
 				</div>
 			</section>
 		</div>

@@ -4,26 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Job Listings</title>
-  	<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/jobpage.css" />
+  	<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
     <style>
 		    body {
-		        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		        font-family: 'Manrope', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 		       
-	      	   	background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc1IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iLjA1IiBkPSJNMCAwaDMwMHYzMDBIMHoiLz48L3N2Zz4=');
- 				background-repeat: repeat;
- 				background-size: auto;
+	      	   	/*background-image: url('${pageContext.request.contextPath}/images/Login background.png');*/
+	      	   	background: #CEC0A6;
+ 				background-size: contain;
 		        margin: 0;
 		        padding: 0;
 		    }
 		    
 		    /* Top container that holds navbar and search */
 		    .topcontainer {
-		        position: fixed;
-		        top: 0;
-		        left: 0;
+		      
 		        width: 100%;
-		        background-color: rgba(49, 57, 251, 1);
 		        display: flex;
 		        flex-direction: column;
 		        z-index: 1000;
@@ -31,19 +28,7 @@
 		    }
 		    
 		    /* Navbar styling - now properly centered */
-		    .navbar {
-		        padding: 15px 0;
-		        text-align: center;
-		        width: 100%;
-		    }
-		    
-		    .navbar a {
-		        color: #fff;
-		        margin: 0 15px;
-		        text-decoration: none;
-		        font-weight: 500;
-		        font-size: 18px;
-		    }
+		   
 		    
 		    /* Search bar styling - now properly fixed */
 		    .search-container {
@@ -60,8 +45,9 @@
 		        border-radius: 20px;
 		        border: 1px solid #ddd;
 		        font-size: 16px;
-		        height:30px;
+		        height:20px;
 		        margin-top:120px;
+		        display: none;
 		    }
 		    
 		    /* Main container */
@@ -132,7 +118,7 @@
 		    }
 		    
 		    .job-section {
-		        background-color: #f6f7ff;
+		
 		        border-radius: 10px;
 		        padding: 20px;
 		        margin-bottom: 20px;
@@ -141,7 +127,7 @@
 		    }
 		    
 		    .job {
-		        background-color: white;
+		        background-color: #FFFCEC;
 		        border-radius: 8px;
 		        padding: 20px;
 		        margin-bottom: 20px;
@@ -163,15 +149,18 @@
 		    }
 		    
 		    .job-title {
-		        font-size: 22px;
-		        font-weight: 600;
+		        font-size: 1.8rem;
+		        font-weight: 700;
+		        letter-spacing: -1.5px;
 		        margin: 0 0 5px 0;
-		        color: #333;
+		        color: #001B2E;
 		    }
 		    
 		    .company-name {
-		        font-size: 18px;
-		        color: #555;
+		    	font-family: 'Jetbrains Mono';
+		        font-size: 1rem;
+		        font-weight: 700;
+		        color: #294C60;
 		        margin: 0;
 		    }
 		    
@@ -182,20 +171,26 @@
 		    }
 		    
 		    .jobinfoitem {
-		        background-color: #f0f2fa;
-		        padding: 5px 12px;
-		        border-radius: 15px;
+		        background-color: none;
+		        border-right: solid 1px #294C60;
+		        padding: 0px 12px;
+		        color: #294C60;
 		        margin-right: 10px;
 		        margin-bottom: 10px;
-		        font-size: 14px;
+		        font-size: 0.9rem;
+		       	font-weight: 700;
+		        font-family: 'Jetbrains Mono';
 		        display: flex;
 		        align-items: center;
 		    }
 		    
 		    .job-description {
-		        color: #555;
+		        color: #001B2E;
 		        line-height: 1.5;
 		        margin-bottom: 15px;
+		        font-family: 'Jetbrains Mono';
+		        letter-spacing: -1px;
+		        font-size: 1rem;
 		    }
 		    
 		    .skills-container {
@@ -205,8 +200,8 @@
 		    }
 		    
 		    .skill {
-		        background-color: #e3e6ff;
-		        color: #3f51b5;
+		        background-color: #294C60;
+		        color: #FFFCEC;
 		        padding: 5px 10px;
 		        border-radius: 4px;
 		        margin-right: 8px;
@@ -228,13 +223,17 @@
 		    }
 		    
 		    .apply-btn {
-		        background-color: #000354  ;
+		        background: #294C60;
+				background: linear-gradient(326deg,rgba(41, 76, 96, 1) 31%, rgba(85, 157, 198, 1) 79%);
+				box-shadow: 12px 8px 28px 2px rgba(80,148,187,0.66);
 		        color: white;
 		        border: none;
-		        padding: 8px 16px;
+		        padding: 0.8rem 1.3rem;
 		        border-radius: 4px;
 		        cursor: pointer;
-		        font-weight: 500;
+		        font-family: 'Jetbrains Mono';
+		        font-weight: 700;
+		        font-size: 1.1rem;
 		    }
 		    
 		   

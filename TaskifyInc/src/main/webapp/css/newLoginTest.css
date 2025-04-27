@@ -10,10 +10,10 @@
 
 body {
 
-  background-image: url("../images/Login background.png");
+  background-image: url("../images/Login background.jpg.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  color: #FFFCEC;
+  color: #DCD7C9;
   min-height: 100vh;
 }
 
@@ -86,7 +86,7 @@ input {
 
 button {
   padding: 0.8rem;
-  background-color: #000354;
+  background-color: #001B2E;
   color: #FFFCEC;
   border: none;
   border-radius: 4px;
