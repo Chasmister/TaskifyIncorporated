@@ -8,12 +8,7 @@
 	href="${pageContext.request.contextPath}/css/jobpage.css" />
     <style>
 		    body {
-		        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-		        background-color:#0227f5;'
-	      		background-repeat: repeat;
- 				background-size: auto;
-		        margin: 0;
-		        padding: 0;
+		       
 		    }
 		    
 		    /* Top container that holds navbar and search */
