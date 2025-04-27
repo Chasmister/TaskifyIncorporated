@@ -8,13 +8,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
     <style>
 		    body {
-		        font-family: 'Manrope', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-		       
-	      	   	/*background-image: url('${pageContext.request.contextPath}/images/Login background.png');*/
-	      	   	background: #CEC0A6;
- 				background-size: contain;
-		        margin: 0;
-		        padding: 0;
+
 		    }
 		    
 		    /* Top container that holds navbar and search */
