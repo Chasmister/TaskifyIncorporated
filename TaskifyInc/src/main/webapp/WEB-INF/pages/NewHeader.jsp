@@ -123,7 +123,7 @@ nav {
         <div class="nav-links">
             <a href="${pageContext.request.contextPath}/home">Home</a>
             <a href="${pageContext.request.contextPath}/aboutus">About Us</a>
-            <a href="${pageContext.request.contextPath}/jobpage2">Jobs</a>
+            <a href="${pageContext.request.contextPath}/jobs">Jobs</a>
             <a href="${pageContext.request.contextPath}/profile">Profile</a>
             <a href="${pageContext.request.contextPath}/myApplications">My Applications</a>
             <a href="${pageContext.request.contextPath}/myJobs">My Jobs</a>
@@ -133,6 +133,7 @@ nav {
         <div class="auth-buttons">
             <a href="${pageContext.request.contextPath}/login" class="btn btn-primary">Login →</a>
             <a href="${pageContext.request.contextPath}/register" class="btn btn-secondary">Register</a>
+            <a href="${pageContext.request.contextPath}/logout" class="btn btn-primary">logout</a>
         </div>
     </div>
     

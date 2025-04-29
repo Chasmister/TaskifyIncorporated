@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -326,12 +325,12 @@
                 <img src="${pageContext.request.contextPath}/images/Profile pic placeholder.jpg" alt="Bigyan Nemkul">
             </div>
             <div class="profile-name">
-                <h1>BigyanNemkul
+                <h1>${user.username}   </h1>
 					<button data-type="name" class="edit-btn"><img src="${pageContext.request.contextPath}/images/Edit Vector blue.svg" alt="Edit Profile" style="padding-left: 20px;"></button>                
-                </h1>
+             
                 <div class="profile-location">
                     <img src="${pageContext.request.contextPath}/images/Location vector.svg" alt="location">
-                    Bigyan Nemkul
+                    <h2>${member.firstname}</h2>
                 </div>
             </div>
     </div>
@@ -344,8 +343,13 @@
                     		Contact info:
                     		<button data-type="contact" class="edit-btn"><img src="${pageContext.request.contextPath}/images/Edit Vector.svg" alt="Edit Profile" style="padding-left: 20px;"></button>          
                     	</div>
+<<<<<<< Updated upstream
                     <div class="contact-item">+977 9818774436</div>
                     <div class="contact-item">bigyan.nemkul@gmail.com</div>
+=======
+                    <div class="contact-item">${member.phonenumber}</div>
+                    <div class="contact-item">${member.email}</div>
+>>>>>>> Stashed changes
                 </div>
 
                 <div class="skills-section">
