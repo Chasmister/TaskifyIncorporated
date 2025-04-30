@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.taskify.model.userModel" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -131,9 +133,22 @@ nav {
         </div>
         
         <div class="auth-buttons">
+         
+        <% 
+        	userModel user=(userModel) session.getAttribute("user");
+     		if(user==null){
+        %>
             <a href="${pageContext.request.contextPath}/login" class="btn btn-primary">Login →</a>
             <a href="${pageContext.request.contextPath}/register" class="btn btn-secondary">Register</a>
-            <a href="${pageContext.request.contextPath}/logout" class="btn btn-primary">logout</a>
+         <% 
+     		}else{
+         %>  
+         <a href="${pageContext.request.contextPath}/logout" class="btn btn-secondary">logout</a>
+        
+
+       	<%
+      	 	}
+       	%>
         </div>
     </div>
     

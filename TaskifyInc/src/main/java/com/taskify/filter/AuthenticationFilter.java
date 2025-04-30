@@ -28,7 +28,7 @@ public class AuthenticationFilter implements Filter {
     private static final String MYJOBS = "/myJobs";
     private static final String MYAPPS = "/myApplications";
     private static final String JOBS = "/jobs";
-
+    private static final String LOGOUT = "/logout";
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         // Initialization logic, if required
@@ -59,8 +59,9 @@ public class AuthenticationFilter implements Filter {
 
         if ("ADMIN".equals(userRole)) {
             // Admin is logged in
-            if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.endsWith(PROFILE)) {
-                res.sendRedirect(req.getContextPath() + DASHBOARD);
+        	if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.endsWith(PROFILE) || uri.endsWith(LOGOUT)) {
+        	    res.sendRedirect(req.getContextPath() + DASHBOARD);
+    
             } else if (uri.endsWith(DASHBOARD) || uri.endsWith(HOME) || uri.endsWith(ROOT)) {
                 chain.doFilter(request, response); // Proceed with the filter chain
             } else {
@@ -69,17 +70,17 @@ public class AuthenticationFilter implements Filter {
 
         } else if ("NON-ADMIN".equals(userRole)) {
             // Non-admin user is logged in
-            if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.endsWith(DASHBOARD)) {
-                res.sendRedirect(req.getContextPath() + HOME);
-            } else if (uri.endsWith(HOME) || uri.endsWith(PROFILE) || uri.endsWith(ROOT) || uri.endsWith(JOBS) || uri.endsWith(ABOUT) || uri.endsWith(MYJOBS) || uri.endsWith(MYAPPS)) {
+        	if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.endsWith(DASHBOARD) ) {
+        	    res.sendRedirect(req.getContextPath() + HOME);
+            } else if (uri.endsWith(HOME) || uri.endsWith(PROFILE) || uri.endsWith(ROOT) || uri.endsWith(JOBS) || uri.endsWith(ABOUT) || uri.endsWith(MYJOBS) || uri.endsWith(MYAPPS) || uri.endsWith(LOGOUT)) {
                 chain.doFilter(request, response); // Proceed with the filter chain
             } else {
                 res.sendRedirect(req.getContextPath() + REGISTER);
             }
         } else {
             // Not logged in
-            if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.endsWith(HOME)) {
-                chain.doFilter(request, response); // Allow access to these pages
+        	if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.endsWith(HOME) ) {
+        	    chain.doFilter(request, response);
             } else {
                 res.sendRedirect(req.getContextPath() + LOGIN); // Redirect to login if not logged in
             }

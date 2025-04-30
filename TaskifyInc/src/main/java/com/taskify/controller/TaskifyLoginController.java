@@ -47,6 +47,7 @@ public class TaskifyLoginController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("Manas");
 		try {
 			userModel userModelDetails = RequestModelExtractorUtil.extractUserModel(request);
 			//memberModel memberModelDetails=RequestModelExtractorUtil.extractMemberModel(request);
@@ -81,6 +82,9 @@ public class TaskifyLoginController extends HttpServlet {
 				}else {
 					System.out.println("ERROR");
 				}
+				
+			}else {
+				request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
 				
 			}
 		
