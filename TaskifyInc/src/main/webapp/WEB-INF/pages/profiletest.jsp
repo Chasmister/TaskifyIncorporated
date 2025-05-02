@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bigyan Nemkul - Profile</title>
+    <title>${member.firstName}  ${member.lastName}- Profile</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/fonts.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -73,6 +73,13 @@
             color: var(--primary-color);
             font-size: 2.5rem;
             font-weight: 800;
+            letter-spacing: -2.5px;
+            margin-bottom: 5px;
+        }
+        .profile-fullname h2{
+        	 color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 500;
             letter-spacing: -2.5px;
             margin-bottom: 5px;
         }
@@ -323,15 +330,19 @@
 <jsp:include page="NewHeader.jsp"/>
 	<div class="profile-header">
             <div class="profile-pic">
-                <img src="${pageContext.request.contextPath}/images/Profile pic placeholder.jpg" alt="Bigyan Nemkul">
+                <img src="${pageContext.request.contextPath}/images/${profile.displayPicture}" alt="Bigyan Nemkul">
             </div>
             <div class="profile-name">
-                <h1>BigyanNemkul
+                
+                <div class="profile-name">
+                    <h1>${user.username}</h1>
+                    <p class="profile-fullname"><h2>${member.firstName}  ${member.lastName}</h2></p>
+                </div>
 					<button data-type="name" class="edit-btn"><img src="${pageContext.request.contextPath}/images/Edit Vector blue.svg" alt="Edit Profile" style="padding-left: 20px;"></button>                
-                </h1>
+                
                 <div class="profile-location">
                     <img src="${pageContext.request.contextPath}/images/Location vector.svg" alt="location">
-                    Bigyan Nemkul
+                  
                 </div>
             </div>
     </div>
@@ -344,8 +355,8 @@
                     		Contact info:
                     		<button data-type="contact" class="edit-btn"><img src="${pageContext.request.contextPath}/images/Edit Vector.svg" alt="Edit Profile" style="padding-left: 20px;"></button>          
                     	</div>
-                    <div class="contact-item">+977 9818774436</div>
-                    <div class="contact-item">bigyan.nemkul@gmail.com</div>
+                    <div class="contact-item">+977 ${member.phonenumber}</div>
+                    <div class="contact-item">${member.email}</div>
                 </div>
 
                 <div class="skills-section">
@@ -364,20 +375,22 @@
 
             <div class="content">
                 <div class="content-section">
-                    <h2>Graphic Designer
+                    <h2>${profile.occupation}
                     	<button data-type="title" class="edit-btn"><img src="${pageContext.request.contextPath}/images/Edit Vector blue.svg" alt="Edit Profile" style="padding-left: 20px;">                
                     </h2>
-                    <p>I am a geologist, studying earth processes and materials, with a focus on natural resource management and environmental conservation.</p>
+                    <p>${profile.profileDescription}</p>
                 </div>
 
                 <div class="content-section">
-                    <h2>Recent Jobs taken:</h2>
+                    <h2>Experience:</h2>
                     <!-- Content for recent jobs will go here -->
+                    <p>${profile.experience}</p>
                 </div>
 
                 <div class="content-section">
-                    <h2>Reviews:</h2>
+                    <h2>Achievements:</h2>
                     <!-- Content for reviews will go here -->
+                     <p>${profile.achievements}</p>
                 </div>
             </div>
         </div>

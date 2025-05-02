@@ -16,7 +16,9 @@ public class userModel {
 	public void setuser_ID(int userid) {
 		this.userID=userid;
 	}
-	
+	public int getuserID() {
+		return this.userID;
+	}
 	public void setusertype(String usertype) {
 		this.usertype=usertype;
 	}

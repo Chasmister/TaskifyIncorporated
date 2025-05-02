@@ -126,6 +126,9 @@ nav {
             <a href="${pageContext.request.contextPath}/home">Home</a>
             <a href="${pageContext.request.contextPath}/aboutus">About Us</a>
             <a href="${pageContext.request.contextPath}/jobs">Jobs</a>
+            <a href="${pageContext.request.contextPath}/addjobs">Add Jobs</a>
+            
+            
             <a href="${pageContext.request.contextPath}/profile">Profile</a>
             <a href="${pageContext.request.contextPath}/myApplications">My Applications</a>
             <a href="${pageContext.request.contextPath}/myJobs">My Jobs</a>

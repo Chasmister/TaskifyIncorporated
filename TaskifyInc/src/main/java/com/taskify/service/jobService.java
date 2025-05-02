@@ -1,4 +1,5 @@
 package com.taskify.service;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,69 +10,85 @@ import java.util.List;
 import com.taskify.config.TaskifyDBconfig;
 import com.taskify.model.jobModel;
 
-
 public class jobService {
-	private Connection dbConn;
-	public jobService() {
-		
+    private Connection dbConn;
+
+    // Constructor to initialize database connection
+    public jobService() {
         try {
             this.dbConn = TaskifyDBconfig.getDbConnection();
         } catch (SQLException | ClassNotFoundException ex) {
             System.err.println("Database connection error: " + ex.getMessage());
             ex.printStackTrace();
+         
         }
-        
-     }
-	public List<jobModel> getAllJobs() throws SQLException, ClassNotFoundException {
-	    List<jobModel> jobList = new ArrayList<>();
+    }
 
-	    Connection dbConn = TaskifyDBconfig.getDbConnection();
+    // Method to retrieve all jobs from the database
+    public List<jobModel> getAllJobs() throws SQLException, ClassNotFoundException {
+        List<jobModel> jobList = new ArrayList<>();
 
-	    if(dbConn == null) {
-	        System.err.println("Database connection is not available.");
-	        return jobList;
-	    }
+        if (dbConn == null) {
+            System.err.println("Database connection is not available.");
+            return jobList;
+        }
 
-	    String selectQuery = "SELECT * FROM job";
+        String selectQuery = "SELECT * FROM jobs"; // Update to match your table schema
 
-	    try (PreparedStatement stmt = dbConn.prepareStatement(selectQuery);
-	         ResultSet rs = stmt.executeQuery()) {
+        try (PreparedStatement stmt = dbConn.prepareStatement(selectQuery);
+             ResultSet rs = stmt.executeQuery()) {
 
-	        while(rs.next()) {
-	            String jobname = rs.getString("job_name");
-	            jobModel job = new jobModel(jobname);
-	            jobList.add(job);
-	        }
-	    }
-	    return jobList;
-	}
+            while (rs.next()) {
+                // Fetching job data from ResultSet
+                int jobId = rs.getInt("Job_ID");
+                String jobName = rs.getString("Job_Name");
+                String jobDescription = rs.getString("Job_Description");
+                java.sql.Date startDate = rs.getDate("Start_Date");
+                java.sql.Date endDate = rs.getDate("End_Date");
+                double salary = rs.getDouble("Salary");
+                String skillsRequired = rs.getString("Skills_Required");
+                String companyPicture = rs.getString("Company_Picture");
 
-	public Boolean registerJob(jobModel jobModel) {
-			if(dbConn==null) {
-				System.err.println("Database connection is not available.");
-				return false;
-			}
-			String insertquery="INSERT into job (job_name) VALUES (?)";
-			System.out.println("successful connection");
-			
-			try(PreparedStatement jobstmt=dbConn.prepareStatement(insertquery)){
-				System.out.println(jobModel.getjob());
-				jobstmt.setString(1, jobModel.getjob());
-				
-				int updater=jobstmt.executeUpdate();
-				System.out.println(jobstmt);
-				if(updater>0) {
-					return true;
-				}else {
-					 System.err.println("Failed to insert job data.");
-				}
-				
-			}catch (SQLException e) {
-	            System.err.println("Error during database operation: " + e.getMessage());
-	            e.printStackTrace();
-	        }
-			return false;
-    	
-        
+                // Creating jobModel instance and adding it to jobList
+                jobModel job = new jobModel(jobId, jobName, jobDescription, startDate, endDate, salary, skillsRequired, companyPicture);
+                jobList.add(job);
+            }
+        }
+        return jobList;
+    }
+
+    // Method to register a new job in the database
+    public Boolean registerJob(jobModel jobModel) {
+        if (dbConn == null) {
+            System.err.println("Database connection is not available.");
+            return false;
+        }
+
+        // Insert query to insert a job into the database
+        String insertQuery = "INSERT INTO jobs (Job_Name, Job_Description, Start_Date, End_Date, Salary, Skills_Required, Company_Picture) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        try (PreparedStatement stmt = dbConn.prepareStatement(insertQuery)) {
+            // Setting values in the prepared statement from jobModel
+            stmt.setString(1, jobModel.getJobName());
+            stmt.setString(2, jobModel.getJobDescription());
+            stmt.setDate(3, jobModel.getStartDate());
+            stmt.setDate(4, jobModel.getEndDate());
+            stmt.setDouble(5, jobModel.getSalary());
+            stmt.setString(6, jobModel.getSkillsRequired());
+            stmt.setString(7, jobModel.getCompanyPicture());
+
+            // Execute the update query
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Job registered successfully!");
+                return true;
+            } else {
+                System.err.println("Failed to register job.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error during database operation: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return false;
     }
 }

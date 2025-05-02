@@ -4,6 +4,7 @@ package com.taskify.util;
 
 import com.taskify.model.userModel;
 import com.taskify.model.memberModel;
+import com.taskify.model.profileModel;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -40,6 +41,7 @@ public class RequestModelExtractorUtil {
 
         return new memberModel(firstName, lastName, dob, gender, email, number);
     }
+    
     public static memberModel extractMemberModel(ResultSet rs) throws SQLException {
         memberModel member = new memberModel(
             rs.getString("Member_FirstName"),

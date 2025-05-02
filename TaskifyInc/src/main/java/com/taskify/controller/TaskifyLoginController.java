@@ -10,7 +10,9 @@ import java.io.IOException;
 import java.sql.ResultSet;
 
 import com.taskify.model.memberModel;
+import com.taskify.model.profileModel;
 import com.taskify.model.userModel;
+import com.taskify.service.profileService;
 import com.taskify.service.taskifyLoginService;
 import com.taskify.service.taskifyRegisterService;
 import com.taskify.util.CookieUtil;
@@ -47,10 +49,12 @@ public class TaskifyLoginController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("Manas");
+		
 		try {
 			userModel userModelDetails = RequestModelExtractorUtil.extractUserModel(request);
 			//memberModel memberModelDetails=RequestModelExtractorUtil.extractMemberModel(request);
+			
+			
 			
 			//verify the user for login
 			
@@ -63,15 +67,19 @@ public class TaskifyLoginController extends HttpServlet {
 				
 				memberModel memberinfo=taskifyLoginService.getuserinfo(userid);
 				
-				System.out.println(memberinfo);
 				SessionUtil.setAttribute(request,"member",memberinfo);
+				
 
 				
 				String memberuser=taskifyLoginService.checkusertype(userModelDetails);
-				System.out.println(memberuser);
-						
+				
+				profileModel profile = new profileService().getProfileById(userid);  // Assuming you have this method
+				SessionUtil.setAttribute(request, "profile", profile);
+				
+				System.out.println(profile);
+
 				if(memberuser.equals("NON-ADMIN")) {
-					CookieUtil.addCookie(response, "userType", "NON-ADMIN", 5*30);
+					CookieUtil.addCookie(response, "userType", "NON-ADMIN", 10*30);
 					
 					request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request, response);
 					
@@ -84,7 +92,7 @@ public class TaskifyLoginController extends HttpServlet {
 				}
 				
 			}else {
-				request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
+				request.getRequestDispatcher("/WEB-INF/pages/newLoginTest.jsp").forward(request, response);
 				
 			}
 		

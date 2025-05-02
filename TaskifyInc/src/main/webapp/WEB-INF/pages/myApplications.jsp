@@ -1,406 +1,303 @@
 <!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Applications</title>
+    <title>Taskify - My Applications</title>
     <style>
-        /* Global Styles */
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background-color: #2747E8;
-            color: #333;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
         
-        /* Navigation Bar */
-        .navbar {
-            background-color: #FFFAEB;
-            padding: 15px 30px;
+        body {
+            background-color: #f5f0e8;
+        }
+        
+        .container {
+            display: flex;
+            height: calc(100vh - 60px);
+        }
+        
+        /* Header/Navbar Styles */
+        .header {
+            background-color: #f5f0e8;
+            padding: 15px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 20px;
         }
         
         .logo {
+            color: #4d7bb7;
             font-size: 32px;
             font-weight: bold;
-            color: #2747E8;
             text-decoration: none;
         }
         
         .nav-links {
             display: flex;
             gap: 30px;
-            align-items: center;
         }
         
-        .nav-link {
+        .nav-links a {
             text-decoration: none;
-            color: #2747E8;
+            color: #333;
             font-weight: 500;
+            font-size: 16px;
         }
         
-        .nav-link.active {
-            font-weight: bold;
+        .nav-links a:hover {
+            color: #4d7bb7;
         }
         
-        .auth-buttons {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .login-btn {
-            background-color: #2747E8;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
+        .logout-link {
+            color: #666;
             text-decoration: none;
         }
         
-        .register-btn {
-            background-color: #FF5A5F;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-        
-        /* Main Content */
-        .container {
-            padding: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .profile-container {
-            display: grid;
-            grid-template-columns: 1fr 3fr;
-            gap: 20px;
-        }
-        
-        /* Profile Card */
-        .profile-card {
+        /* Profile Sidebar */
+        .profile-sidebar {
+            width: 280px;
             background-color: white;
-            border-radius: 10px;
             padding: 20px;
-            position: relative;
+            border-radius: 8px;
+            margin: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+            margin-top:100px;
         }
         
         .profile-header {
-            height: 100px;
-            background-color: #6F8FFF;
-            border-radius: 10px 10px 0 0;
-            margin: -20px -20px 60px;
+            background-color: #4d7bb7;
+            height: 80px;
+            border-radius: 8px 8px 0 0;
+            margin: -20px -20px 0;
         }
         
-        .profile-pic {
-            width: 120px;
-            height: 120px;
+        .profile-photo {
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            overflow: hidden;
-            position: absolute;
-            top: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            border: 5px solid white;
-        }
-        
-        .profile-pic img {
-            width: 100%;
-            height: 100%;
+            border: 3px solid white;
+            margin: -40px auto 10px;
+            display: block;
             object-fit: cover;
-        }
-        
-        .profile-info {
-            text-align: center;
-            margin-top: 20px;
         }
         
         .profile-name {
-            font-size: 24px;
+            text-align: center;
+            font-size: 20px;
             font-weight: bold;
-            margin-bottom: 5px;
-        }
-        
-        .profile-job {
-            color: #666;
-            margin-bottom: 15px;
-        }
-        
-        .applications-count {
-            background-color: #EEF2FF;
-            color: #2747E8;
-            padding: 10px 15px;
-            border-radius: 20px;
-            display: inline-block;
             margin-top: 10px;
         }
         
-        /* Applications List */
-        .applications-list {
-            background-color: white;
-            border-radius: 10px;
-            padding: 25px;
-        }
-        
-        .application-card {
-            border-bottom: 1px solid #eee;
-            padding: 20px 0;
-            display: grid;
-            grid-template-columns: auto 1fr auto;
-            gap: 20px;
-            align-items: center;
-        }
-        
-        .application-card:last-child {
-            border-bottom: none;
-        }
-        
-        .company-logo {
-            width: 80px;
-            height: 80px;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-        
-        .company-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .application-details h3 {
-            margin: 0 0 5px;
-            font-size: 20px;
-        }
-        
-        .application-details h4 {
-            margin: 0 0 15px;
-            font-weight: normal;
+        .profile-title {
+            text-align: center;
             color: #666;
-        }
-        
-        .application-meta {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-        
-        .meta-tag {
-            background-color: #EEF2FF;
-            color: #555;
-            padding: 5px 15px;
-            border-radius: 15px;
             font-size: 14px;
-        }
-        
-        .application-status {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 10px;
-        }
-        
-        .status-badge {
-            padding: 5px 15px;
-            border-radius: 15px;
-            font-size: 14px;
-            font-weight: 500;
-        }
-        
-        .status-pending {
-            background-color: #FFF6E0;
-            color: #F6A609;
-        }
-        
-        .status-interview {
-            background-color: #E0F7FF;
-            color: #0992F6;
-        }
-        
-        .status-rejected {
-            background-color: #FFE0E0;
-            color: #F60909;
-        }
-        
-        .status-accepted {
-            background-color: #E0FFE5;
-            color: #09F639;
-        }
-        
-        .application-date {
-            color: #888;
-            font-size: 14px;
-        }
-        
-        /* Page Header */
-        .page-header {
             margin-bottom: 20px;
         }
         
-        .page-title {
-            font-size: 24px;
-            margin-bottom: 10px;
-            color: white;
+        .profile-stats {
+            background-color: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #4d7bb7;
+            font-weight: bold;
         }
         
-        .filter-options {
+        /* Content Area */
+        .content-area {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            margin-top:80px;
+        }
+        
+        .filter-tabs {
             display: flex;
             gap: 10px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         
-        .filter-btn {
+        .filter-tab {
+            padding: 8px 16px;
             background-color: white;
-            border: none;
-            padding: 8px 15px;
             border-radius: 20px;
+            font-size: 14px;
             cursor: pointer;
-            font-weight: 500;
+            border: 1px solid #ddd;
         }
         
-        .filter-btn.active {
-            background-color: #2747E8;
+        .filter-tab.active {
+            background-color: #4d7bb7;
             color: white;
+            border-color: #4d7bb7;
+        }
+        
+        /* Job Card Styles */
+        .job-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .job-logo {
+            width: 60px;
+            height: 60px;
+            margin-right: 20px;
+            object-fit: contain;
+        }
+        
+        .job-details {
+            flex: 1;
+        }
+        
+        .job-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        
+        .job-company {
+            color: #666;
+            margin-bottom: 12px;
+        }
+        
+        .job-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+        
+        .job-type, .job-salary, .job-date {
+            background-color: #f8f9fa;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .application-status {
+            margin-left: auto;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 500;
+            text-align: right;
+        }
+        
+        .status-pending {
+            color: #f39c12;
+        }
+        
+        .status-interview {
+            color: #3498db;
+        }
+        
+        .status-rejected {
+            color: #e74c3c;
+            background-color: #fdeaea;
+            padding: 6px 12px;
+            border-radius: 16px;
+        }
+        
+        .status-offer {
+            color: #2ecc71;
+            background-color: #e8f8f0;
+            padding: 6px 12px;
+            border-radius: 16px;
+        }
+        
+        .application-date {
+            text-align: right;
+            color: #999;
+            font-size: 13px;
+            margin-top: 4px;
         }
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <jsp:include page="loggedin.jsp"/>
+    <!-- Include newHeader.jsp -->
+    <%@ include file="NewHeader.jsp" %>
     
-    <!-- Main Content -->
     <div class="container">
-        <div class="page-header">
-            <h1 class="page-title">My Applications</h1>
-            <div class="filter-options">
-                <button class="filter-btn active">All</button>
-                <button class="filter-btn">Pending</button>
-                <button class="filter-btn">Interview</button>
-                <button class="filter-btn">Accepted</button>
-                <button class="filter-btn">Rejected</button>
-            </div>
+        <!-- Fixed Profile Sidebar -->
+        <div class="profile-sidebar">
+            <div class="profile-header"></div>
+            <img src="profile-photo.jpg" alt="Profile Photo" class="profile-photo">
+            <h2 class="profile-name">${member.firstName} ${member.lastName}</h2>
+            <p class="profile-title">${profile.occupation}</p>
+            <div class="profile-stats">5 Active Applications</div>
         </div>
         
-        <div class="profile-container">
-            <!-- Profile Card -->
-            <div class="profile-card">
-                <div class="profile-header"></div>
-                <div class="profile-pic">
-                    <img src="/api/placeholder/120/120" alt="Profile Photo">
-                </div>
-                <div class="profile-info">
-                    <div class="profile-name">Susam Das Balami</div>
-                    <div class="profile-job">Data Engineer at Ekinum</div>
-                    <div class="applications-count">5 Active Applications</div>
-                </div>
+        <!-- Scrollable Content Area -->
+        <div class="content-area">
+            <div class="filter-tabs">
+                <div class="filter-tab active">All</div>
+                <div class="filter-tab">Pending</div>
+                <div class="filter-tab">Interview</div>
+                <div class="filter-tab">Accepted</div>
+                <div class="filter-tab">Rejected</div>
             </div>
             
-            <!-- Applications List -->
-            <div class="applications-list">
-                <!-- Application Card 1 -->
-                <div class="application-card">
-                    <div class="company-logo">
-                        <img src="/api/placeholder/80/80" alt="Netflix Logo">
-                    </div>
-                    <div class="application-details">
-                        <h3>UI/UX Designer for Netflix</h3>
-                        <h4>Netflix Inc.</h4>
-                        <div class="application-meta">
-                            <span class="meta-tag">Remote</span>
-                            <span class="meta-tag">$19/hr</span>
-                            <span class="meta-tag">May 1, 2025 - September 30, 2025</span>
-                        </div>
-                    </div>
-                    <div class="application-status">
-                        <span class="status-badge status-pending">Pending Review</span>
-                        <span class="application-date">Applied 2 days ago</span>
+            <!-- Job Applications List -->
+            <c:forEach var="app" items="${ApplicationList}">
+            
+            
+            <div class="job-card">
+                <img src="${pageContext.request.contextPath}/images/${app.job.companyPicture}" alt="company logo" class="job-logo">
+				
+
+                <div class="job-details">
+                    <h3 class="job-title">${app.job.jobName}</h3>
+                    <p class="job-company">${app.job.jobDescription}</p>
+                    <div class="job-meta">
+                        <span class="job-type">Remote</span>
+                        <span class="job-salary">${app.job.salary}</span>
+                        <span class="job-date">${app.job.startDate} - ${app.job.endDate}</span>
                     </div>
                 </div>
-                
-                <!-- Application Card 2 -->
-                <div class="application-card">
-                    <div class="company-logo">
-                        <img src="/api/placeholder/80/80" alt="Google Logo">
-                    </div>
-                    <div class="application-details">
-                        <h3>Data Scientist</h3>
-                        <h4>Google</h4>
-                        <div class="application-meta">
-                            <span class="meta-tag">Hybrid</span>
-                            <span class="meta-tag">$45/hr</span>
-                            <span class="meta-tag">June 15, 2025 - December 15, 2025</span>
-                        </div>
-                    </div>
-                    <div class="application-status">
-                        <span class="status-badge status-interview">Interview Scheduled</span>
-                        <span class="application-date">Applied 1 week ago</span>
-                    </div>
-                </div>
-                
-                <!-- Application Card 3 -->
-                <div class="application-card">
-                    <div class="company-logo">
-                        <img src="/api/placeholder/80/80" alt="Microsoft Logo">
-                    </div>
-                    <div class="application-details">
-                        <h3>Frontend Developer</h3>
-                        <h4>Microsoft</h4>
-                        <div class="application-meta">
-                            <span class="meta-tag">On-site</span>
-                            <span class="meta-tag">$35/hr</span>
-                            <span class="meta-tag">August 1, 2025 - February 28, 2026</span>
-                        </div>
-                    </div>
-                    <div class="application-status">
-                        <span class="status-badge status-rejected">Application Rejected</span>
-                        <span class="application-date">Applied 3 weeks ago</span>
-                    </div>
-                </div>
-                
-                <!-- Application Card 4 -->
-                <div class="application-card">
-                    <div class="company-logo">
-                        <img src="/api/placeholder/80/80" alt="Amazon Logo">
-                    </div>
-                    <div class="application-details">
-                        <h3>Backend Engineer</h3>
-                        <h4>Amazon</h4>
-                        <div class="application-meta">
-                            <span class="meta-tag">Remote</span>
-                            <span class="meta-tag">$40/hr</span>
-                            <span class="meta-tag">May 15, 2025 - November 15, 2025</span>
-                        </div>
-                    </div>
-                    <div class="application-status">
-                        <span class="status-badge status-accepted">Offer Received</span>
-                        <span class="application-date">Applied 1 month ago</span>
-                    </div>
-                </div>
-                
-                <!-- Application Card 5 -->
-                <div class="application-card">
-                    <div class="company-logo">
-                        <img src="/api/placeholder/80/80" alt="Adobe Logo">
-                    </div>
-                    <div class="application-details">
-                        <h3>Visual Designer</h3>
-                        <h4>Adobe</h4>
-                        <div class="application-meta">
-                            <span class="meta-tag">Hybrid</span>
-                            <span class="meta-tag">$30/hr</span>
-                            <span class="meta-tag">June 1, 2025 - December 1, 2025</span>
-                        </div>
-                    </div>
-                    <div class="application-status">
-                        <span class="status-badge status-pending">Pending Review</span>
-                        <span class="application-date">Applied 5 days ago</span>
-                    </div>
+                <div>
+                    <div class="application-status status-pending">${app.application_Status}</div>
+                    <p class="application-date">Applied 2 days ago</p>
                 </div>
             </div>
+            </c:forEach>
+            
+           
         </div>
     </div>
+    
+    <script>
+        // For tab functionality
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                // Add filtering logic here if needed
+            });
+        });
+    </script>
 </body>
 </html>

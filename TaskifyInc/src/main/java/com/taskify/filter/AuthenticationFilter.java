@@ -29,6 +29,7 @@ public class AuthenticationFilter implements Filter {
     private static final String MYAPPS = "/myApplications";
     private static final String JOBS = "/jobs";
     private static final String LOGOUT = "/logout";
+    private static final String ADDJOBS= "/addjobs";
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         // Initialization logic, if required
@@ -72,7 +73,7 @@ public class AuthenticationFilter implements Filter {
             // Non-admin user is logged in
         	if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.endsWith(DASHBOARD) ) {
         	    res.sendRedirect(req.getContextPath() + HOME);
-            } else if (uri.endsWith(HOME) || uri.endsWith(PROFILE) || uri.endsWith(ROOT) || uri.endsWith(JOBS) || uri.endsWith(ABOUT) || uri.endsWith(MYJOBS) || uri.endsWith(MYAPPS) || uri.endsWith(LOGOUT)) {
+            } else if (uri.endsWith(HOME) || uri.endsWith(JOBS) || uri.endsWith(PROFILE) || uri.endsWith(ROOT) || uri.endsWith(JOBS) || uri.endsWith(ABOUT) || uri.endsWith(MYJOBS) || uri.endsWith(MYAPPS) || uri.endsWith(LOGOUT) || uri.endsWith(ADDJOBS)) {
                 chain.doFilter(request, response); // Proceed with the filter chain
             } else {
                 res.sendRedirect(req.getContextPath() + REGISTER);

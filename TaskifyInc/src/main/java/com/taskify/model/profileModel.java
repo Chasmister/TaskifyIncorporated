@@ -7,6 +7,7 @@ package com.taskify.model;
 public class profileModel {
     
     private int profileId;
+    private String occupation;
     private String profileDescription;
     private String displayPicture;
     private String achievements;
@@ -27,7 +28,7 @@ public class profileModel {
      * @param experience User's experience
      */
     public profileModel() {
-
+    	this.occupation="Freelancer";
         this.profileDescription = "Enter your profile description here";
         this.displayPicture = "/images/Default_pfp.png";
         this.achievements = "Enter your achievements here";
@@ -39,6 +40,13 @@ public class profileModel {
      */
     public int getProfileId() {
         return profileId;
+    }
+    public void setOccupation(String occupation) {
+    	this.occupation=occupation;
+    }
+    
+    public String getOccupation() {
+    	return occupation;
     }
     
     /**
