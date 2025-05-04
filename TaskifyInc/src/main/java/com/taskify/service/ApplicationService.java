@@ -9,7 +9,7 @@ import java.util.List;
 
 import com.taskify.config.TaskifyDBconfig;
 import com.taskify.model.ApplicationModel;
-import com.taskify.model.jobModel;
+import com.taskify.model.JobModel;
 import com.taskify.model.userModel;
 
 public class ApplicationService {
@@ -53,7 +53,7 @@ public class ApplicationService {
 	                                stmt3.setInt(1, jobId);
 	                                try (ResultSet rs3 = stmt3.executeQuery()) {
 	                                    if (rs3.next()) {
-	                                        jobModel job = new jobModel(
+	                                        JobModel job = new JobModel(
 	                                        		rs3.getInt("job_ID"),
 	                                        	    rs3.getString("job_Name"),
 	                                        	    rs3.getString("job_Description"),
@@ -117,13 +117,13 @@ public class ApplicationService {
 	    }
 
 	    // Step 3: Fetch job info to populate ApplicationModel
-	    jobModel job = null;
+	    JobModel job = null;
 	    String getJobQuery = "SELECT * FROM jobs WHERE job_ID=?";
 	    try (PreparedStatement jobStmt = dbConn.prepareStatement(getJobQuery)) {
 	        jobStmt.setInt(1, jobId);
 	        try (ResultSet rs = jobStmt.executeQuery()) {
 	            if (rs.next()) {
-	                job = new jobModel(
+	                job = new JobModel(
 	                    rs.getInt("job_ID"),
 	                    rs.getString("job_Name"),
 	                    rs.getString("job_Description"),

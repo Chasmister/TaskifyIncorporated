@@ -15,11 +15,7 @@ public class TaskifyDBconfig {
 	     
 	     // Try to establish a connection to the database
 	     Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-	     if(connection==null) {
-	    	 System.out.println("yoyoyoy");
-	     }else {
-	    	 System.out.println("hi");
-	     }
+	   
 	     return connection;
 		
 	}

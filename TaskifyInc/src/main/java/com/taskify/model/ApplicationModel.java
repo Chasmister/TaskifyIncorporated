@@ -3,7 +3,7 @@ package com.taskify.model;
 public class ApplicationModel {
     private int application_Id;
     private String application_Status;
-    private jobModel job;
+    private JobModel job;
 
     // Constructor
     public ApplicationModel(int application_Id, String application_Status) {
@@ -11,7 +11,7 @@ public class ApplicationModel {
         this.application_Status = application_Status;
     }
     
-    public ApplicationModel(int application_Id, String application_Status,jobModel job) {
+    public ApplicationModel(int application_Id, String application_Status,JobModel job) {
         this.application_Id = application_Id;
         this.application_Status = application_Status;
         this.job=job;
@@ -36,11 +36,11 @@ public class ApplicationModel {
     public void setApplication_Status(String application_Status) {
         this.application_Status = application_Status;
     }
-    public jobModel getJob() {
+    public JobModel getJob() {
         return job;
     }
 
-    public void setJob(jobModel job) {
+    public void setJob(JobModel job) {
         this.job = job;
     }
 

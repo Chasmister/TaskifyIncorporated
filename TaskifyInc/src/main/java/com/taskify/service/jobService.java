@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.taskify.config.TaskifyDBconfig;
-import com.taskify.model.jobModel;
+import com.taskify.model.JobModel;
 
 public class jobService {
     private Connection dbConn;
@@ -25,8 +25,8 @@ public class jobService {
     }
 
     // Method to retrieve all jobs from the database
-    public List<jobModel> getAllJobs() throws SQLException, ClassNotFoundException {
-        List<jobModel> jobList = new ArrayList<>();
+    public List<JobModel> getAllJobs() throws SQLException, ClassNotFoundException {
+        List<JobModel> jobList = new ArrayList<>();
 
         if (dbConn == null) {
             System.err.println("Database connection is not available.");
@@ -50,7 +50,7 @@ public class jobService {
                 String companyPicture = rs.getString("Company_Picture");
 
                 // Creating jobModel instance and adding it to jobList
-                jobModel job = new jobModel(jobId, jobName, jobDescription, startDate, endDate, salary, skillsRequired, companyPicture);
+                JobModel job = new JobModel(jobId, jobName, jobDescription, startDate, endDate, salary, skillsRequired, companyPicture);
                 jobList.add(job);
             }
         }
@@ -58,7 +58,7 @@ public class jobService {
     }
 
     // Method to register a new job in the database
-    public Boolean registerJob(jobModel jobModel) {
+    public Boolean registerJob(JobModel jobModel) {
         if (dbConn == null) {
             System.err.println("Database connection is not available.");
             return false;

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.taskify.model.ApplicationModel;
-import com.taskify.model.jobModel;
+import com.taskify.model.JobModel;
 import com.taskify.model.userModel;
 import com.taskify.service.ApplicationService;
 

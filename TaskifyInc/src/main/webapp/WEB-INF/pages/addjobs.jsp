@@ -370,7 +370,7 @@
          <h2 class="form-title">Add jobs</h2>
             <div class="job-form-section">
                
-                <form id="job-post-form" action="/submit-job" method="post" enctype="multipart/form-data">
+                <form id="job-post-form" action="/addjobs" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label class="form-label" for="job-title">Job Title *</label>
                         <input type="text" class="form-control" id="job-title" name="jobTitle" placeholder="e.g. Senior UI/UX Designer" required>

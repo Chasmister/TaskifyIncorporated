@@ -32,7 +32,7 @@ public class taskifyRegisterService {
         // Insert queries for each table
         String userInsertQuery = "INSERT INTO users (User_Name, User_Password) VALUES (?, ?)";
         String memberInsertQuery = "INSERT INTO members (Member_FirstName, Member_LastName, Member_DOB, Member_Gender, Member_Email, Member_ContactNumber, User_ID) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        String profileInsertQuery = "INSERT INTO profiles (Profile_Description, Display_Picture, Achievements, Experience) VALUES (?, ?, ?, ?)";
+        String profileInsertQuery = "INSERT INTO profiles (Profile_Occupation,Profile_Description, Display_Picture, Achievements, Experience) VALUES (?, ?, ?, ?,?)";
         String userMemberProfileInsertQuery = "INSERT INTO users_members_profiles (User_ID, Member_ID, Profile_ID) VALUES (?, ?, ?)";
 
         try (
@@ -80,10 +80,13 @@ public class taskifyRegisterService {
                             int memberId = memberGeneratedKeys.getInt(1); // Generated Member_ID
 
                             // Step 4: Insert the profile into the profiles table
-                            insertProfileStmt.setString(1, profiledata.getProfileDescription());
-                            insertProfileStmt.setString(2, profiledata.getDisplayPicture());
-                            insertProfileStmt.setString(3, profiledata.getAchievements());
-                            insertProfileStmt.setString(4, profiledata.getExperience());
+                            insertProfileStmt.setString(1,profiledata.getOccupation());
+                            insertProfileStmt.setString(2, profiledata.getProfileDescription());
+                            insertProfileStmt.setString(3, profiledata.getDisplayPicture());
+                            insertProfileStmt.setString(4, profiledata.getAchievements());
+                            insertProfileStmt.setString(5, profiledata.getExperience());
+                            
+                            System.out.println(insertProfileStmt);
 
                             int profileRowsAffected = insertProfileStmt.executeUpdate();
                             if (profileRowsAffected > 0) {

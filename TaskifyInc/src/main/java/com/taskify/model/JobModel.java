@@ -2,7 +2,7 @@ package com.taskify.model;
 
 import java.sql.Date;
 
-public class jobModel {
+public class JobModel {
 
     private int jobId;
     private String jobName;
@@ -14,7 +14,7 @@ public class jobModel {
     private String companyPicture;
 
     // Constructor
-    public jobModel(int jobId, String jobName, String jobDescription, Date startDate, Date endDate, double salary, String skillsRequired, String companyPicture) {
+    public JobModel(int jobId, String jobName, String jobDescription, Date startDate, Date endDate, double salary, String skillsRequired, String companyPicture) {
         this.jobId = jobId;
         this.jobName = jobName;
         this.jobDescription = jobDescription;

@@ -6,7 +6,7 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
 
-import com.taskify.model.jobModel;
+import com.taskify.model.JobModel;
 import com.taskify.model.userModel;
 import com.taskify.service.ApplicationService;
 import com.taskify.service.jobService;
@@ -23,7 +23,7 @@ public class JobsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            List<jobModel> jobList = jobService.getAllJobs();
+            List<JobModel> jobList = jobService.getAllJobs();
             HttpSession session = request.getSession(false);
             userModel user = (userModel) session.getAttribute("user");
 
@@ -52,7 +52,7 @@ public class JobsServlet extends HttpServlet {
             userModel user = (userModel) session.getAttribute("user");
 
             if (user != null) {
-                List<jobModel> jobList = jobService.getAllJobs();
+                List<JobModel> jobList = jobService.getAllJobs();
                 request.setAttribute("jobList", jobList);
                 request.setAttribute("user", user);
                 request.setAttribute("member", memberService.getMemberById(memberId));
