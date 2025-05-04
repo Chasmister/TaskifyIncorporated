@@ -30,6 +30,13 @@ public class AuthenticationFilter implements Filter {
     private static final String JOBS = "/jobs";
     private static final String LOGOUT = "/logout";
     private static final String ADDJOBS= "/addjobs";
+    private static final String MANAGEJOBS= "/managejobs";
+    private static final String MANAGEUSERS= "/manageuser";
+    private static final String MANAGEPROFILE= "/adminprofileedit";
+
+
+    
+    
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         // Initialization logic, if required
@@ -63,7 +70,7 @@ public class AuthenticationFilter implements Filter {
         	if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.endsWith(PROFILE) || uri.endsWith(LOGOUT)) {
         	    res.sendRedirect(req.getContextPath() + DASHBOARD);
     
-            } else if (uri.endsWith(DASHBOARD) || uri.endsWith(HOME) || uri.endsWith(ROOT)) {
+            } else if (uri.endsWith(DASHBOARD) || uri.endsWith(HOME) || uri.endsWith(ROOT) || uri.endsWith(MANAGEJOBS) || uri.endsWith(MANAGEUSERS) || uri.endsWith(MANAGEPROFILE)) {
                 chain.doFilter(request, response); // Proceed with the filter chain
             } else {
                 res.sendRedirect(req.getContextPath() + DASHBOARD);

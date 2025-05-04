@@ -9,6 +9,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+import com.taskify.model.JobModel;
+import com.taskify.service.jobService;
+
 ;
 
 
@@ -47,9 +50,24 @@ public class adminprofileditcontroller extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
+        try {
+            jobService jobService = new jobService();
+            List<JobModel> jobList = jobService.getAllJobs();
+
+            // Set the job list as a request attribute
+            request.setAttribute("jobs", jobList);
+
+            // Forward to JSP to display one-by-one
+            request.getRequestDispatcher("/jobList.jsp").forward(request, response);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("error", "Failed to retrieve jobs: " + e.getMessage());
+            request.getRequestDispatcher("/error.jsp").forward(request, response);
+        }
+    }
 }
