@@ -9,8 +9,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-import com.taskify.service.AdminDashboardService;
-import com.taskify.service.taskifyLoginService;
+import com.taskify.model.JobModel;
+import com.taskify.service.jobService;
 
 ;
 
@@ -18,14 +18,15 @@ import com.taskify.service.taskifyLoginService;
 /**
  * Servlet implementation class Job
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/admindashboard" })
-public class Admindashboard extends HttpServlet {
+@WebServlet(asyncSupported = true, urlPatterns = { "/AddAdmin" })
+public class AddAdminController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private final AdminDashboardService DashboardService=new AdminDashboardService();  
+
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Admindashboard() {
+    public AddAdminController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,16 +39,8 @@ public class Admindashboard extends HttpServlet {
            
             
             // Forward to jobpage.jsp where the jobs will be displayed
-        	int usercount = DashboardService.getUserCount();
-        	int jobcount = DashboardService.getJobCount();
-        	int pendingjobcount = DashboardService.getPendingJobApprovals();
-        	int totaladmincount = DashboardService.getTotalAdmin();
-    		request.setAttribute("userCount",usercount);
-    		request.setAttribute("jobCount",jobcount);
-    		request.setAttribute("PendingJobCount", pendingjobcount);
-    		request.setAttribute("TotalAdminCount", totaladmincount);
-    		request.getRequestDispatcher("/WEB-INF/pages/admindashboard.jsp").forward(request, response);
-    	
+            request.getRequestDispatcher("/WEB-INF/pages/AddAdmin.jsp").forward(request, response);
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -57,7 +50,9 @@ public class Admindashboard extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	}
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
+    }
 }

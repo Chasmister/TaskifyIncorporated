@@ -14,16 +14,18 @@
   <div class="dashboard">
     <div class="sidebar">
       <h1>Welcome<br>Admin</h1>
-      <a href="${pageContext.request.contextPath}/admindashboard"">Dashboard</a>
+      <a href="${pageContext.request.contextPath}/admindashboard">Dashboard</a>
       <a href="${pageContext.request.contextPath}/manageuser">Users</a>
       <a href="${pageContext.request.contextPath}/managejobs">Jobs</a>
       <a href="${pageContext.request.contextPath}/adminprofileedit" class="active">Edit Profile</a>
+      <a href="${pageContext.request.contextPath}/AddAdmin">Add Admin</a>
+      <a href="${pageContext.request.contextPath}/logout">Logout</a>
     </div>
     
       <div class="main">
           <div class="main-header">
             <div class="headingtitle">  
-              <h2>DASHBOARD</h2> 
+              <h2>Edit Profile</h2> 
               <hr class="blue-line">
           </div>
           <img src="images/spiked hair.png" alt="profile" />

@@ -14,10 +14,12 @@
   <div class="dashboard">
     <div class="sidebar">
       <h1>Welcome<br>Admin</h1>
-      <a href="${pageContext.request.contextPath}/admindashboard">Dashboard</a>
-      <a href="${pageContext.request.contextPath}/manageuser" class="active">Users</a>
+       <a href="${pageContext.request.contextPath}/admindashboard">Dashboard</a>
+      <a href="${pageContext.request.contextPath}/manageuser"  class="active">Users</a>
       <a href="${pageContext.request.contextPath}/managejobs">Jobs</a>
       <a href="${pageContext.request.contextPath}/adminprofileedit">Edit Profile</a>
+      <a href="${pageContext.request.contextPath}/AddAdmin">Add Admin</a>
+      <a href="${pageContext.request.contextPath}/logout">Logout</a>
     </div>
 
     <div class="main">
