@@ -155,6 +155,24 @@
 		          			<a href="#" class="profile-btn">VIEW PROFILE</a>
 		        		</div>
 		      		</div>
+		      		
+		      <!-- Freelancer Card 3 -->
+		      		<div class="freelancer-card">
+		        		<div class="freelancer-info">
+		          			<div class="freelancer-img">
+		            			<img src="${pageContext.request.contextPath}/images/profile pic.png" alt="Freelancer profile">
+		          			</div>
+		          			<div class="freelancer-details">
+		            			<h3 class="freelancer-name">SUSAN PUDASAINI</h3>
+		            			<p class="freelancer-title">Roblox Dealer</p>
+		            			<p class="freelancer-reviews">400+ reviews</p>
+		          			</div>
+		        		</div>
+		        		<div class="freelancer-footer">
+		          			<p class="freelancer-rate">40$/hr</p>
+		          			<a href="#" class="profile-btn">VIEW PROFILE</a>
+		        		</div>
+		      		</div>
 		    	</div>
 		  </section>
 		</div>

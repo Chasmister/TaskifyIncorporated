@@ -15,8 +15,8 @@
 nav {
 	
     position: fixed;
-    background-color: #CDBDA2;
-    border-bottom: solid 1px #294C60;
+    background-color: #001B2E;
+    
     padding: 0.5rem 5rem;
     display: flex;
     justify-content: space-between;
@@ -31,7 +31,7 @@ nav {
 .logo {
     font-size: 2rem;
     font-weight: 800;
-    color: #294C60;
+    color: #FFFCEC;
     text-decoration: none;
 }
 
@@ -49,8 +49,8 @@ nav {
 .nav-links a {
 	font-family: 'Jetbrains Mono', sans-serif;
     text-decoration: none;
-    color: #001B2E;
-    font-weight: 700;
+    color: #FFFCEC;
+    font-weight: 600;
     letter-spacing: -0px;
 }
 
@@ -73,12 +73,12 @@ nav {
 
 .btn-primary {
     background-color: none;
-    color: #294C60;
+    color: #FFFCEC;
     border: none;
 }
 
 .btn-secondary {
-    color: #294C60;
+    color: #FFFCEC;
     border: none;
 }
 

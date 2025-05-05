@@ -32,7 +32,9 @@
 		
         body {
       		font-family: 'Manrope', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #234050;
+            background-image: url("${pageContext.request.contextPath}/images/Add jobs background.jpg");
+            background-repeat: no-repeat;
+  			background-size: cover;
             margin: 0;
             padding: 0;
         }
@@ -100,7 +102,7 @@
             font-weight: 700;
             letter-spacing: -1.5px;
             font-size: 1.5rem;
-            color: #F3E9DC;
+            color: #070707;
             margin: 0;
         }
         
@@ -108,7 +110,7 @@
         	font-family: 'Jetbrains Mono';
         	font-size: 0.8rem;
         	margin-top: 0.1rem;
-        	color: #F3E9DC;
+        	color: #070707;
         	opacity: 0.6;
         }
         
@@ -124,7 +126,7 @@
         }
         
         .guide-section {
-        	color: #F3E9DC;
+        	color: #070707;
         }
         
         .guide-section h4 {
@@ -143,12 +145,14 @@
         }
         
         .job-form-section {
-            background-color: #F3E9DC;
+            background: #F3E9DC;
+			background: linear-gradient(148deg,rgba(243, 233, 220, 1) 0%, rgba(255, 255, 255, 0.25) 100%);
+			border: solid 1px #FFFCEC;
             border-radius: 10px;
             padding: 30px;
             margin-bottom: 20px;
             margin-left: 20px;
-            /*box-shadow: 0 3px 10px rgba(0,0,0,0.1);*/
+            box-shadow: 25px 30px 50px 0px rgba(0,0,0,0.20);
             height: 100%;
             overflow-y: scroll;
         }
@@ -156,7 +160,7 @@
         .form-title {
             font-size: 3rem;
             margin-bottom: 25px;
-            color: #F3E9DC;
+            color: #070707;
             padding-left: 15px;
             font-weight: 800;
             letter-spacing: -2.5px;
@@ -171,7 +175,7 @@
             margin-bottom: 8px;
             font-family: 'Jetbrains Mono';
             font-weight: 700;
-            color: #294C60;
+            color: #070707;
             text-transform: uppercase;
         }
         
@@ -274,8 +278,8 @@
         
         .preview-btn {
             background-color: white;
-            color: #4CAF50;
-            border: 1px solid #4CAF50;
+            color: #070707;
+            border: 1px solid #070707;
             padding: 12px 25px;
             border-radius: 6px;
             font-size: 16px;
@@ -284,7 +288,7 @@
         }
         
         .post-btn {
-            background-color: #4CAF50;
+            background-color: #070707;
             color: white;
             border: none;
             padding: 12px 25px;

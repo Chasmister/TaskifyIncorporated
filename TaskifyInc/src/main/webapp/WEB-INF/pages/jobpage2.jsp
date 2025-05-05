@@ -20,7 +20,7 @@
             font-family: 'Manrope', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            background-color: #E9DEC9;
             color: #333;
         }
 
@@ -36,7 +36,7 @@
         /* Top container with navbar and search */
         .topcontainer {
             width: 100%;
-            background-color: #f9f9f9;
+            background-color: #E9DEC9;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -63,10 +63,12 @@
         /* Sidebar Styling */
         .sidebar {
             width: 280px;
-            background-color: #fff;
+           	background: RGBA(255, 252, 236, 0.25);
+			background: linear-gradient(311deg,rgba(255, 252, 236, 0.75) 0%, rgba(255, 252, 236, 0.25) 100%);
             padding: 20px;
+            border: solid 2px #FFFCEC;
             border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            
             margin-right: 20px;
             position: sticky;
             top: 100px;
@@ -81,7 +83,7 @@
 
         .profile-background {
             height: 80px;
-            background-image: linear-gradient(to right, #4a6fdc, #6a8af2);
+            
             border-radius: 8px 8px 0 0;
             margin-bottom: -40px;
         }
@@ -98,9 +100,9 @@
 
         .profile-name {
             margin-top: 45px;
-            font-weight: 600;
-            font-size: 18px;
-            color: #333;
+            font-weight: 800;
+            font-size: 20px;
+            color: #242423;
         }
 
         .profile-job {
@@ -110,11 +112,12 @@
         }
 
         .applications-count {
-            background-color: #e3e6ff;
-            color: #3f51b5;
+            background-color: #242423;
+            color: #FFFCEC;
             padding: 8px 15px;
             border-radius: 20px;
             font-size: 14px;
+            font-weight: 600;
             display: inline-block;
             margin-top: 10px;
         }
@@ -124,13 +127,20 @@
             flex: 1;
             padding: 0 20px;
         }
+        
+        .main-content h1 {
+        	font-size: 1.8rem;
+        	letter-spacing: -0.8px;
+        }
 
         .job-section {
             padding-top: 20px;
         }
 
         .job {
-            background-color: #fff;
+            background: RGBA(255, 252, 236, 0.25);
+			background: linear-gradient(311deg,rgba(255, 252, 236, 0.75) 0%, rgba(255, 252, 236, 0.25) 100%);
+			border: solid 2px #FFFFFF;
             border-radius: 12px;
             padding: 25px;
             margin-bottom: 20px;
@@ -161,8 +171,8 @@
 
         .job-title {
             font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
+            font-weight: 800;
+            letter-spacing: -0.8px;
             margin: 0 0 5px 0;
             color: #001B2E;
         }
@@ -181,9 +191,10 @@
         }
 
         .jobinfoitem {
+        	font-family: 'Jetbrains Mono', sans-serif;
             border-right: solid 1px #ccc;
             padding: 0 12px;
-            color: #294C60;
+            color: #545454;
             font-size: 0.9rem;
             font-weight: 600;
             line-height: 1;
@@ -212,8 +223,9 @@
         }
 
         .skill {
-            background-color: #294C60;
-            color: #fff;
+            background-color: #242423;
+            color: #fffcec;
+            font-family: 'Jetbrains Mono', 'Manrope', sans-serif; 
             padding: 6px 12px;
             border-radius: 4px;
             font-size: 0.8rem;
@@ -230,12 +242,13 @@
         }
 
         .posted-date {
+        	font-family: 'Jetbrains Mono', sans-serif;
             color: #777;
             font-size: 0.85rem;
         }
 
         .apply-btn {
-            background: linear-gradient(145deg, #294C60 0%, #559DC6 100%);
+            background: #8390FA;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -274,6 +287,7 @@
         </div>
 
         <div class="main-content">
+        	<h1>Jobs suggested for you</h2>
             <div class="job-section">
                 <c:forEach var="job" items="${jobList}">
                 

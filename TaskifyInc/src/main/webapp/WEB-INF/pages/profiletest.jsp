@@ -29,7 +29,8 @@
         }
 
         body {
-            background-color: var(--primary-color);
+            background: RGBA(255, 252, 236, 0.25);
+			background: linear-gradient(180deg,rgba(0, 27, 46, 1) 48%, rgba(1, 123, 199, 1) 100%);
             min-height: 100vh;
         }
 
@@ -70,7 +71,7 @@
         }
 
         .profile-name h1 {
-            color: var(--primary-color);
+            color: #001B2E;
             font-size: 2.5rem;
             font-weight: 800;
             letter-spacing: -2.5px;
@@ -109,16 +110,18 @@
 
         .sidebar {
             width: 280px;
-            background-color: var(--primary-color);
+            /*background-color: var(--primary-color)*/;
             color: var(--text-light);
             padding: 30px 20px;
         }
 
         .content {
             flex: 1;
-            background-color: var(--white);
+            /*background-color: var(--white);*/
+            border-left: solid 1px #FFFCEC;
             padding: 30px;
-            border-radius: 10px;
+            padding-left: 100px;
+            
         }
 
         .contact-info, .skills-section {
@@ -159,12 +162,13 @@
         }
 
         .skill-tag {
-            background-color: #001B2E;
-            color: var(--text-light);
+            background-color: #FFFCEC;
+            color: var(--text-dark);
             padding: 6px 12px;
             border-radius: 5px;
             font-size: 0.9rem;
-            font-weight: 500;
+            font-family: 'Jetbrains Mono', 'Manrope', sans-serif; 
+            font-weight: 600;
         }
 
         .content-section {
@@ -172,7 +176,7 @@
         }
 
         .content-section h2 {
-            color: var(--primary-color);
+            color: var(--text-light);
             font-size: 1.7rem;
             font-weight: 800;
             margin-bottom: 15px;
@@ -183,7 +187,8 @@
         	font-family: 'Jetbrains Mono', monospace;
             font-size: 1rem;
             line-height: 1.6;
-            color: var(--text-dark);
+            color: var(--text-light);
+            opacity: 0.7;
         }
         
         button {
@@ -191,6 +196,7 @@
         }
         
         .edit-btn {
+        	opacity: 0;
         	background: none;
         	border: none;
         }
@@ -341,7 +347,7 @@
 					<button data-type="name" class="edit-btn"><img src="${pageContext.request.contextPath}/images/Edit Vector blue.svg" alt="Edit Profile" style="padding-left: 20px;"></button>                
                 
                 <div class="profile-location">
-                    <img src="${pageContext.request.contextPath}/images/Location vector.svg" alt="location">
+                    <!--  <img src="${pageContext.request.contextPath}/images/Location vector.svg" alt="location">-->
                   
                 </div>
             </div>

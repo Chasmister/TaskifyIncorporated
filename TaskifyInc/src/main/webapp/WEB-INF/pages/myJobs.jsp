@@ -10,66 +10,15 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #2747E8;
+            background: #E9DEC9;
+			
             color: #333;
         }
         
-        /* Navigation Bar */
-        .navbar {
-            background-color: #FFFAEB;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 32px;
-            font-weight: bold;
-            color: #2747E8;
-            text-decoration: none;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            align-items: center;
-        }
-        
-        .nav-link {
-            text-decoration: none;
-            color: #2747E8;
-            font-weight: 500;
-        }
-        
-        .nav-link.active {
-            font-weight: bold;
-        }
-        
-        .auth-buttons {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .login-btn {
-            background-color: #2747E8;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-        
-        .register-btn {
-            background-color: #FF5A5F;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-        }
         
         /* Main Content */
         .container {
-            padding: 30px;
+            padding: 8rem 20px 20px 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -82,6 +31,7 @@
         
         /* Profile Card */
         .profile-card {
+        	opacity: 0;
             background-color: white;
             border-radius: 10px;
             padding: 20px;
@@ -140,14 +90,14 @@
         
         /* Jobs List */
         .jobs-list {
-            background-color: white;
+        
             border-radius: 10px;
             padding: 25px;
         }
         
         /* Job Card */
         .job-card {
-            border: 1px solid #eee;
+           
             border-radius: 10px;
             margin-bottom: 20px;
             overflow: hidden;
@@ -155,7 +105,7 @@
         
         .job-header {
             padding: 20px;
-            background-color: white;
+            background: #F9F7EB;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
@@ -188,7 +138,8 @@
         
         .job-details h4 {
             margin: 0 0 10px;
-            font-weight: normal;
+            font-family: 'Jetbrains Mono', sans-serif;
+            font-weight: 600;
             color: #666;
         }
         
@@ -199,10 +150,10 @@
         }
         
         .meta-tag {
-            background-color: #EEF2FF;
-            color: #555;
-            padding: 5px 15px;
-            border-radius: 15px;
+            background-color: #2B2B2B;
+            color: #FFFCEC;
+            padding: 5px 12px;
+            border-radius: 5px;
             font-size: 14px;
         }
         
@@ -215,14 +166,15 @@
         
         .status-badge {
             padding: 5px 15px;
-            border-radius: 15px;
+            border-radius: 5px;
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 600;
         }
         
         .status-active {
-            background-color: #E0FFE5;
-            color: #09F639;
+        	font-size: 1rem;
+            background-color: #51DD8E;
+            color: #2B2B2B;
         }
         
         .status-expired {
@@ -237,18 +189,23 @@
         
         .applications-counter {
             font-size: 14px;
-            color: #666;
+            color: #2B2B2B;
+            font-family: 'Jetbrains Mono', 'Manrope', sans-serif;
         }
         
         .toggle-applications {
-            background-color: transparent;
+            background-color: #8390FA;
+            padding: 4px 8px;
             border: none;
-            color: #2747E8;
-            font-size: 24px;
+            border-radius: 3px;
+            color: #FFFCEC;
+            font-size: 14px;
+            font-family: 'Jetbrains Mono', 'Manrope', sans-serif;
+            font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
-            padding: 0;
+           
         }
         
         /* Applications Section */
@@ -421,26 +378,29 @@
         }
         
         .search-bar {
+
             flex-grow: 1;
             max-width: 400px;
             position: relative;
         }
         
         .search-input {
+			background-color: #FFFCEC;
             width: 100%;
             padding: 10px 15px;
             border: none;
-            border-radius: 20px;
+            border-radius: 5px;
             font-size: 14px;
         }
         
         .create-job-btn {
-            background-color: #FF5A5F;
+            background-color: #8390FA;
             color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
-            font-weight: 500;
+            font-weight: 600;
+            font-family: 'Jetbrains Mono', 'Manrope', sans-serif;
             cursor: pointer;
         }
         
@@ -499,7 +459,7 @@
 </head>
 <body>
     <!-- Navigation Bar -->
-   <jsp:include page="loggedin.jsp"/>
+   <jsp:include page="NewHeader.jsp"/>
     
     <!-- Main Content -->
     <div class="container">
@@ -556,7 +516,7 @@
                         <div class="job-status">
                             <span class="status-badge status-active">Active</span>
                             <span class="applications-counter">15 Applications</span>
-                            <button class="toggle-applications">▼</button>
+                            <button class="toggle-applications">Toggle applications</button>
                         </div>
                     </div>
                     <div class="applications-container">
@@ -664,7 +624,7 @@
                         <div class="job-status">
                             <span class="status-badge status-active">Active</span>
                             <span class="applications-counter">8 Applications</span>
-                            <button class="toggle-applications">▼</button>
+                            <button class="toggle-applications">Toggle applications</button>
                         </div>
                     </div>
                     <div class="applications-container">
@@ -748,7 +708,7 @@
                         <div class="job-status">
                             <span class="status-badge status-draft">Draft</span>
                             <span class="applications-counter">0 Applications</span>
-                            <button class="toggle-applications">▼</button>
+                            <button class="toggle-applications">Toggle applications</button>
                         </div>
                     </div>
                     <div class="applications-container">
@@ -788,7 +748,7 @@
                         <div class="job-status">
                             <span class="status-badge status-expired">Expired</span>
                             <span class="applications-counter">12 Applications</span>
-                            <button class="toggle-applications">▼</button>
+                            <button class="toggle-applications">Toggle applications</button>
                         </div>
                     </div>
                     <div class="applications-container">
