@@ -1,6 +1,7 @@
 package com.taskify.controller;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import com.taskify.util.ImageUtil;
 /**
  * Servlet implementation class Addjobs
  */
+@MultipartConfig
 @WebServlet(asyncSupported = true, urlPatterns = { "/addjobs" })
 public class Addjobs extends HttpServlet {
     private static final long serialVersionUID = 1L;
