@@ -37,10 +37,7 @@ public class AuthenticationFilter implements Filter {
 
     
     
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-        // Initialization logic, if required
-    }
+   
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -95,8 +92,5 @@ public class AuthenticationFilter implements Filter {
         }
     }
 
-    @Override
-    public void destroy() {
-        // Cleanup logic, if required
-    }
+   
 }
