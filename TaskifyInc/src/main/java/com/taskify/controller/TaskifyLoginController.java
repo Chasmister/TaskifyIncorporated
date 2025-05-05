@@ -61,6 +61,7 @@ public class TaskifyLoginController extends HttpServlet {
 			boolean loggedin=taskifyLoginService.verifyuser(userModelDetails);
 			//System.out.println(loggedin);
 			if(loggedin==true) {
+				request.getSession().setMaxInactiveInterval(100 * 60); // 100 minutes = 6000 seconds
 				SessionUtil.setAttribute(request, "user", userModelDetails);
 				
 				int userid=userModelDetails.getuserid();
@@ -79,12 +80,12 @@ public class TaskifyLoginController extends HttpServlet {
 				System.out.println(profile);
 
 				if(memberuser.equals("NON-ADMIN")) {
-					CookieUtil.addCookie(response, "userType", "NON-ADMIN", 10*30);
+					CookieUtil.addCookie(response, "userType", "NON-ADMIN", 200*30);
 					
 					request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request, response);
 					
 				}else if(memberuser.equals("ADMIN")){
-					CookieUtil.addCookie(response, "userType", "ADMIN", 5*30);
+					CookieUtil.addCookie(response, "userType", "ADMIN", 200*30);
 					request.getRequestDispatcher("/WEB-INF/pages/admindashboard.jsp").forward(request, response);
 						
 				}else {

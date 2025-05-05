@@ -1,6 +1,7 @@
 package com.taskify.model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class JobModel {
 
@@ -13,9 +14,20 @@ public class JobModel {
     private String skillsRequired;
     private String companyPicture;
 
-    // Constructor
+    // Constructor with jobId (used when retrieving from DB)
     public JobModel(int jobId, String jobName, String jobDescription, Date startDate, Date endDate, double salary, String skillsRequired, String companyPicture) {
         this.jobId = jobId;
+        this.jobName = jobName;
+        this.jobDescription = jobDescription;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.salary = salary;
+        this.skillsRequired = skillsRequired;
+        this.companyPicture = companyPicture;
+    }
+
+    // Constructor without jobId (used for new job creation)
+    public JobModel(String jobName, String jobDescription, Date startDate, Date endDate, double salary, String skillsRequired, String companyPicture) {
         this.jobName = jobName;
         this.jobDescription = jobDescription;
         this.startDate = startDate;
@@ -93,7 +105,7 @@ public class JobModel {
     // Optional: Override toString() for better output display
     @Override
     public String toString() {
-        return "jobModel{" +
+        return "JobModel{" +
                 "jobId=" + jobId +
                 ", jobName='" + jobName + '\'' +
                 ", jobDescription='" + jobDescription + '\'' +

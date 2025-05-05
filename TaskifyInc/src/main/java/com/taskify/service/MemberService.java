@@ -14,7 +14,7 @@ public class MemberService {
     public memberModel getMemberById(int memberId) {
         memberModel member = null;
 
-        String query = "SELECT * FROM members WHERE id = ?";
+        String query = "SELECT * FROM members WHERE Member_ID = ?";
 
         try (Connection connection = TaskifyDBconfig.getDbConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
