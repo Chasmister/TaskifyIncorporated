@@ -3,209 +3,284 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Job Listings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taskify - Job Listings</title>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Reset and General Body Styles */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
         
-        body {
-            font-family: 'Manrope', sans-serif;
+
+        * {
             margin: 0;
             padding: 0;
-            background-color: #E9DEC9;
-            color: #333;
+            box-sizing: border-box;
         }
 
-        /* Main Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+        /* Ensure the taskify logo and nav are properly aligned */
+        .taskify-nav {
+            margin: 0;
+            padding: 0;
             display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        /* Fix for NewHeader.jsp */
+        #header-container {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Manrope', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url("${pageContext.request.contextPath}/images/Add jobs background.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding-top: 0;
+            margin: 0;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
+        /* Header/Navbar specific styling */
+        header, .navbar {
             position: relative;
-        }
-
-        /* Top container with navbar and search */
-        .topcontainer {
-            width: 100%;
-            background-color: #E9DEC9;
-            position: sticky;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 1000;
-            padding-bottom: 20px;
-        }
-
-        .search-container {
-            display: flex;
-            justify-content: center;
-            width: 80%;
-            margin: 0 auto;
-            padding: 20px 0;
-        }
-
-        .search-bar {
             width: 100%;
-            padding: 12px 20px;
-            border-radius: 25px;
-            border: 1px solid #ddd;
-            font-size: 16px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            background-color: #001B2E;
+            margin: 0;
+            padding: 0;
         }
 
-        /* Sidebar Styling */
-        .sidebar {
-            width: 280px;
-           	background: RGBA(255, 252, 236, 0.25);
-			background: linear-gradient(311deg,rgba(255, 252, 236, 0.75) 0%, rgba(255, 252, 236, 0.25) 100%);
-            padding: 20px;
-            border: solid 2px #FFFCEC;
-            border-radius: 10px;
-            
-            margin-right: 20px;
-            position: sticky;
-            top: 100px;
-            height: fit-content;
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            min-height: 80vh;
+            margin-top: 0;
         }
 
-        /* Profile Section in Sidebar */
+        .profile-sidebar {
+            width: 25%;
+            min-width: 280px;
+            margin-right: 2rem;
+        }
+
         .profile-section {
-            text-align: center;
+            margin-top: 100px;
+            padding: 30px;
             margin-bottom: 20px;
-        }
-
-        .profile-background {
-            height: 80px;
+            text-align: center;
+           
             
-            border-radius: 8px 8px 0 0;
-            margin-bottom: -40px;
         }
 
-        .profile-pic {
+        .profile-photo {
             width: 80px;
             height: 80px;
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid #fff;
-            margin: 0 auto;
-            display: block;
-        }
-
-        .profile-name {
-            margin-top: 45px;
-            font-weight: 800;
-            font-size: 20px;
-            color: #242423;
-        }
-
-        .profile-job {
-            font-size: 12px;
-            color: #666;
-            margin: 5px 0;
-        }
-
-        .applications-count {
-            background-color: #242423;
-            color: #FFFCEC;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-            display: inline-block;
-            margin-top: 10px;
-        }
-
-        /* Main Content Area Styling */
-        .main-content {
-            flex: 1;
-            padding: 0 20px;
-        }
-        
-        .main-content h1 {
-        	font-size: 1.8rem;
-        	letter-spacing: -0.8px;
-        }
-
-        .job-section {
-            padding-top: 20px;
-        }
-
-        .job {
-            background: RGBA(255, 252, 236, 0.25);
-			background: linear-gradient(311deg,rgba(255, 252, 236, 0.75) 0%, rgba(255, 252, 236, 0.25) 100%);
-			border: solid 2px #FFFFFF;
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .job:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
-        }
-
-        .job-header {
-            display: flex;
-            align-items: center;
             margin-bottom: 15px;
         }
 
-        .job-logo {
+        .profile-name {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #070707;
+        }
+
+        .profile-title {
+            font-family: 'Jetbrains Mono', monospace;
+            font-size: 0.8rem;
+            color: #070707;
+            opacity: 0.6;
+        }
+
+        .profile-stats {
+            font-family: 'Jetbrains Mono', monospace;
+            font-weight: 700;
+            background-color: #001B2E;
+            color: #FFFCEC;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 1rem;
+            margin-top: 15px;
+            display: inline-block;
+        }
+
+        .guide-section {
+           
+            padding: 20px;
+           
+        }
+
+        .guide-section h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .guide-section ul {
+            padding-left: 1.1rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .guide-section li {
+            margin-bottom: 8px;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin-top: 100px;
+        }
+        
+        /* Header section styling - clean, no background */
+        .header-section {
+            margin-bottom: 20px;
+        }
+        
+        /* Cards container styling */
+        .cards-container {
+            background: linear-gradient(148deg, rgba(243, 233, 220, 0.8) 0%, rgba(255, 255, 255, 0.15) 100%);
+            border: solid 1px #FFFCEC;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .content-title {
+            font-size: 2.5rem;
+            color: #070707;
+            font-weight: 800;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .filter-tab {
+            font-family: 'Jetbrains Mono', monospace;
+            font-weight: 500;
+            padding: 8px 16px;
+            background-color: #FFFEFB;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .filter-tab:hover {
+            background-color: rgba(7, 7, 7, 0.05);
+        }
+
+        .filter-tab.active {
+            background-color: #070707;
+            color: white;
+        }
+
+        /* Search and Create Job Button */
+        .actions-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            background-color: #FFFEFB;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Job Card Styling */
+        .job-card {
+            background-color: #FFFEFB;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .job-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .company-logo {
             width: 60px;
             height: 60px;
-            object-fit: contain;
             margin-right: 20px;
+            object-fit: contain;
             border-radius: 8px;
-            background-color: #f5f5f5;
+            background-color: #f8f9fa;
             padding: 5px;
         }
 
+        .job-details {
+            flex: 1;
+        }
+
         .job-title {
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: -0.8px;
-            margin: 0 0 5px 0;
-            color: #001B2E;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #070707;
         }
 
-        .company-name {
-            font-size: 1rem;
-            color: #555;
-            margin-bottom: 5px;
+        .job-company {
+            font-family: 'Jetbrains Mono', monospace;
+            color: #070707;
+            opacity: 0.6;
+            margin-bottom: 12px;
         }
 
-        .jobinfo {
+        .job-meta {
             display: flex;
+            gap: 12px;
             flex-wrap: wrap;
-            margin: 15px 0;
-            gap: 5px;
+            margin-bottom: 12px;
         }
 
-        .jobinfoitem {
-        	font-family: 'Jetbrains Mono', sans-serif;
-            border-right: solid 1px #ccc;
-            padding: 0 12px;
-            color: #545454;
-            font-size: 0.9rem;
-            font-weight: 600;
-            line-height: 1;
-        }
-
-        .jobinfoitem:last-child {
-            border-right: none;
-        }
-
-        .jobinfoitem:first-child {
-            padding-left: 0;
+        .meta-tag {
+            font-family: 'Jetbrains Mono', monospace;
+            background-color: #f8f9fa;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            color: #070707;
         }
 
         .job-description {
@@ -232,109 +307,180 @@
             font-weight: 500;
         }
 
-        .job-footer {
+        .job-status {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-            margin-top: 15px;
-        }
-
-        .posted-date {
-        	font-family: 'Jetbrains Mono', sans-serif;
-            color: #777;
-            font-size: 0.85rem;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
         }
 
         .apply-btn {
-            background: #8390FA;
+            background-color: #070707;
             color: white;
             border: none;
             padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
+            border-radius: 5px;
             font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 10px rgba(41,76,96,0.2);
+            font-family: 'Jetbrains Mono', monospace;
+            cursor: pointer;
+            transition: 0.2s;
         }
 
         .apply-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(41,76,96,0.3);
+            background-color: #333;
+        }
+
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+            }
+            .profile-sidebar {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 2rem;
+            }
+            .cards-container {
+                max-height: 60vh;
+            }
+            .job-card {
+                flex-direction: column;
+            }
+            .job-status {
+                align-items: flex-start;
+                margin-top: 15px;
+            }
+            .company-logo {
+                margin-bottom: 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            .filter-tabs {
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+            .actions-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .search-bar {
+                max-width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="topcontainer">
-        <jsp:include page="NewHeader.jsp" />
-
-        <div class="search-container">
-            <input type="text" class="search-bar" placeholder="Search for jobs, skills, or companies...">
-        </div>
-    </div>
-
+    <!-- Include newHeader.jsp -->
+    <%@ include file="NewHeader.jsp" %>
+    
     <div class="container">
-        <div class="sidebar">
+        <!-- Fixed Profile Sidebar -->
+        <div class="profile-sidebar">
             <div class="profile-section">
-                <div class="profile-background"></div>
-                <img src="${pageContext.request.contextPath}/images/${profile.displayPicture}" class="profile-pic" alt="Profile Picture">
-                <h3 class="profile-name">${member.firstName} ${member.lastName}</h3>
-                <div class="profile-job">Data Engineer at Ekinum</div>
-                <div class="applications-count">3 Active Applications</div>
+                <img src="${pageContext.request.contextPath}/images/${profile.displayPicture}" alt="Profile Photo" class="profile-photo">
+                <h2 class="profile-name">${member.firstName} ${member.lastName}</h2>
+                <p class="profile-title">${profile.occupation}</p>
+                <div class="profile-stats">3 Active Applications</div>
+            </div>
+            
+            <div class="guide-section">
+                <h4>Application Tips</h4>
+                <ul>
+                    <li>Tailor your resume for each job</li>
+                    <li>Research companies before applying</li>
+                    <li>Follow up after applying</li>
+                    <li>Prepare for potential interviews</li>
+                </ul>
             </div>
         </div>
-
-        <div class="main-content">
-        	<h1>Jobs suggested for you</h2>
-            <div class="job-section">
-                <c:forEach var="job" items="${jobList}">
+        
+        <!-- Content wrapper with clean top header and card container -->
+        <div class="content-wrapper">
+            <!-- Clean header section without background -->
+            <div class="header-section">
+                <div class="content-header">
+                    <h1 class="content-title">Jobs For You</h1>
+                </div>
                 
-                    <div class="job">
-                        <div class="job-header">
-                            <c:if test="${not empty job.companyPicture}">
-                                <img src="${pageContext.request.contextPath}/images/logos/${job.companyPicture}" class="job-logo" alt="${job.jobName} Logo">
-                            </c:if>
-                            <div>
-                                <h2 class="job-title">${job.jobName}</h2>
-                               
+                <div class="filter-tabs">
+                    <div class="filter-tab active">ALL Jobs</div>
+                    <div class="filter-tab">Remote</div>
+                    <div class="filter-tab">On-site</div>
+                    <div class="filter-tab">Hybrid</div>
+                </div>
+                
+                <div class="actions-row">
+                    <div class="search-bar">
+                        <input type="text" class="search-input" placeholder="Search for jobs, skills, or companies...">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Job cards container -->
+            <div class="cards-container">
+                <!-- Job Cards List -->
+                <c:forEach var="job" items="${jobList}">
+                    <div class="job-card">
+                        <c:if test="${not empty job.companyPicture}">
+                            <img src="${pageContext.request.contextPath}/images/logos/${job.companyPicture}" alt="${job.jobName} Logo" class="company-logo">
+                        </c:if>
+                        <c:if test="${empty job.companyPicture}">
+                            <img src="/api/placeholder/60/60" alt="Company Logo" class="company-logo">
+                        </c:if>
+                        
+                        <div class="job-details">
+                            <h3 class="job-title">${job.jobName}</h3>
+                            <div class="job-meta">
+                                <span class="meta-tag">Salary: ${job.salary}</span>
+                                <span class="meta-tag">Start: ${job.startDate}</span>
+                                <span class="meta-tag">End: ${job.endDate}</span>
+                            </div>
+                            
+                            <div class="job-description">
+                                <p>${job.jobDescription}</p>
+                            </div>
+                            
+                            <div class="skills-container">
+                                <c:forEach var="skill" items="${fn:split(job.skillsRequired, ',')}">
+                                    <span class="skill">${skill.trim()}</span>
+                                </c:forEach>
                             </div>
                         </div>
-
-                        <div class="jobinfo">
-                            <span class="jobinfoitem">Salary: ${job.salary}</span>
-                            <span class="jobinfoitem">Start Date: ${job.startDate}</span>
-                            <span class="jobinfoitem">End Date: ${job.endDate}</span>
-                            <%-- Job type field removed as it might not exist in the job object --%>
-                        </div>
-
-                        <div class="job-description">
-                            <p>${job.jobDescription}</p>
-                        </div>
-
-                        <div class="skills-container">
-                            <c:forEach var="skill" items="${fn:split(job.skillsRequired, ',')}">
-                                <span class="skill">${skill.trim()}</span>
-                            </c:forEach>
-                        </div>
-
-                        <div class="job-footer">
-                            <div>
-                                <span class="posted-date">Posted recently</span>
-                            </div>
+                        
+                        <div class="job-status">
                             <form action="${pageContext.request.contextPath}/jobs" method="post">
-                            	<input type="hidden" name="jobId" value="${job.jobId}" />
-    							<input type="hidden" name="memberid" value="${member.id}" />
-   							 	<input type="hidden" name="userid" value="${user.userID}" />
+                                <input type="hidden" name="jobId" value="${job.jobId}" />
+                                <input type="hidden" name="memberid" value="${member.id}" />
+                                <input type="hidden" name="userid" value="${user.userID}" />
                                 <button type="submit" class="apply-btn">Apply Now</button>
                             </form>
                         </div>
                     </div>
-                    
                 </c:forEach>
-            </div> 
+                
+                <!-- If no jobs are available, show a message -->
+                <c:if test="${empty jobList}">
+                    <div style="text-align: center; padding: 40px 0;">
+                        <h3>No jobs available at the moment</h3>
+                        <p>Check back soon for new opportunities</p>
+                    </div>
+                </c:if>
+            </div>
         </div>
     </div>
+    
+    <script>
+        // For tab functionality
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                // Add filtering logic here if needed
+            });
+        });
+    </script>
 </body>
 </html>

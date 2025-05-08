@@ -1,261 +1,371 @@
 <!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Jobs</title>
+    <title>Taskify - My Jobs</title>
     <style>
-        /* Global Styles */
-        body {
-            font-family: Arial, sans-serif;
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #000354;
+        }
+
+        * {
             margin: 0;
             padding: 0;
-            background-image: url("${pageContext.request.contextPath}/images/Add jobs background.jpg");
-			background-repeat: no-repeat;
-  			background-size: cover;
-            color: #333;
+            box-sizing: border-box;
         }
-        
-        
-        /* Main Content */
-        .container {
-            padding: 8rem 20px 20px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .profile-container {
-            display: grid;
-            grid-template-columns: 1fr 3fr;
-            gap: 20px;
-        }
-        
-        /* Profile Card */
-        .profile-card {
-        	height: 50%;
-        	opacity: 1;
-            background: #F3E9DC;
-			background: linear-gradient(148deg,rgba(243, 233, 220, 1) 0%, rgba(255, 255, 255, 0.25) 100%);
-            border-radius: 10px;
-            border: solid 2px #FFFFFF;
-            padding: 20px;
-            position: relative;
-        }
-        
-        .profile-header {
-        	display: none;
-            height: 100px;
-            background-color: #6F8FFF;
-            border-radius: 10px 10px 0 0;
-            margin: -20px -20px 60px;
-        }
-        
-        .profile-pic {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            overflow: hidden;
-            position: relative;
-           
-            transform: translateX(+40%);
-            border: 5px solid white;
-        }
-        
-        .profile-pic img {
+
+        /* Ensure the taskify logo and nav are properly aligned */
+        .taskify-nav {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
-        
-        .profile-info {
-            text-align: center;
-            margin-top: 20px;
+
+        /* Fix for NewHeader.jsp */
+        #header-container {
+            margin: 0;
+            padding: 0;
         }
-        
-        .profile-name {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 5px;
+
+        body {
+            font-family: 'Manrope', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url("${pageContext.request.contextPath}/images/Add jobs background.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding-top: 0;
+            margin: 0;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
         }
-        
-        .profile-job {
-            color: #666;
-            margin-bottom: 15px;
+
+        /* Header/Navbar specific styling */
+        header, .navbar {
+            position: relative;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            width: 100%;
+            background-color: #001B2E;
+            margin: 0;
+            padding: 0;
         }
-        
-        .jobs-count {
-            background-color: #070707;
-            color: #FFFCEC;
-            padding: 10px 15px;
-            border-radius: 20px;
-            display: inline-block;
-            margin-top: 10px;
-        }
-        
-        /* Jobs List */
-        .jobs-list {
-        	background: #F3E9DC;
-			background: linear-gradient(148deg,rgba(243, 233, 220, 1) 0%, rgba(255, 255, 255, 0.25) 100%);
-            border-radius: 10px;
-            padding: 25px;
-            border: solid 2px #FFFCEC;
-        }
-        
-        /* Job Card */
-        .job-card {
-           
-            border-radius: 10px;
-            margin-bottom: 20px;
-            overflow: hidden;
-        }
-        
-        .job-header {
-            padding: 20px;
-            background: #F9F7EB;
+
+        .container {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            cursor: pointer;
+            padding: 1rem 2rem;
+            min-height: 80vh;
+            margin-top: 0;
         }
-        
-        .job-info {
-            display: flex;
-            gap: 20px;
-            align-items: center;
+
+        .profile-sidebar {
+            width: 25%;
+            min-width: 280px;
+            margin-right: 2rem;
         }
-        
-        .company-logo {
-            width: 70px;
-            height: 70px;
-            border-radius: 5px;
-            overflow: hidden;
+
+        .profile-section {
+            margin-top: 150px;
+            padding: 30px;
+            margin-bottom: 20px;
+            text-align: center;
         }
-        
-        .company-logo img {
-            width: 100%;
-            height: 100%;
+
+        .profile-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
             object-fit: cover;
+            border: 3px solid #fff;
+            margin-bottom: 15px;
         }
-        
-        .job-details h3 {
-            margin: 0 0 5px;
-            font-size: 20px;
+
+        .profile-name {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #070707;
         }
-        
-        .job-details h4 {
-            margin: 0 0 10px;
-            font-family: 'Jetbrains Mono', sans-serif;
-            font-weight: 600;
-            color: #666;
+
+        .profile-title {
+            font-family: 'Jetbrains Mono', monospace;
+            font-size: 0.8rem;
+            color: #070707;
+            opacity: 0.6;
         }
-        
-        .job-meta {
+
+        .profile-stats {
+            font-family: 'Jetbrains Mono', monospace;
+            font-weight: 700;
+            background-color: #001B2E;
+            color: #FFFCEC;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 1rem;
+            margin-top: 15px;
+            display: inline-block;
+        }
+
+        .guide-section {
+            color: #070707;
+            padding: 20px;
+        }
+
+        .guide-section h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .guide-section ul {
+            padding-left: 1.1rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .guide-section li {
+            margin-bottom: 8px;
+        }
+
+        .content-area {
+            flex: 1;
+            background: linear-gradient(148deg, rgba(243, 233, 220, 1) 0%, rgba(255, 255, 255, 0.25) 100%);
+            border: solid 1px #FFFCEC;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 25px 30px 50px rgba(0, 0, 0, 0.2);
+            max-height: 70vh;
+            overflow-y: auto;
+            margin-top: 130px;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .content-title {
+            font-size: 2.5rem;
+            color: #070707;
+            font-weight: 800;
+        }
+
+        .filter-tabs {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
+            margin-bottom: 25px;
         }
-        
-        .meta-tag {
-            background-color: #2B2B2B;
-            color: #FFFCEC;
-            padding: 5px 12px;
+
+        .filter-tab {
+            font-family: 'Jetbrains Mono', monospace;
+            font-weight: 500;
+            padding: 8px 16px;
+            background-color: #FFFEFB;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .filter-tab:hover {
+            background-color: rgba(7, 7, 7, 0.05);
+        }
+
+        .filter-tab.active {
+            background-color: #070707;
+            color: white;
+        }
+
+        /* Search and Create Job Button */
+        .actions-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 15px;
+            border: none;
             border-radius: 5px;
             font-size: 14px;
+            background-color: #FFFEFB;
         }
-        
+
+        .create-job-btn {
+            background-color: #070707;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            font-family: 'Jetbrains Mono', monospace;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .create-job-btn:hover {
+            background-color: #333;
+        }
+
+        /* Job Card Styling */
+        .job-card {
+            background-color: #FFFEFB;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .job-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .company-logo {
+            width: 60px;
+            height: 60px;
+            margin-right: 20px;
+            object-fit: contain;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            padding: 5px;
+        }
+
+        .job-details {
+            flex: 1;
+        }
+
+        .job-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #070707;
+        }
+
+        .job-company {
+            font-family: 'Jetbrains Mono', monospace;
+            color: #070707;
+            opacity: 0.6;
+            margin-bottom: 12px;
+        }
+
+        .job-meta {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .meta-tag {
+            font-family: 'Jetbrains Mono', monospace;
+            background-color: #f8f9fa;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            color: #070707;
+        }
+
         .job-status {
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            gap: 10px;
+            gap: 8px;
         }
-        
+
         .status-badge {
-            padding: 5px 15px;
+            font-family: 'Jetbrains Mono', monospace;
+            font-weight: 600;
+            padding: 6px 12px;
             border-radius: 5px;
-            font-size: 14px;
-            font-weight: 600;
+            font-size: 0.8rem;
+            min-width: 80px;
+            text-align: center;
         }
-        
+
         .status-active {
-        	font-size: 1rem;
-            background-color: #51DD8E;
-            color: #2B2B2B;
+            background-color: #E8F5E9;
+            color: #4CAF50;
         }
-        
+
         .status-expired {
-            background-color: #FFE0E0;
-            color: #F60909;
+            background-color: #FDEAEA;
+            color: #E53935;
         }
-        
+
         .status-draft {
-            background-color: #E0F7FF;
-            color: #0992F6;
+            background-color: #E3F2FD;
+            color: #2196F3;
         }
-        
+
         .applications-counter {
-            font-size: 14px;
-            color: #2B2B2B;
-            font-family: 'Jetbrains Mono', 'Manrope', sans-serif;
+            font-family: 'Jetbrains Mono', monospace;
+            color: #999;
+            font-size: 0.8rem;
         }
-        
+
         .toggle-applications {
-            background-color: #8390FA;
-            padding: 4px 8px;
+            background-color: #070707;
+            color: white;
             border: none;
-            border-radius: 3px;
-            color: #FFFCEC;
-            font-size: 14px;
-            font-family: 'Jetbrains Mono', 'Manrope', sans-serif;
-            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-family: 'Jetbrains Mono', monospace;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-           
+            transition: 0.2s;
         }
-        
-        /* Applications Section */
+
+        .toggle-applications:hover {
+            background-color: #333;
+        }
+
+        /* Applications Container */
         .applications-container {
             display: none;
             border-top: 1px solid #eee;
-            padding: 15px 20px;
+            padding: 15px;
+            margin-top: 15px;
             background-color: #f9f9f9;
+            border-radius: 0 0 8px 8px;
         }
-        
+
         .applications-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
         }
-        
+
         .applications-title {
-            font-size: 16px;
+            font-size: 1rem;
             font-weight: bold;
-            color: #555;
+            color: #070707;
         }
-        
-        .applications-filter {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .filter-btn {
-            background-color: white;
-            border: 1px solid #ddd;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 14px;
-            cursor: pointer;
-        }
-        
-        .filter-btn.active {
-            background-color: #2747E8;
-            color: white;
-            border-color: #2747E8;
-        }
-        
-        /* Applicant Card */
+
         .applicant-card {
             display: flex;
             justify-content: space-between;
@@ -264,562 +374,303 @@
             border-radius: 8px;
             background-color: white;
             margin-bottom: 10px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
-        
+
         .applicant-info {
             display: flex;
             align-items: center;
             gap: 15px;
         }
-        
+
         .applicant-pic {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             overflow: hidden;
         }
-        
+
         .applicant-pic img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        
+
         .applicant-details h4 {
             margin: 0 0 5px;
-            font-size: 16px;
+            font-size: 1rem;
         }
-        
+
         .applicant-details p {
             margin: 0;
             color: #666;
-            font-size: 14px;
+            font-size: 0.8rem;
         }
-        
+
         .applicant-skills {
             display: flex;
             gap: 5px;
             margin-top: 5px;
         }
-        
+
         .skill-tag {
             background-color: #EEF2FF;
             color: #2747E8;
             padding: 3px 8px;
             border-radius: 10px;
-            font-size: 12px;
+            font-size: 0.7rem;
         }
-        
+
         .applicant-actions {
             display: flex;
             gap: 10px;
+            align-items: center;
         }
-        
+
+        .application-date {
+            font-size: 0.8rem;
+            color: #888;
+            margin-right: 10px;
+        }
+
         .action-btn {
             padding: 5px 10px;
             border-radius: 5px;
-            font-size: 14px;
+            font-size: 0.8rem;
             cursor: pointer;
             border: none;
+            transition: 0.2s;
         }
-        
+
         .view-btn {
             background-color: #EEF2FF;
             color: #2747E8;
         }
-        
+
         .accept-btn {
             background-color: #E0FFE5;
-            color: #09F639;
+            color: #4CAF50;
         }
-        
+
         .reject-btn {
             background-color: #FFE0E0;
-            color: #F60909;
+            color: #E53935;
         }
-        
-        .application-date {
-            font-size: 12px;
-            color: #888;
-        }
-        
-        /* Page Header */
-        .page-header {
-            margin-bottom: 20px;
-            padding-left: 20rem;
-        }
-        
-        .page-title {
-            font-size: 24px;
-            margin-bottom: 10px;
-            color: #070707;
-        }
-        
-        .filter-options {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        
-        .page-filter-btn {
-            background-color: white;
-            border: solid 1px #8390FA;
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 500;
-        }
-        
-        .page-filter-btn.active {
-            background-color: #8390FA;
-            color: white;
-        }
-        
-        /* Actions Section */
-        .actions-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .search-bar {
 
-            flex-grow: 1;
-            max-width: 400px;
-            position: relative;
-        }
-        
-        .search-input {
-			background-color: #FFFCEC;
-            width: 100%;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-        
-        .create-job-btn {
-            background-color: #8390FA;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-weight: 600;
-            font-family: 'Jetbrains Mono', 'Manrope', sans-serif;
-            cursor: pointer;
-        }
-        
-        /* For JavaScript toggle functionality */
         .show-applications {
             display: block;
         }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .profile-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .job-header {
+
+        @media (max-width: 992px) {
+            .container {
                 flex-direction: column;
-                gap: 15px;
             }
-            
+            .profile-sidebar {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 2rem;
+            }
+            .content-area {
+                max-height: none;
+            }
+            .job-card {
+                flex-direction: column;
+            }
             .job-status {
                 align-items: flex-start;
+                margin-top: 15px;
             }
-            
+            .company-logo {
+                margin-bottom: 15px;
+            }
             .applicant-card {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 15px;
             }
-            
             .applicant-actions {
+                margin-top: 10px;
                 width: 100%;
                 justify-content: flex-end;
             }
         }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            .filter-tabs {
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+            .actions-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .search-bar {
+                max-width: 100%;
+            }
+        }
     </style>
-    <script>
-        // Simple script to toggle applications visibility
-        document.addEventListener('DOMContentLoaded', function() {
-            const toggleButtons = document.querySelectorAll('.toggle-applications');
-            toggleButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const jobCard = this.closest('.job-card');
-                    const applicationsContainer = jobCard.querySelector('.applications-container');
-                    applicationsContainer.classList.toggle('show-applications');
-                    
-                    // Change button text
-                    if (this.innerHTML === '▼') {
-                        this.innerHTML = '▲';
-                    } else {
-                        this.innerHTML = '▼';
-                    }
-                });
-            });
-        });
-    </script>
 </head>
 <body>
-    <!-- Navigation Bar -->
-   <jsp:include page="NewHeader.jsp"/>
+    <!-- Include newHeader.jsp -->
+    <%@ include file="NewHeader.jsp" %>
     
-    <!-- Main Content -->
     <div class="container">
-        <div class="page-header">
-            <h1 class="page-title">My Jobs</h1>
-            <div class="filter-options">
-                <button class="page-filter-btn active">All</button>
-                <button class="page-filter-btn">Active</button>
-                <button class="page-filter-btn">Expired</button>
-                <button class="page-filter-btn">Draft</button>
+        <!-- Fixed Profile Sidebar -->
+        <div class="profile-sidebar">
+            <div class="profile-section">
+                <img src="${pageContext.request.contextPath}/images/${profile.displayPicture}" alt="Profile Photo" class="profile-photo">
+                <h2 class="profile-name">${member.firstName} ${member.lastName}</h2>
+                <p class="profile-title">${profile.occupation}</p>
+                <div class="profile-stats">3 Active Jobs</div>
+            </div>
+            
+            <div class="guide-section">
+                <h4>Posting Tips</h4>
+                <ul>
+                    <li>Write clear job descriptions</li>
+                    <li>Include specific requirements</li>
+                    <li>Set competitive compensation</li>
+                    <li>Respond to applicants promptly</li>
+                </ul>
             </div>
         </div>
         
-        <div class="profile-container">
-            <!-- Profile Card -->
-            <div class="profile-card">
-                <div class="profile-header"></div>
-                <div class="profile-pic">
-                    <img src="/api/placeholder/120/120" alt="Profile Photo">
+        <!-- Scrollable Content Area -->
+        <div class="content-area">
+            <div class="content-header">
+                <h1 class="content-title">My Jobs</h1>
+            </div>
+            
+            <div class="filter-tabs">
+                <div class="filter-tab active">All</div>
+                <div class="filter-tab">Active</div>
+                <div class="filter-tab">Expired</div>
+                <div class="filter-tab">Draft</div>
+            </div>
+            
+            <div class="actions-row">
+                <div class="search-bar">
+                    <input type="text" class="search-input" placeholder="Search your jobs...">
                 </div>
-                <div class="profile-info">
-                    <div class="profile-name">Susam Das Balami</div>
-                    <div class="profile-job">Data Engineer at Ekinum</div>
-                    <div class="jobs-count">3 Active Jobs</div>
+                <button class="create-job-btn">+ Create New Job</button>
+            </div>
+            
+            <!-- Job Cards List -->
+            <div class="job-card">
+                <img src="/api/placeholder/60/60" alt="Company Logo" class="company-logo">
+                
+                <div class="job-details">
+                    <h3 class="job-title">UI/UX Designer</h3>
+                    <p class="job-company">Ekinum Tech Solutions</p>
+                    <div class="job-meta">
+                        <span class="meta-tag">Remote</span>
+                        <span class="meta-tag">$25/hr</span>
+                        <span class="meta-tag">May 15, 2025 - August 15, 2025</span>
+                    </div>
+                </div>
+                <div class="job-status">
+                    <div class="status-badge status-active">Active</div>
+                    <p class="applications-counter">15 Applications</p>
+                    <button class="toggle-applications">View Applicants</button>
                 </div>
             </div>
             
-            <!-- Jobs List Container -->
-            <div class="jobs-list">
-                <div class="actions-bar">
-                    <div class="search-bar">
-                        <input type="text" class="search-input" placeholder="Search your jobs...">
-                    </div>
-                    <button class="create-job-btn">+ Create New Job</button>
+            <!-- Applications container (hidden by default) -->
+            <div class="applications-container">
+                <div class="applications-header">
+                    <div class="applications-title">Applicants (15)</div>
                 </div>
                 
-                <!-- Job Card 1 -->
-                <div class="job-card">
-                    <div class="job-header">
-                        <div class="job-info">
-                            <div class="company-logo">
-                                <img src="/api/placeholder/70/70" alt="Company Logo">
-                            </div>
-                            <div class="job-details">
-                                <h3>UI/UX Designer</h3>
-                                <h4>Ekinum Tech Solutions</h4>
-                                <div class="job-meta">
-                                    <span class="meta-tag">Remote</span>
-                                    <span class="meta-tag">$25/hr</span>
-                                    <span class="meta-tag">May 15, 2025 - August 15, 2025</span>
-                                </div>
-                            </div>
+                <!-- Sample Applicant -->
+                <div class="applicant-card">
+                    <div class="applicant-info">
+                        <div class="applicant-pic">
+                            <img src="/api/placeholder/40/40" alt="Applicant Photo">
                         </div>
-                        <div class="job-status">
-                            <span class="status-badge status-active">Active</span>
-                            <span class="applications-counter">15 Applications</span>
-                            <button class="toggle-applications">Toggle applications</button>
+                        <div class="applicant-details">
+                            <h4>John Smith</h4>
+                            <p>Senior Designer at Creative Agency</p>
+                            <div class="applicant-skills">
+                                <span class="skill-tag">Figma</span>
+                                <span class="skill-tag">Adobe XD</span>
+                                <span class="skill-tag">Sketch</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="applications-container">
-                        <div class="applications-header">
-                            <div class="applications-title">Applicants (15)</div>
-                            <div class="applications-filter">
-                                <button class="filter-btn active">All</button>
-                                <button class="filter-btn">New</button>
-                                <button class="filter-btn">Shortlisted</button>
-                                <button class="filter-btn">Rejected</button>
-                            </div>
-                        </div>
-                        
-                        <!-- Applicant 1 -->
-                        <div class="applicant-card">
-                            <div class="applicant-info">
-                                <div class="applicant-pic">
-                                    <img src="/api/placeholder/50/50" alt="Applicant Photo">
-                                </div>
-                                <div class="applicant-details">
-                                    <h4>John Smith</h4>
-                                    <p>Senior Designer at Creative Agency</p>
-                                    <div class="applicant-skills">
-                                        <span class="skill-tag">Figma</span>
-                                        <span class="skill-tag">Adobe XD</span>
-                                        <span class="skill-tag">Sketch</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="applicant-actions">
-                                <span class="application-date">Applied 2 days ago</span>
-                                <button class="action-btn view-btn">View</button>
-                                <button class="action-btn accept-btn">Accept</button>
-                                <button class="action-btn reject-btn">Reject</button>
-                            </div>
-                        </div>
-                        
-                        <!-- Applicant 2 -->
-                        <div class="applicant-card">
-                            <div class="applicant-info">
-                                <div class="applicant-pic">
-                                    <img src="/api/placeholder/50/50" alt="Applicant Photo">
-                                </div>
-                                <div class="applicant-details">
-                                    <h4>Emily Johnson</h4>
-                                    <p>UX Designer at Tech Startup</p>
-                                    <div class="applicant-skills">
-                                        <span class="skill-tag">Figma</span>
-                                        <span class="skill-tag">Prototyping</span>
-                                        <span class="skill-tag">User Research</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="applicant-actions">
-                                <span class="application-date">Applied 1 day ago</span>
-                                <button class="action-btn view-btn">View</button>
-                                <button class="action-btn accept-btn">Accept</button>
-                                <button class="action-btn reject-btn">Reject</button>
-                            </div>
-                        </div>
-                        
-                        <!-- Applicant 3 -->
-                        <div class="applicant-card">
-                            <div class="applicant-info">
-                                <div class="applicant-pic">
-                                    <img src="/api/placeholder/50/50" alt="Applicant Photo">
-                                </div>
-                                <div class="applicant-details">
-                                    <h4>Michael Brown</h4>
-                                    <p>UI/UX Designer at Design Studio</p>
-                                    <div class="applicant-skills">
-                                        <span class="skill-tag">Adobe XD</span>
-                                        <span class="skill-tag">Sketch</span>
-                                        <span class="skill-tag">Wireframing</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="applicant-actions">
-                                <span class="application-date">Applied 3 days ago</span>
-                                <button class="action-btn view-btn">View</button>
-                                <button class="action-btn accept-btn">Accept</button>
-                                <button class="action-btn reject-btn">Reject</button>
-                            </div>
-                        </div>
+                    <div class="applicant-actions">
+                        <span class="application-date">Applied 2 days ago</span>
+                        <button class="action-btn view-btn">View</button>
+                        <button class="action-btn accept-btn">Accept</button>
+                        <button class="action-btn reject-btn">Reject</button>
                     </div>
                 </div>
+            </div>
+            
+            <!-- Additional job cards can be added here -->
+            <div class="job-card">
+                <img src="/api/placeholder/60/60" alt="Company Logo" class="company-logo">
                 
-                <!-- Job Card 2 -->
-                <div class="job-card">
-                    <div class="job-header">
-                        <div class="job-info">
-                            <div class="company-logo">
-                                <img src="/api/placeholder/70/70" alt="Company Logo">
-                            </div>
-                            <div class="job-details">
-                                <h3>Frontend Developer</h3>
-                                <h4>Ekinum Tech Solutions</h4>
-                                <div class="job-meta">
-                                    <span class="meta-tag">Remote</span>
-                                    <span class="meta-tag">$30/hr</span>
-                                    <span class="meta-tag">June 1, 2025 - December 1, 2025</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="job-status">
-                            <span class="status-badge status-active">Active</span>
-                            <span class="applications-counter">8 Applications</span>
-                            <button class="toggle-applications">Toggle applications</button>
-                        </div>
-                    </div>
-                    <div class="applications-container">
-                        <div class="applications-header">
-                            <div class="applications-title">Applicants (8)</div>
-                            <div class="applications-filter">
-                                <button class="filter-btn active">All</button>
-                                <button class="filter-btn">New</button>
-                                <button class="filter-btn">Shortlisted</button>
-                                <button class="filter-btn">Rejected</button>
-                            </div>
-                        </div>
-                        
-                        <!-- Applicant 1 -->
-                        <div class="applicant-card">
-                            <div class="applicant-info">
-                                <div class="applicant-pic">
-                                    <img src="/api/placeholder/50/50" alt="Applicant Photo">
-                                </div>
-                                <div class="applicant-details">
-                                    <h4>Sarah Wilson</h4>
-                                    <p>React Developer at Web Agency</p>
-                                    <div class="applicant-skills">
-                                        <span class="skill-tag">React</span>
-                                        <span class="skill-tag">JavaScript</span>
-                                        <span class="skill-tag">CSS</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="applicant-actions">
-                                <span class="application-date">Applied 5 days ago</span>
-                                <button class="action-btn view-btn">View</button>
-                                <button class="action-btn accept-btn">Accept</button>
-                                <button class="action-btn reject-btn">Reject</button>
-                            </div>
-                        </div>
-                        
-                        <!-- Applicant 2 -->
-                        <div class="applicant-card">
-                            <div class="applicant-info">
-                                <div class="applicant-pic">
-                                    <img src="/api/placeholder/50/50" alt="Applicant Photo">
-                                </div>
-                                <div class="applicant-details">
-                                    <h4>David Miller</h4>
-                                    <p>Frontend Developer at Tech Co</p>
-                                    <div class="applicant-skills">
-                                        <span class="skill-tag">Vue.js</span>
-                                        <span class="skill-tag">JavaScript</span>
-                                        <span class="skill-tag">SASS</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="applicant-actions">
-                                <span class="application-date">Applied 2 days ago</span>
-                                <button class="action-btn view-btn">View</button>
-                                <button class="action-btn accept-btn">Accept</button>
-                                <button class="action-btn reject-btn">Reject</button>
-                            </div>
-                        </div>
+                <div class="job-details">
+                    <h3 class="job-title">Frontend Developer</h3>
+                    <p class="job-company">WebTech Solutions</p>
+                    <div class="job-meta">
+                        <span class="meta-tag">On-site</span>
+                        <span class="meta-tag">$35/hr</span>
+                        <span class="meta-tag">June 1, 2025 - December 1, 2025</span>
                     </div>
                 </div>
+                <div class="job-status">
+                    <div class="status-badge status-active">Active</div>
+                    <p class="applications-counter">8 Applications</p>
+                    <button class="toggle-applications">View Applicants</button>
+                </div>
+            </div>
+            
+            <div class="job-card">
+                <img src="/api/placeholder/60/60" alt="Company Logo" class="company-logo">
                 
-                <!-- Job Card 3 -->
-                <div class="job-card">
-                    <div class="job-header">
-                        <div class="job-info">
-                            <div class="company-logo">
-                                <img src="/api/placeholder/70/70" alt="Company Logo">
-                            </div>
-                            <div class="job-details">
-                                <h3>Data Analyst</h3>
-                                <h4>Ekinum Tech Solutions</h4>
-                                <div class="job-meta">
-                                    <span class="meta-tag">Remote</span>
-                                    <span class="meta-tag">$28/hr</span>
-                                    <span class="meta-tag">July 1, 2025 - October 1, 2025</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="job-status">
-                            <span class="status-badge status-draft">Draft</span>
-                            <span class="applications-counter">0 Applications</span>
-                            <button class="toggle-applications">Toggle applications</button>
-                        </div>
-                    </div>
-                    <div class="applications-container">
-                        <div class="applications-header">
-                            <div class="applications-title">Applicants (0)</div>
-                            <div class="applications-filter">
-                                <button class="filter-btn active">All</button>
-                                <button class="filter-btn">New</button>
-                                <button class="filter-btn">Shortlisted</button>
-                                <button class="filter-btn">Rejected</button>
-                            </div>
-                        </div>
-                        
-                        <div style="text-align: center; padding: 20px; color: #666;">
-                            <p>No applications yet. Publish this job to start receiving applications.</p>
-                        </div>
+                <div class="job-details">
+                    <h3 class="job-title">Content Writer</h3>
+                    <p class="job-company">MediaPulse</p>
+                    <div class="job-meta">
+                        <span class="meta-tag">Remote</span>
+                        <span class="meta-tag">$20/hr</span>
+                        <span class="meta-tag">May 10, 2025 - July 10, 2025</span>
                     </div>
                 </div>
-                
-                <!-- Job Card 4 -->
-                <div class="job-card">
-                    <div class="job-header">
-                        <div class="job-info">
-                            <div class="company-logo">
-                                <img src="/api/placeholder/70/70" alt="Company Logo">
-                            </div>
-                            <div class="job-details">
-                                <h3>Backend Developer</h3>
-                                <h4>Ekinum Tech Solutions</h4>
-                                <div class="job-meta">
-                                    <span class="meta-tag">Hybrid</span>
-                                    <span class="meta-tag">$35/hr</span>
-                                    <span class="meta-tag">April 1, 2025 - April 1, 2026</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="job-status">
-                            <span class="status-badge status-expired">Expired</span>
-                            <span class="applications-counter">12 Applications</span>
-                            <button class="toggle-applications">Toggle applications</button>
-                        </div>
-                    </div>
-                    <div class="applications-container">
-                        <div class="applications-header">
-                            <div class="applications-title">Applicants (12)</div>
-                            <div class="applications-filter">
-                                <button class="filter-btn active">All</button>
-                                <button class="filter-btn">New</button>
-                                <button class="filter-btn">Shortlisted</button>
-                                <button class="filter-btn">Rejected</button>
-                            </div>
-                        </div>
-                        
-                        <!-- Applicant 1 -->
-                        <div class="applicant-card">
-                            <div class="applicant-info">
-                                <div class="applicant-pic">
-                                    <img src="/api/placeholder/50/50" alt="Applicant Photo">
-                                </div>
-                                <div class="applicant-details">
-                                    <h4>Robert Taylor</h4>
-                                    <p>Node.js Developer at Software Inc</p>
-                                    <div class="applicant-skills">
-                                        <span class="skill-tag">Node.js</span>
-                                        <span class="skill-tag">Express</span>
-                                        <span class="skill-tag">MongoDB</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="applicant-actions">
-                                <span class="application-date">Applied Jan 15, 2025</span>
-                                <button class="action-btn view-btn">View</button>
-                                <button class="action-btn accept-btn">Accept</button>
-                                <button class="action-btn reject-btn">Reject</button>
-                            </div>
-                        </div>
-                        
-                        <!-- Applicant 2 -->
-                        <div class="applicant-card">
-                            <div class="applicant-info">
-                                <div class="applicant-pic">
-                                    <img src="/api/placeholder/50/50" alt="Applicant Photo">
-                                </div>
-                                <div class="applicant-details">
-                                    <h4>Jennifer Adams</h4>
-                                    <p>Python Developer at Data Solutions</p>
-                                    <div class="applicant-skills">
-                                        <span class="skill-tag">Python</span>
-                                        <span class="skill-tag">Django</span>
-                                        <span class="skill-tag">SQL</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="applicant-actions">
-                                <span class="application-date">Applied Jan 20, 2025</span>
-                                <button class="action-btn view-btn">View</button>
-                                <button class="action-btn accept-btn">Accept</button>
-                                <button class="action-btn reject-btn">Reject</button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="job-status">
+                    <div class="status-badge status-expired">Expired</div>
+                    <p class="applications-counter">0 Applications</p>
+                    <button class="toggle-applications">View Applicants</button>
                 </div>
             </div>
         </div>
     </div>
+    
+    <script>
+        // For tab functionality
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                // Add filtering logic here if needed
+            });
+        });
+        
+        // For toggling applications view
+        document.querySelectorAll('.toggle-applications').forEach(button => {
+            button.addEventListener('click', function() {
+                const jobCard = this.closest('.job-card');
+                const nextElement = jobCard.nextElementSibling;
+                if (nextElement && nextElement.classList.contains('applications-container')) {
+                    nextElement.classList.toggle('show-applications');
+                    this.textContent = nextElement.classList.contains('show-applications') ? 
+                        'Hide Applicants' : 'View Applicants';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
