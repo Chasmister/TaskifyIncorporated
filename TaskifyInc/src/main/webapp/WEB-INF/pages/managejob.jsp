@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,61 +32,37 @@
       <img src="images/spiked hair.png" alt="profile" />
       </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Job Name</th>
-            <th>Posted By</th>
-            <th>Current Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Frontend Developer</td>
-            <td>Niraj Gruung</td>
-            <td class="active">Job Posted</td>
-            <td class="actions">
-              <button class="action-btn">
-                <i class="fas fa-edit"></i> Edit
-              </button>
-              <button class="action-btn update">
-                <i class="fas fa-sync-alt"></i> Update
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Roblox Seller</td>
-            <td>Manoj lama</td>
-            <td class="pending">Job Applied</td>
-            <td class="actions">
-              <button class="action-btn">
-                <i class="fas fa-edit"></i> Edit
-              </button>
-              <button class="action-btn update">
-                <i class="fas fa-sync-alt"></i> Update
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Janitor</td>
-            <td>Hasbulla</td>
-            <td class="inactive">Not Applied</td>
-            <td class="actions">
-              <button class="action-btn">
-                <i class="fas fa-edit"></i> Edit
-              </button>
-              <button class="action-btn update">
-                <i class="fas fa-sync-alt"></i> Update
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    
+	  <table>
+	  <thead>
+	    <tr>
+	      <th>ID</th>
+	      <th>Job Name</th>
+	      <th>Start Date</th>
+	      <th>Salary</th>
+	      <th>Actions</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <c:forEach var="job" items="${jobList}">
+	      <tr>
+	        <td>${job.jobId}</td>
+	        <td>${job.jobName}</td>
+	        <td>${job.startDate}</td>
+	        <td>${job.salary}</td>
+	        <td class="actions">
+	          <button class="action-btn">
+	            <i class="fas fa-edit"></i> Edit
+	          </button>
+	          <button class="action-btn delete">
+	            <i class="fas fa-trash-alt"></i> Delete
+	          </button>
+	        </td>
+	      </tr>
+	    </c:forEach>
+	  </tbody>
+	</table>
+
 
   </div>
 </body>

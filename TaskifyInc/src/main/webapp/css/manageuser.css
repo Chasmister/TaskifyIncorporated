@@ -27,26 +27,6 @@ body {
     font-size: 14px;
     background-color: #f9f9f9;
   }
-
-  tr:nth-child(even) {
-    background-color: #f0f0ff;
-  }
-
-  .active {
-    color: green;
-    font-weight: bold;
-  }
-
-  .pending {
-    color: rgba(109, 121, 0, 0.685);
-    font-weight: bold;
-  }
-
-  .inactive {
-    color: red;
-    font-weight: bold;
-  }
-
   .actions {
     display: flex;
     gap: 10px;
@@ -72,3 +52,18 @@ body {
   .action-btn:hover {
     opacity: 0.9;
   }
+  
+  .action-btn.delete {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.action-btn.delete:hover {
+  background-color: #c0392b;
+}
+  
