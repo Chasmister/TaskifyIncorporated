@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import com.taskify.config.TaskifyDBconfig;
 import com.taskify.model.memberModel;
 import com.taskify.model.userModel;
+import com.taskify.util.PasswordUtil;
 
 public class taskifyLoginService {
 	private Connection dbConn;
@@ -91,17 +92,26 @@ public class taskifyLoginService {
     
     
     public boolean verifyuser(userModel user) {
-        String sql = "SELECT * FROM users WHERE User_Name=? AND User_Password=?";
+        String sql = "SELECT User_Password, User_ID FROM users WHERE User_Name=?";
 
         try (PreparedStatement stmt = dbConn.prepareStatement(sql)) {
             stmt.setString(1, user.getusername());
-            stmt.setString(2, user.getpassword());
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
+                String storedEncryptedPassword = rs.getString("User_Password");
                 int userIdFromDB = rs.getInt("User_ID");
-                user.setuser_ID(userIdFromDB); // ✅ set actual user ID into the model
-                return true;
+
+                // Decrypt the stored encrypted password
+                String decryptedPassword = PasswordUtil.decrypt(storedEncryptedPassword, user.getusername());
+
+                // Compare with the raw password entered by the user
+                if (decryptedPassword != null && decryptedPassword.equals(user.getpassword())) {
+                    user.setuser_ID(userIdFromDB); // Set the user ID
+                    return true;
+                } else {
+                    System.out.println("Password doesn't match.");
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();

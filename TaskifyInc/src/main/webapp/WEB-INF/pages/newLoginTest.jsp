@@ -27,12 +27,12 @@
         
         		<div class="password-row">
           			<label for="password">Password</label>
-          			<a href="#" class="forgot">Forgot?</a>
+          			
         		</div>
         		<input type="password" id="password" name="password"/>
 
         		<button type="submit" class="login-button">Sign In</button>
-        		<a href="#" class="noAccount">Don't have an Account? Register Now</a>
+        		<a href="${pageContext.request.contextPath}/register" class="noAccount">Don't have an Account? Register Now</a>
       		</form>
     	</div>
 

@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import com.taskify.model.memberModel;
 import com.taskify.model.profileModel;
 import com.taskify.model.userModel;
+import com.taskify.util.PasswordUtil;
 import com.taskify.config.TaskifyDBconfig;
 
 public class taskifyRegisterService {
@@ -53,9 +54,15 @@ public class taskifyRegisterService {
                 return "exists";
             }
 
-            // Step 2: Insert the user into the users table
+         // Step 2: Encrypt password and insert user
+            String encryptedPassword = PasswordUtil.encrypt(userdata.getusername(), userdata.getpassword());
+            if (encryptedPassword == null) {
+                throw new RuntimeException("Password encryption failed");
+            }
+
             insertUserStmt.setString(1, userdata.getusername());
-            insertUserStmt.setString(2, userdata.getpassword());
+            insertUserStmt.setString(2, encryptedPassword);
+
 
             int rowsAffected = insertUserStmt.executeUpdate();
             if (rowsAffected > 0) {
