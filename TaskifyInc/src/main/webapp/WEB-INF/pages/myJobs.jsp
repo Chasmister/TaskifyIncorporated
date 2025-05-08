@@ -10,8 +10,9 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: #E9DEC9;
-			
+            background-image: url("${pageContext.request.contextPath}/images/Add jobs background.jpg");
+			background-repeat: no-repeat;
+  			background-size: cover;
             color: #333;
         }
         
@@ -31,14 +32,18 @@
         
         /* Profile Card */
         .profile-card {
-        	opacity: 0;
-            background-color: white;
+        	height: 50%;
+        	opacity: 1;
+            background: #F3E9DC;
+			background: linear-gradient(148deg,rgba(243, 233, 220, 1) 0%, rgba(255, 255, 255, 0.25) 100%);
             border-radius: 10px;
+            border: solid 2px #FFFFFF;
             padding: 20px;
             position: relative;
         }
         
         .profile-header {
+        	display: none;
             height: 100px;
             background-color: #6F8FFF;
             border-radius: 10px 10px 0 0;
@@ -50,10 +55,9 @@
             height: 120px;
             border-radius: 50%;
             overflow: hidden;
-            position: absolute;
-            top: 80px;
-            left: 50%;
-            transform: translateX(-50%);
+            position: relative;
+           
+            transform: translateX(+40%);
             border: 5px solid white;
         }
         
@@ -80,8 +84,8 @@
         }
         
         .jobs-count {
-            background-color: #EEF2FF;
-            color: #2747E8;
+            background-color: #070707;
+            color: #FFFCEC;
             padding: 10px 15px;
             border-radius: 20px;
             display: inline-block;
@@ -90,9 +94,11 @@
         
         /* Jobs List */
         .jobs-list {
-        
+        	background: #F3E9DC;
+			background: linear-gradient(148deg,rgba(243, 233, 220, 1) 0%, rgba(255, 255, 255, 0.25) 100%);
             border-radius: 10px;
             padding: 25px;
+            border: solid 2px #FFFCEC;
         }
         
         /* Job Card */
@@ -341,12 +347,13 @@
         /* Page Header */
         .page-header {
             margin-bottom: 20px;
+            padding-left: 20rem;
         }
         
         .page-title {
             font-size: 24px;
             margin-bottom: 10px;
-            color: white;
+            color: #070707;
         }
         
         .filter-options {
@@ -357,7 +364,7 @@
         
         .page-filter-btn {
             background-color: white;
-            border: none;
+            border: solid 1px #8390FA;
             padding: 8px 15px;
             border-radius: 20px;
             cursor: pointer;
@@ -365,7 +372,7 @@
         }
         
         .page-filter-btn.active {
-            background-color: #2747E8;
+            background-color: #8390FA;
             color: white;
         }
         

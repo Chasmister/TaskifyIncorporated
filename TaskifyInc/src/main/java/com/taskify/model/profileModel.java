@@ -30,7 +30,7 @@ public class profileModel {
     public profileModel() {
     	this.occupation="Freelancer";
         this.profileDescription = "Enter your profile description here";
-        this.displayPicture = "/images/Default_pfp.png";
+        this.displayPicture = "default.jpg";
         this.achievements = "Enter your achievements here";
         this.experience = "Enter your experience here";
     }

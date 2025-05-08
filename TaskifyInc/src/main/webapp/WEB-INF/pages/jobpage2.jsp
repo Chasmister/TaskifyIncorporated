@@ -279,7 +279,7 @@
         <div class="sidebar">
             <div class="profile-section">
                 <div class="profile-background"></div>
-                <img src="<%=request.getContextPath()%>/images/profile.jpg" class="profile-pic" alt="Profile Picture">
+                <img src="${pageContext.request.contextPath}/images/${profile.displayPicture}" class="profile-pic" alt="Profile Picture">
                 <h3 class="profile-name">${member.firstName} ${member.lastName}</h3>
                 <div class="profile-job">Data Engineer at Ekinum</div>
                 <div class="applications-count">3 Active Applications</div>
@@ -294,7 +294,7 @@
                     <div class="job">
                         <div class="job-header">
                             <c:if test="${not empty job.companyPicture}">
-                                <img src="${pageContext.request.contextPath}/images/${job.companyPicture}" class="job-logo" alt="${job.jobName} Logo">
+                                <img src="${pageContext.request.contextPath}/images/logos/${job.companyPicture}" class="job-logo" alt="${job.jobName} Logo">
                             </c:if>
                             <div>
                                 <h2 class="job-title">${job.jobName}</h2>

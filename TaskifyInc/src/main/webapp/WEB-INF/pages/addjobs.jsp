@@ -352,10 +352,10 @@
             <div class="profile-section">
                 <div class="profile-background"></div>
                 <img src="<%=request.getContextPath()%>/images/profile.jpg"  class="profile-pic" alt="Profile Picture">
-                <h3 class="profile-name">Susam Das Balami</h3>
-                <h4 class="profile-title">HR Manager at TechCorp</h4>
+                <h3 class="profile-name">Dorothy Smith</h3>
+                <h4 class="profile-title">Software Engineer</h4>
                 <br>
-                <div class="employer-status">5 Active Job Postings</div>
+                <div class="employer-status">3 Active Job Postings</div>
             </div>
             
             <!-- Guide section -->

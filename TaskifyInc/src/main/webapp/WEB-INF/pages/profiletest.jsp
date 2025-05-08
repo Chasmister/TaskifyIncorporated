@@ -336,7 +336,7 @@
 <jsp:include page="NewHeader.jsp"/>
 	<div class="profile-header">
             <div class="profile-pic">
-                <img src="${pageContext.request.contextPath}/images/${profile.displayPicture}" alt="Bigyan Nemkul">
+                <img src="${pageContext.request.contextPath}/images/${profile.displayPicture}" alt="ProfilePicture">
             </div>
             <div class="profile-name">
                 

@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import com.taskify.model.profileModel;
 import com.taskify.model.userModel;
 import com.taskify.service.taskifyLoginService;
 import com.taskify.util.RequestModelExtractorUtil;
@@ -35,6 +36,8 @@ public class Profilepage extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/pages/profiletest.jsp").forward(request, response);
 		 // Extract the user model from the session
         userModel userModelDetails = (userModel) request.getSession().getAttribute("user");
+        //request.setAttribute("profile", new profileModel());
+
 
         // If user is found in session, forward the user details to the profile page
 	}
