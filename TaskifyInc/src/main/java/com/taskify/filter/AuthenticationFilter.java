@@ -33,11 +33,15 @@ public class AuthenticationFilter implements Filter {
     private static final String MANAGEJOBS= "/managejobs";
     private static final String MANAGEUSERS= "/manageuser";
     private static final String MANAGEPROFILE= "/adminprofileedit";
+    private static final String ADDADMIN= "/AddAdmin";
 
 
     
     
-   
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        // Initialization logic, if required
+    }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -64,10 +68,10 @@ public class AuthenticationFilter implements Filter {
 
         if ("ADMIN".equals(userRole)) {
             // Admin is logged in
-        	if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.endsWith(PROFILE) || uri.endsWith(LOGOUT)) {
+        	if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.endsWith(PROFILE)) {
         	    res.sendRedirect(req.getContextPath() + DASHBOARD);
     
-            } else if (uri.endsWith(DASHBOARD) || uri.endsWith(HOME) || uri.endsWith(ROOT) || uri.endsWith(MANAGEJOBS) || uri.endsWith(MANAGEUSERS) || uri.endsWith(MANAGEPROFILE)) {
+            } else if (uri.endsWith(DASHBOARD) || uri.endsWith(HOME) || uri.endsWith(ROOT) || uri.endsWith(MANAGEJOBS) || uri.endsWith(MANAGEUSERS) || uri.endsWith(MANAGEPROFILE) || uri.endsWith(LOGOUT) || uri.endsWith(ADDADMIN) ) {
                 chain.doFilter(request, response); // Proceed with the filter chain
             } else {
                 res.sendRedirect(req.getContextPath() + DASHBOARD);
@@ -92,5 +96,8 @@ public class AuthenticationFilter implements Filter {
         }
     }
 
-   
+    @Override
+    public void destroy() {
+        // Cleanup logic, if required
+    }
 }

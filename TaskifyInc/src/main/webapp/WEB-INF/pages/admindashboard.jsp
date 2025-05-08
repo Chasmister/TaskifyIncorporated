@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +18,8 @@
       <a href="${pageContext.request.contextPath}/manageuser">Users</a>
       <a href="${pageContext.request.contextPath}/managejobs">Jobs</a>
       <a href="${pageContext.request.contextPath}/adminprofileedit">Edit Profile</a>
+      <a href="${pageContext.request.contextPath}/AddAdmin">Add Admin</a>
+      <a href="${pageContext.request.contextPath}/logout">Logout</a>
     </div>
 
     <div class="main">
@@ -32,7 +35,7 @@
       <div class="cards">
         <div class="card_red">
           <h3>TOTAL JOBS POSTED</h3>
-          <h1>267</h1>
+          <h1>${jobCount}</h1>
           <select>
             <option>Last 28 Days</option>
             <option>Last 90 Days</option>
@@ -43,7 +46,8 @@
 
         <div class="card_blue">
           <h3>TOTAL USERS</h3>
-          <h1>1000</h1>
+         
+          <h1>${userCount}</h1>
           <select>
             <option>Last 28 Days</option>
             <option>Last 90 Days</option>
@@ -54,12 +58,12 @@
 
         <div class="card_white">
           <h3>PENDING JOB<br>APPROVALS</h3>
-          <h1>69</h1>
+          <h1>${PendingJobCount}</h1>
         </div>
 
         <div class="card_red">
           <h3>TOTAL ADMIN</h3>
-          <h1>5</h1>
+          <h1>${TotalAdminCount}</h1>
         </div>
       </div>
 
