@@ -27,6 +27,8 @@ body {
     font-size: 14px;
     background-color: #f9f9f9;
   }
+
+
   .actions {
     display: flex;
     gap: 10px;
@@ -44,15 +46,11 @@ body {
     gap: 5px;
     font-size: 14px;
   }
-  
- .action-btn update {
-  background-color: #e74c3c;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
 
-  
+  .action-btn.delete {
+    background-color: #ff1e1e;
+  }
+
+  .action-btn:hover {
+    opacity: 0.9;
+  }

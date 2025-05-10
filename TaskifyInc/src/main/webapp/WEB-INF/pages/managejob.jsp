@@ -54,9 +54,15 @@
               <button class="action-btn">
                 <i class="fas fa-edit"></i> Edit
               </button>
-              <button class="action-btn update">
-                <i class="fas fa-trash-alt"></i> Delete
-              </button>
+              
+              <form action="${pageContext.request.contextPath}/managejobs" method="post" style="display:inline;">
+			  <input type="hidden" name="action" value="delete" />
+			  <input type="hidden" name="jobId" value="${job.jobId}" />
+			  <button type="submit" class="action-btn delete">
+			    <i class="fas fa-trash-alt"></i> Delete
+			  </button>
+			</form>
+
             </td>
 	      </tr>
 	    </c:forEach>

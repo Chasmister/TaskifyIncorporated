@@ -46,9 +46,28 @@ public class managejobscontroller extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-	}
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+
+        if ("delete".equals(action)) {
+            String jobIdStr = request.getParameter("jobId");
+            if (jobIdStr != null) {
+                try {
+                    int jobId = Integer.parseInt(jobIdStr);
+                    boolean deleted = jobService.deleteJobById(jobId);
+                    if (deleted) {
+                        System.out.println("Job deleted successfully.");
+                    } else {
+                        System.out.println("Failed to delete job.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid job ID: " + jobIdStr);
+                }
+            }
+        }
+
+        // Redirect back to the job management page
+        response.sendRedirect(request.getContextPath() + "/managejobs");
+    }
 
 }

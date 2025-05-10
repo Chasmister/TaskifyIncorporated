@@ -91,4 +91,43 @@ public class jobService {
         }
         return false;
     }
+    
+    public boolean deleteJobById(int jobId) {
+        if (dbConn == null) return false;
+
+        String deleteDependenciesQuery = "DELETE FROM users_members_jobs_applications WHERE Job_ID = ?";
+        String deleteJobQuery = "DELETE FROM jobs WHERE Job_ID = ?";
+
+        try {
+            dbConn.setAutoCommit(false); // start transaction
+
+            try (PreparedStatement stmt1 = dbConn.prepareStatement(deleteDependenciesQuery)) {
+                stmt1.setInt(1, jobId);
+                stmt1.executeUpdate();
+            }
+
+            try (PreparedStatement stmt2 = dbConn.prepareStatement(deleteJobQuery)) {
+                stmt2.setInt(1, jobId);
+                int rows = stmt2.executeUpdate();
+                dbConn.commit();
+                return rows > 0;
+            }
+
+        } catch (SQLException e) {
+            try {
+                dbConn.rollback(); // undo if any error
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            try {
+                dbConn.setAutoCommit(true); // reset autocommit
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
 }
