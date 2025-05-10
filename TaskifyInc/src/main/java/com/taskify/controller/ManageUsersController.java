@@ -56,9 +56,18 @@ public class ManageUsersController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
-	}
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action = request.getParameter("action");
+
+        if ("delete".equals(action)) {
+            int memberId = Integer.parseInt(request.getParameter("memberId"));
+            ManageUserService manageUserService = new ManageUserService();
+            manageUserService.deleteUserById(memberId);
+        }
+
+        // Redirect back to refresh the user list
+        response.sendRedirect(request.getContextPath() + "/manageuser");
+    }
+
 
 }

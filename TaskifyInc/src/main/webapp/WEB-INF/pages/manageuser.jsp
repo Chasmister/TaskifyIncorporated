@@ -52,12 +52,22 @@
 		    <td>${member.email}</td>
 		    <td class="inactive">Unknown</td>
 		    <td class="actions">
-		      <button class="action-btn">
-		        <i class="fas fa-edit"></i> Edit
-		      </button>
-		      <button class="action-btn update">
-		        <i class="fas fa-sync-alt"></i> Update
-		      </button>
+		    
+		      <form action="${pageContext.request.contextPath}/edituser" method="get" style="display:inline;">
+				  <input type="hidden" name="memberId" value="${member.id}">
+				  <button class="action-btn" type="submit">
+				    <i class="fas fa-edit"></i> Edit
+				  </button>
+				</form>
+				
+		     <form action="${pageContext.request.contextPath}/manageuser" method="post" style="display:inline;">
+			  <input type="hidden" name="action" value="delete">
+			  <input type="hidden" name="memberId" value="${member.id}">
+			  <button class="action-btn delete" type="submit">
+			    <i class="fas fa-trash-alt"></i> Delete
+			  </button>
+			</form>
+			
 		    </td>
 		  </tr>
 		</c:forEach>
