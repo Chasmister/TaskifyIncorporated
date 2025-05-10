@@ -9,6 +9,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+import com.taskify.service.ManageUserService;
+import com.taskify.model.memberModel;
+import java.util.ArrayList; // for the list
+
+
 ;
 
 
@@ -33,15 +38,19 @@ public class ManageUsersController extends HttpServlet {
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-           
-            
-            // Forward to jobpage.jsp where the jobs will be displayed
+            ManageUserService manageUserService = new ManageUserService();
+            List<memberModel> userList = manageUserService.getAllUsers();
+
+            request.setAttribute("members", userList);
+            System.out.println("User list size: " + userList.size());
             request.getRequestDispatcher("/WEB-INF/pages/manageuser.jsp").forward(request, response);
-            
         } catch (Exception e) {
             e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to load users.");
         }
     }
+
+
 
 
 	/**

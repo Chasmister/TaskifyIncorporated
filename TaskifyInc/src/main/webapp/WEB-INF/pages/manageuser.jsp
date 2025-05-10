@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,48 +45,22 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Niraj Gurung</td>
-            <td>niraj@example.com</td>
-            <td class="active">Job Posted</td>
-            <td class="actions">
-              <button class="action-btn">
-                <i class="fas fa-edit"></i> Edit
-              </button>
-              <button class="action-btn update">
-                <i class="fas fa-sync-alt"></i> Update
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Niraj Gurung</td>
-            <td>niraj2@example.com</td>
-            <td class="pending">Job Applied</td>
-            <td class="actions">
-              <button class="action-btn">
-                <i class="fas fa-edit"></i> Edit
-              </button>
-              <button class="action-btn update">
-                <i class="fas fa-sync-alt"></i> Update
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Niraj Gurung</td>
-            <td>niraj2@example.com</td>
-            <td class="inactive">Not Applied</td>
-            <td class="actions">
-              <button class="action-btn">
-                <i class="fas fa-edit"></i> Edit
-              </button>
-              <button class="action-btn update">
-                <i class="fas fa-sync-alt"></i> Update
-              </button>
-            </td>
-          </tr>
+		  <c:forEach var="member" items="${members}">
+		  <tr>
+		    <td>${member.id}</td>
+		    <td>${member.firstName} ${member.lastName}</td>
+		    <td>${member.email}</td>
+		    <td class="inactive">Unknown</td>
+		    <td class="actions">
+		      <button class="action-btn">
+		        <i class="fas fa-edit"></i> Edit
+		      </button>
+		      <button class="action-btn update">
+		        <i class="fas fa-sync-alt"></i> Update
+		      </button>
+		    </td>
+		  </tr>
+		</c:forEach>
         </tbody>
       </table>
     
