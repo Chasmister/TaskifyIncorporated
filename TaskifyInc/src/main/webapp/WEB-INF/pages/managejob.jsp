@@ -51,11 +51,15 @@
 	        <td>${job.startDate}</td>
 	        <td>${job.salary}</td>
 	        <td class="actions">
-              <button class="action-btn">
-                <i class="fas fa-edit"></i> Edit
-              </button>
+
+			  <form action="${pageContext.request.contextPath}/editjob" method="get">
+			    <input type="hidden" name="jobId" value="${job.jobId}" />
+			    <button class="action-btn" type="submit">
+			      <i class="fas fa-edit"></i> Edit
+			    </button>
+			  </form>
               
-              <form action="${pageContext.request.contextPath}/managejobs" method="post" style="display:inline;">
+              <form action="${pageContext.request.contextPath}/managejobs" method="post">
 			  <input type="hidden" name="action" value="delete" />
 			  <input type="hidden" name="jobId" value="${job.jobId}" />
 			  <button type="submit" class="action-btn delete">
