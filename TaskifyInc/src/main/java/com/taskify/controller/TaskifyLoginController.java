@@ -80,6 +80,7 @@ public class TaskifyLoginController extends HttpServlet {
 				SessionUtil.setAttribute(request, "profile", profile);
 				
 				
+				
 
 				if(memberuser.equals("NON-ADMIN")) {
 					CookieUtil.addCookie(response, "userType", "NON-ADMIN", 30*60);
@@ -88,6 +89,7 @@ public class TaskifyLoginController extends HttpServlet {
 					
 				}else if(memberuser.equals("ADMIN")){
 					CookieUtil.addCookie(response, "userType", "ADMIN", 30*60);
+					
 					request.getRequestDispatcher("/WEB-INF/pages/admindashboard.jsp").forward(request, response);
 						
 				}else {

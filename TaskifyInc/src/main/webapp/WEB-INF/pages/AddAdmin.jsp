@@ -33,36 +33,42 @@
       </div>
 
       <!-- Profile Edit Form -->
-      <form action="#" method="post" class="edit-profile-form">
-        <div class="form-group">
-          <label for="firstname"><i class="fa-solid fa-user"></i> First Name:</label>
-          <input type="text" id="firstname" name="firstName">
-        </div>
+      <form action="${pageContext.request.contextPath}/AddAdmin" method="post" class="edit-profile-form">
+	  <div class="form-group">
+	    <label for="username"><i class="fa-solid fa-user-shield"></i> Username:</label>
+	    <input type="text" id="username" name="username" required>
+	  </div>
+	
+	  <div class="form-group">
+	    <label for="firstname"><i class="fa-solid fa-user"></i> First Name:</label>
+	    <input type="text" id="firstname" name="firstName" required>
+	  </div>
+	
+	  <div class="form-group">
+	    <label for="lastname"><i class="fa-solid fa-user"></i> Last Name:</label>
+	    <input type="text" id="lastname" name="lastName" required>
+	  </div>
+	
+	  <div class="form-group">
+	    <label for="email"><i class="fa-solid fa-envelope"></i> Email:</label>
+	    <input type="email" id="email" name="email" required>
+	  </div>
+	
+	  <div class="form-group">
+	    <label for="password"><i class="fa-solid fa-key"></i> Password:</label>
+	    <input type="password" id="password" name="password" required>
+	  </div>
+	
+	  <div class="form-group">
+	    <label for="retypepassword"><i class="fa-solid fa-key"></i> Retype Password:</label>
+	    <input type="password" id="retypepassword" name="retypePassword" required>
+	  </div>
+	
+	  <button type="submit" class="register-button">
+	    <i class="fa-solid fa-floppy-disk"></i> Add Admin
+	  </button>
+	</form>
 
-        <div class="form-group">
-          <label for="lastname"><i class="fa-solid fa-user"></i> Last Name:</label>
-          <input type="text" id="lastname" name="lastName">
-        </div>
-
-        <div class="form-group">
-          <label for="email"><i class="fa-solid fa-envelope"></i> Email:</label>
-          <input type="email" id="email" name="email">
-        </div>
-
-        <div class="form-group">
-            <label for="retypepassword"><i class="fa-solid fa-key"></i> Password:</label>
-            <input type="password" id="retypepassword" name="retypePassword">
-          </div>
-
-        <div class="form-group">
-            <label for="retypepassword"><i class="fa-solid fa-key"></i> Retype Password:</label>
-            <input type="password" id="retypepassword" name="retypePassword">
-          </div>
-
-          <button type="submit" class="register-button" name="updateProfileButton">
-            <i class="fa-solid fa-floppy-disk"></i> Add Admin
-          </button>
-        </form>
 
     </div>
 </body>

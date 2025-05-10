@@ -9,7 +9,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+import com.taskify.model.AdminModel;
 import com.taskify.model.JobModel;
+import com.taskify.service.AdminService;
 import com.taskify.service.jobService;
 
 ;
@@ -53,6 +55,30 @@ public class AddAdminController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try {
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+            String retypePassword = request.getParameter("retypePassword");
+            String firstName = request.getParameter("firstName");
+            String lastName = request.getParameter("lastName");
+            String email = request.getParameter("email");
 
+            if (!password.equals(retypePassword)) {
+                request.setAttribute("error", "Passwords do not match!");
+                request.getRequestDispatcher("/WEB-INF/pages/AddAdmin.jsp").forward(request, response);
+                return;
+            }
+
+            AdminService adminService = new AdminService();
+            int userId = adminService.insertUser(username, password); // Create user
+            AdminModel newAdmin = new AdminModel(userId, firstName, lastName, email, password); // Create admin
+            adminService.insertAdmin(newAdmin); // Insert into admins table
+
+            response.sendRedirect(request.getContextPath() + "/admindashboard");
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("error", "Failed to add admin: " + e.getMessage());
+            request.getRequestDispatcher("/WEB-INF/pages/AddAdmin.jsp").forward(request, response);
+        }
     }
 }
