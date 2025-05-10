@@ -51,13 +51,13 @@
 	        <td>${job.startDate}</td>
 	        <td>${job.salary}</td>
 	        <td class="actions">
-	          <button class="action-btn">
-	            <i class="fas fa-edit"></i> Edit
-	          </button>
-	          <button class="action-btn delete">
-	            <i class="fas fa-trash-alt"></i> Delete
-	          </button>
-	        </td>
+              <button class="action-btn">
+                <i class="fas fa-edit"></i> Edit
+              </button>
+              <button class="action-btn update">
+                <i class="fas fa-trash-alt"></i> Delete
+              </button>
+            </td>
 	      </tr>
 	    </c:forEach>
 	  </tbody>

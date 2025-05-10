@@ -34,7 +34,7 @@ body {
 
   .action-btn {
     border: none;
-    background-color: #2b2eff;
+    background-color: #FF0000;
     color: white;
     padding: 6px 10px;
     border-radius: 6px;
@@ -44,16 +44,8 @@ body {
     gap: 5px;
     font-size: 14px;
   }
-
-  .action-btn.update {
-    background-color: #28a745;
-  }
-
-  .action-btn:hover {
-    opacity: 0.9;
-  }
   
-  .action-btn.delete {
+ .action-btn update {
   background-color: #e74c3c;
   color: white;
   border: none;
@@ -63,7 +55,4 @@ body {
   transition: background-color 0.2s ease;
 }
 
-.action-btn.delete:hover {
-  background-color: #c0392b;
-}
   

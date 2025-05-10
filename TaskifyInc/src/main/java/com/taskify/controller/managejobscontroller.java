@@ -34,8 +34,7 @@ public class managejobscontroller extends HttpServlet {
              userModel user = (userModel) session.getAttribute("user");
    
              request.setAttribute("jobList", jobList);
-             request.setAttribute("user", user);
-             System.out.println(user);            
+             request.setAttribute("user", user);          
              request.getRequestDispatcher("/WEB-INF/pages/managejob.jsp").forward(request, response);
          } catch (Exception e) {
              e.printStackTrace();

@@ -36,24 +36,14 @@
         <div class="card_red">
           <h3>TOTAL JOBS POSTED</h3>
           <h1>${jobCount}</h1>
-          <select>
-            <option>Last 28 Days</option>
-            <option>Last 90 Days</option>
-            <option>Last 365 Days</option>
-          </select>
-          <button><a href="managejobs.html">Manage</a></button>
+          <button><a href="${pageContext.request.contextPath}/managejobs">Manage</a></button>
         </div>
 
         <div class="card_blue">
           <h3>TOTAL USERS</h3>
          
           <h1>${userCount}</h1>
-          <select>
-            <option>Last 28 Days</option>
-            <option>Last 90 Days</option>
-            <option>Last 365 Days</option>
-          </select>
-          <button><a href="manageusers.html">Manage</a></button>
+          <button><a href="${pageContext.request.contextPath}/manageuser">Manage</a></button>
         </div>
 
         <div class="card_white">
