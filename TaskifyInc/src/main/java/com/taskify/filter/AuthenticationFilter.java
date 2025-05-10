@@ -35,6 +35,7 @@ public class AuthenticationFilter implements Filter {
     private static final String MANAGEPROFILE= "/adminprofileedit";
     private static final String ADDADMIN= "/AddAdmin";
     private static final String EDITUSER= "/edituser";
+    private static final String EDITJOB= "/editjob";
 
 
     
@@ -72,7 +73,7 @@ public class AuthenticationFilter implements Filter {
         	if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.endsWith(PROFILE)) {
         	    res.sendRedirect(req.getContextPath() + DASHBOARD);
     
-            } else if (uri.endsWith(DASHBOARD) || uri.endsWith(EDITUSER) || uri.endsWith(HOME) || uri.endsWith(ROOT) || uri.endsWith(MANAGEJOBS) || uri.endsWith(MANAGEUSERS) || uri.endsWith(MANAGEPROFILE) || uri.endsWith(LOGOUT) || uri.endsWith(ADDADMIN) ) {
+            } else if (uri.endsWith(DASHBOARD) || uri.endsWith(EDITJOB) || uri.endsWith(EDITUSER) || uri.endsWith(HOME) || uri.endsWith(ROOT) || uri.endsWith(MANAGEJOBS) || uri.endsWith(MANAGEUSERS) || uri.endsWith(MANAGEPROFILE) || uri.endsWith(LOGOUT) || uri.endsWith(ADDADMIN) ) {
                 chain.doFilter(request, response); // Proceed with the filter chain
             } else {
                 res.sendRedirect(req.getContextPath() + DASHBOARD);

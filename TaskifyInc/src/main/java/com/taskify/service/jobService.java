@@ -129,5 +129,48 @@ public class jobService {
         }
         return false;
     }
+    
+    public JobModel getJobById(int jobId) {
+        String query = "SELECT * FROM jobs WHERE Job_ID=?";
+        try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
+            stmt.setInt(1, jobId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new JobModel(
+                            rs.getInt("Job_ID"),
+                            rs.getString("Job_Name"),
+                            rs.getString("Job_Description"),
+                            rs.getDate("Start_Date"),
+                            rs.getDate("End_Date"),
+                            rs.getDouble("Salary"),
+                            rs.getString("Skills_Required"),
+                            rs.getString("Company_Picture")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public boolean updateJob(JobModel job) {
+        String query = "UPDATE jobs SET Job_Name=?, Job_Description=?, Start_Date=?, End_Date=?, Salary=?, Skills_Required=?, Company_Picture=? WHERE Job_ID=?";
+        try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
+            stmt.setString(1, job.getJobName());
+            stmt.setString(2, job.getJobDescription());
+            stmt.setDate(3, job.getStartDate());
+            stmt.setDate(4, job.getEndDate());
+            stmt.setDouble(5, job.getSalary());
+            stmt.setString(6, job.getSkillsRequired());
+            stmt.setString(7, job.getCompanyPicture());
+            stmt.setInt(8, job.getJobId());
+
+            return stmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 }
