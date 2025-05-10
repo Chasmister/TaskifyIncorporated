@@ -40,7 +40,7 @@
             <th>ID</th>
             <th>UserName</th>
             <th>Email</th>
-            <th>Current Status</th>
+            <th>DOB</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -50,7 +50,7 @@
 		    <td>${member.id}</td>
 		    <td>${member.firstName} ${member.lastName}</td>
 		    <td>${member.email}</td>
-		    <td class="inactive">Unknown</td>
+		    <td>${member.dob}</td>
 		    <td class="actions">
 		    
 		      <form action="${pageContext.request.contextPath}/edituser" method="get" style="display:inline;">
