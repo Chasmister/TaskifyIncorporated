@@ -88,6 +88,8 @@ public class ImageUtil {
 			String filePath = savePath + "/" + imageName;
 			// Write the file to the server
 			part.write(filePath);
+			System.out.println(filePath);
+			
 			return true; // Upload successful
 		} catch (IOException e) {
 			e.printStackTrace(); // Log the exception

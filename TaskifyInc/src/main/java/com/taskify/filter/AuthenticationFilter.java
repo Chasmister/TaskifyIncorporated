@@ -37,6 +37,9 @@ public class AuthenticationFilter implements Filter {
     private static final String EDITUSER= "/edituser";
     private static final String EDITJOB= "/editjob";
 
+    private static final String BUILDPROFILE="/buildProfile";
+    private static final String UPDATEPROFILE="/updateProfile";
+
 
     
     
@@ -83,14 +86,14 @@ public class AuthenticationFilter implements Filter {
             // Non-admin user is logged in
         	if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.endsWith(DASHBOARD) ) {
         	    res.sendRedirect(req.getContextPath() + HOME);
-            } else if (uri.endsWith(HOME) || uri.endsWith(JOBS) || uri.endsWith(PROFILE) || uri.endsWith(ROOT) || uri.endsWith(JOBS) || uri.endsWith(ABOUT) || uri.endsWith(MYJOBS) || uri.endsWith(MYAPPS) || uri.endsWith(LOGOUT) || uri.endsWith(ADDJOBS)) {
+            } else if (uri.endsWith(HOME) || uri.endsWith(JOBS) || uri.endsWith(PROFILE) || uri.endsWith(ROOT) || uri.endsWith(JOBS) || uri.endsWith(ABOUT) || uri.endsWith(MYJOBS) || uri.endsWith(MYAPPS) || uri.endsWith(LOGOUT) || uri.endsWith(ADDJOBS) || uri.endsWith(UPDATEPROFILE)) {
                 chain.doFilter(request, response); // Proceed with the filter chain
             } else {
                 res.sendRedirect(req.getContextPath() + REGISTER);
             }
         } else {
             // Not logged in
-        	if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.endsWith(HOME) ) {
+        	if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.endsWith(HOME) || uri.endsWith(BUILDPROFILE) ) {
         	    chain.doFilter(request, response);
             } else {
                 res.sendRedirect(req.getContextPath() + LOGIN); // Redirect to login if not logged in

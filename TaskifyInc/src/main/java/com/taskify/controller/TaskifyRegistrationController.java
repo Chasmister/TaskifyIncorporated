@@ -6,9 +6,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.time.LocalDate;
-
+import java.util.Map;
 
 import com.taskify.model.memberModel;
 import com.taskify.model.profileModel;
@@ -59,17 +61,32 @@ public class TaskifyRegistrationController extends HttpServlet {
 			}
 			userModel userModelDetails = RequestModelExtractorUtil.extractUserModel(request);
 			memberModel memberModelDetails=RequestModelExtractorUtil.extractMemberModel(request);
-			profileModel profileModelDetails = new profileModel(); // This will initialize the profile with default values
 			
 			
-			String isAdded=taskifyRegistrationService.registerUserandMember(userModelDetails,memberModelDetails,profileModelDetails);
-			if (isAdded.equals("failed")) {
-				handleError(request, response, "Our server is under maintenance. Please try again later!");
-			} else if (isAdded.equals("success")) {
-				handleSuccess(request, response, "Your account is successfully created!", "/WEB-INF/pages/newLoginTest.jsp");
-				
+			Map<String, Integer> isAdded=taskifyRegistrationService.registerUserandMember(userModelDetails,memberModelDetails);
+			// Set the 'user' and 'member' objects in the request
+			HttpSession session = request.getSession();  // Get or create session
+			session.setAttribute("user", userModelDetails);
+			session.setAttribute("member", memberModelDetails);
+			
+			
+
+			if (isAdded == null) {
+			    handleError(request, response, "Our server is under maintenance. Please try again later!");
+			} else if (isAdded.containsKey("userId") && isAdded.containsKey("memberId")) {
+			    System.out.println("yo1");
+
+			    // Set the IDs in your model for future use
+			    userModelDetails.setuser_ID(isAdded.get("userId"));
+			    memberModelDetails.setId(isAdded.get("memberId"));
+
+			    // Set session attributes if needed
+			    request.getSession().setAttribute("user", userModelDetails);
+			    request.getSession().setAttribute("member",   memberModelDetails);
+
+			    request.getRequestDispatcher("/WEB-INF/pages/BuildProfile.jsp").forward(request, response);
 			} else {
-				handleError(request, response, "Could not register your account. User already exists!");
+			    handleError(request, response, "Could not register your account. User already exists!");
 			}
 			
 		} catch (Exception e) {

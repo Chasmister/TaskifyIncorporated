@@ -1,36 +1,66 @@
 package com.taskify.service;
 
 import com.taskify.config.TaskifyDBconfig;
+import com.taskify.model.memberModel;
 import com.taskify.model.profileModel;
+import com.taskify.model.userModel;
 
 import java.sql.*;
 
 public class profileService {
+    private Connection dbConn;
 
-    public profileModel createProfile(profileModel profile) throws SQLException, ClassNotFoundException {
-        String sql = "INSERT INTO profiles (occupation, profile_description, display_picture, achievements, experience) VALUES (?, ?, ?, ?, ?)";
+    public profileService() {
+        try {
+            this.dbConn = TaskifyDBconfig.getDbConnection();
+        } catch (SQLException | ClassNotFoundException ex) {
+            System.err.println("Database connection error: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+
+    public int createProfile(profileModel profile, int userId, int memberId) throws SQLException, ClassNotFoundException {
+        String profileSql = "INSERT INTO profiles (profile_Occupation, Profile_Description, Display_Picture, profile_Skills, Achievements, Experience) " +
+                            "VALUES (?, ?, ?, ?, ?, ?)";
+
+        String mappingSql = "INSERT INTO Users_Members_Profiles(Profile_Id, User_Id, Member_Id) VALUES (?, ?, ?)";
 
         try (Connection conn = TaskifyDBconfig.getDbConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement profilePs = conn.prepareStatement(profileSql, Statement.RETURN_GENERATED_KEYS)) {
 
-            stmt.setString(1, profile.getOccupation());
-            stmt.setString(2, profile.getProfileDescription());
-            stmt.setString(3, profile.getDisplayPicture());
-            stmt.setString(4, profile.getAchievements());
-            stmt.setString(5, profile.getExperience());
+            // Set parameters for profile insertion
+            profilePs.setString(1, profile.getOccupation());
+            profilePs.setString(2, profile.getProfileDescription());
+            profilePs.setString(3, profile.getDisplayPicture());
+            profilePs.setString(4, profile.getSkills());
+            profilePs.setString(5, profile.getAchievements());
+            profilePs.setString(6, profile.getExperience());
 
-            int affectedRows = stmt.executeUpdate();
-            if (affectedRows == 0) {
-                throw new SQLException("Creating profile failed, no rows affected.");
-            }
+            int profileRows = profilePs.executeUpdate();
 
-            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    profile.setProfileId(generatedKeys.getInt(1));
+            if (profileRows > 0) {
+                try (ResultSet rs = profilePs.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        int profileId = rs.getInt(1); // Auto-generated profileId
+                        profile.setProfileId(profileId); // ✅ Set it on the model
+
+                        // Now insert into the mapping table
+                        try (PreparedStatement mappingPs = conn.prepareStatement(mappingSql)) {
+                            mappingPs.setInt(1, profileId);
+                            mappingPs.setInt(2, userId);
+                            mappingPs.setInt(3, memberId);
+
+                            int mappingRows = mappingPs.executeUpdate();
+                            if (mappingRows > 0) {
+                                return profileId; // Success
+                            }
+                        }
+                    }
                 }
             }
         }
-        return profile;
+
+        return -1; // Error
     }
 
     public profileModel getProfileById(int userId) throws SQLException, ClassNotFoundException {
@@ -57,6 +87,7 @@ public class profileService {
                         profile = new profileModel();
                         profile.setProfileId(rs2.getInt("profile_id"));
                         profile.setOccupation(rs2.getString("profile_occupation"));
+                        profile.setSkills(rs2.getString("profile_skills"));
                         profile.setProfileDescription(rs2.getString("profile_description"));
                         profile.setDisplayPicture(rs2.getString("display_picture"));
                         profile.setAchievements(rs2.getString("achievements"));
@@ -70,7 +101,7 @@ public class profileService {
     }
 
     public boolean updateProfile(profileModel profile) throws SQLException, ClassNotFoundException {
-        String sql = "UPDATE profiles SET occupation = ?, profile_description = ?, display_picture = ?, achievements = ?, experience = ? WHERE profile_id = ?";
+        String sql = "UPDATE profiles SET profile_occupation = ?, profile_description = ?, display_picture = ?, achievements = ?, experience = ? WHERE profile_id = ?";
 
         try (Connection conn = TaskifyDBconfig.getDbConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -82,20 +113,52 @@ public class profileService {
             stmt.setString(5, profile.getExperience());
             stmt.setInt(6, profile.getProfileId());
 
+            System.out.println("Updating profile with ID: " + profile.getProfileId());
+
             int rowsUpdated = stmt.executeUpdate();
             return rowsUpdated > 0;
         }
     }
 
-    public boolean deleteProfile(int profileId) throws SQLException, ClassNotFoundException {
-        String sql = "DELETE FROM profiles WHERE profile_id = ?";
+    public boolean updateUser(userModel user) throws SQLException, ClassNotFoundException {
+        String sql = "UPDATE users SET user_name = ? WHERE user_id = ?";
 
         try (Connection conn = TaskifyDBconfig.getDbConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, profileId);
-            int rowsDeleted = stmt.executeUpdate();
-            return rowsDeleted > 0;
+            stmt.setString(1, user.getusername());
+            stmt.setInt(2, user.getuserid());
+          
+            
+            System.out.println(user.getusername());
+
+            System.out.println("Updating user with ID: " + user.getuserid());
+
+            int rowsUpdated = stmt.executeUpdate();
+           
+            return rowsUpdated<0;
         }
     }
+
+    public boolean updateMemberInfo(memberModel member) throws SQLException, ClassNotFoundException {
+        String sql = "UPDATE members SET member_email = ?, member_contactnumber = ? WHERE member_id = ?";
+
+        try (Connection conn = TaskifyDBconfig.getDbConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, member.getEmail());
+            stmt.setString(2, member.getPhonenumber());
+            System.out.println(member.getPhonenumber());
+            stmt.setInt(3, member.getId());
+            System.out.println(stmt);
+       
+            int rowsUpdated = stmt.executeUpdate();
+            
+            return rowsUpdated > 0;
+          
+        }
+    }
+    
+
 }
+

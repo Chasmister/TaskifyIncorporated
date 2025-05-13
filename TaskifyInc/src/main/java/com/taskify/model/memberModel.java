@@ -27,6 +27,7 @@ public class memberModel {
         this.phonenumber = phonenumber;
         this.User_ID=-1;
     }
+    
 
     // Getters and Setters
 

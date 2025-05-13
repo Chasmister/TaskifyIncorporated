@@ -1,17 +1,18 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${member.firstName}  ${member.lastName}- Profile</title>
+    <title>${member.firstName} ${member.lastName} - Profile</title>
+    
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/fonts.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
-    
+
     <style>
         :root {
             --primary-color: #294C60;
@@ -29,17 +30,14 @@
         }
 
         body {
-            background: RGBA(255, 252, 236, 0.25);
-			background: linear-gradient(180deg,rgba(0, 27, 46, 1) 48%, rgba(1, 123, 199, 1) 100%);
+            background: linear-gradient(180deg, rgba(0, 27, 46, 1) 48%, rgba(1, 123, 199, 1) 100%);
             min-height: 100vh;
         }
 
         .profile-container {
             width: 100%;
-            padding: 0px;
             max-width: 1200px;
             margin: 0 auto;
-            
         }
 
         .profile-header {
@@ -75,57 +73,38 @@
             font-size: 2.5rem;
             font-weight: 800;
             letter-spacing: -2.5px;
-            margin-bottom: 5px;
         }
-        .profile-fullname h2{
-        	 color: var(--primary-color);
+
+        .profile-fullname h2 {
+            color: var(--primary-color);
             font-size: 1.5rem;
             font-weight: 500;
             letter-spacing: -2.5px;
-            margin-bottom: 5px;
         }
 
         .profile-location {
-        	font-family: 'Jetbrains Mono', monospace;
-        	font-weight: 600;
-            display: flex;
-            align-items: center;
+            font-family: 'Jetbrains Mono', monospace;
+            font-weight: 600;
             color: var(--primary-color);
             font-size: 18px;
-        }
-
-        .profile-location img {
-        	width: 1.2rem;
-        	height: auto;
-            margin-right: 10px;
         }
 
         .main-content {
             display: flex;
             width: 100%;
-            border-radius: 10px;
-            overflow: hidden;
             gap: 4rem;
         }
 
         .sidebar {
             width: 280px;
-            /*background-color: var(--primary-color)*/;
             color: var(--text-light);
             padding: 30px 20px;
         }
 
         .content {
             flex: 1;
-            /*background-color: var(--white);*/
             border-left: solid 1px #FFFCEC;
-            padding: 30px;
-            padding-left: 100px;
-            
-        }
-
-        .contact-info, .skills-section {
-            margin-bottom: 30px;
+            padding: 30px 100px 30px 100px;
         }
 
         .section-title {
@@ -137,17 +116,23 @@
             align-items: center;
         }
 
-        .section-title svg {
-            margin-left: 8px;
+        .editprofile {
+            margin-left: auto;
+            margin-right: 7vw;
+            background-color: #070e26;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
         }
 
         .contact-item {
-        	font-family: 'Jetbrains Mono', monospace;
+            font-family: 'Jetbrains Mono', monospace;
             display: flex;
             align-items: center;
             margin-bottom: 10px;
             font-size: 1rem;
-            color: rgb(255,255,255,0.7);
+            color: rgba(255, 255, 255, 0.7);
         }
 
         .contact-item::before {
@@ -167,7 +152,7 @@
             padding: 6px 12px;
             border-radius: 5px;
             font-size: 0.9rem;
-            font-family: 'Jetbrains Mono', 'Manrope', sans-serif; 
+            font-family: 'Jetbrains Mono', 'Manrope', sans-serif;
             font-weight: 600;
         }
 
@@ -184,113 +169,91 @@
         }
 
         .content-section p {
-        	font-family: 'Jetbrains Mono', monospace;
+            font-family: 'Jetbrains Mono', monospace;
             font-size: 1rem;
             line-height: 1.6;
             color: var(--text-light);
             opacity: 0.7;
         }
-        
-        button {
-        	cursor: pointer;
-        }
-        
-        .edit-btn {
-        	opacity: 0;
-        	background: none;
-        	border: none;
-        }
-        
-        .edit-name-popup {
-        	position: fixed;
-        	top: 0;
-        	left: 0;
-        	right: 0;
-        	bottom: 0;
-        	z-index: 2;
-        	display: none;
-        	justify-content: center;
-        	align-items: center;
-        	background-color: rgb(0,3,84,0.65);
-        	backdrop-filter: blur(10px);
-        }
-        
-        /*.edit-name-popup.visible {
-        	display: flex;
-        }*/
-        
-        .popup-background {
-        	position: absolute;
-        	width: 100%;
-        	height: 100%;
-        	background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='noiseFilter'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23noiseFilter)' /></svg>");
-        	opacity: 0.6;
-        }
-        
-        .popup-inner {
-        	background-color: #FFFCEC;
-        	border-radius: 5px; 
-        	width: 450px;
-        	padding: 1.5rem 1.7rem;
-        	color: #3139FB;
-        	display: flex;
-        	flex-direction: column;
-        	z-index: 2;
-        	box-shadow: 30px 25px 56px 0px rgba(0,3,84,0.5);
-        }
-        
-        .popup-inner h2 {
-       		font-size: 2rem;
-       		font-weight: 800;
-       		letter-spacing: -2px;
-       		margin-bottom: 1rem;
-       	}
-       	
-       	.popup-inner input {
-       		margin-top: 1rem;
-       		font-size: 1.1rem;
-       		padding: 0.5rem;
-       		border-radius: 5px;
-       		border: solid 1px #3139FB;
-       		
-       	}
-       	
-       	.action-btn-grp {
-       		display: flex;
-       		flex-direction: row;
-       		justify-content: flex-end;
-       		margin-top: 1.5rem;
-       		gap: 1rem;
-       	}
-       	
-       	.save-btn {
-       		background-color: #3139FB;
-       		color: white;
-       		font-size: 0.9rem;
-       		padding: 0.6rem 0.8rem;
-       		border-radius: 3px;
-       		border: none;
-       	}
-       	
-       	.discard-btn {
-       		background-color: #3139FB;
-       		color: white;
-       		font-size: 0.9rem;
-       		padding: 0.3rem;
-       		border-radius: 3px;
-       		border: none;
-       		padding: 0.6rem 0.8rem;
-       	}
 
-        @media (max-width: 900px) {
-            .sidebar {
-                width: 240px;
-                padding: 25px 15px;
-            }
-            
-            .content {
-                padding: 25px 20px;
-            }
+        .edit-btn {
+            opacity: 0;
+            background: none;
+            border: none;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        /* Edit Form Section */
+        .edit-form-container {
+            background-color: white;
+            padding: 2rem;
+            max-width: 900px;
+            margin: 3rem auto;
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .edit-form-container h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .edit-form {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .input-group {
+            flex: 1 1 45%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #001B2E;
+        }
+
+        .input-group input[type="text"],
+        .input-group input[type="file"] {
+            padding: 0.6rem 0.8rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: center;
+        }
+
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .submit-btn:hover {
+            background-color: #1d3646;
         }
 
         @media (max-width: 768px) {
@@ -301,66 +264,42 @@
             .sidebar {
                 width: 100%;
             }
-            
-            .skills-list {
-                justify-content: flex-start;
-            }
-        }
 
-        @media (max-width: 480px) {
-            .profile-header {
+            .content {
+                padding: 30px;
+            }
+
+            .form-row {
                 flex-direction: column;
-                text-align: center;
-            }
-
-            .profile-pic {
-                margin-right: 0;
-                margin-bottom: 15px;
-            }
-
-            .profile-location {
-                justify-content: center;
-            }
-            
-            .content-section h2 {
-                font-size: 20px;
-            }
-            
-            .section-title {
-                font-size: 16px;
             }
         }
     </style>
 </head>
-<body>
-<jsp:include page="NewHeader.jsp"/>
-	<div class="profile-header">
-            <div class="profile-pic">
-                <img src="${pageContext.request.contextPath}/images/${profile.displayPicture}" alt="ProfilePicture">
-            </div>
-            <div class="profile-name">
-                
-                <div class="profile-name">
-                    <h1>${user.username}</h1>
-                    <p class="profile-fullname"><h2>${member.firstName}  ${member.lastName}</h2></p>
-                </div>
-					<button data-type="name" class="edit-btn"><img src="${pageContext.request.contextPath}/images/Edit Vector blue.svg" alt="Edit Profile" style="padding-left: 20px;"></button>                
-                
-                <div class="profile-location">
-                    <!--  <img src="${pageContext.request.contextPath}/images/Location vector.svg" alt="location">-->
-                  
-                </div>
-            </div>
-    </div>
-    <div class="profile-container">
 
+<body>
+    <jsp:include page="NewHeader.jsp"/>
+
+    <div class="profile-header">
+        <div class="profile-pic">
+            <img src="${pageContext.request.contextPath}/images/logos/${profile.displayPicture}" alt="ProfilePicture">
+       
+        </div>
+        <div class="profile-name">
+            <h1>${user.username}</h1>
+            <p class="profile-fullname"><h2>${member.firstName} ${member.lastName}</h2></p>
+       
+            <a href="#profile">Edit Profile</a>
+           </div>
+      
+    </div>
+
+    <div class="profile-container">
         <div class="main-content">
             <div class="sidebar">
                 <div class="contact-info">
-                    	<div class="section-title">
-                    		Contact info:
-                    		<button data-type="contact" class="edit-btn"><img src="${pageContext.request.contextPath}/images/Edit Vector.svg" alt="Edit Profile" style="padding-left: 20px;"></button>          
-                    	</div>
+                    <div class="section-title">
+                        Contact info:
+                    </div>
                     <div class="contact-item">+977 ${member.phonenumber}</div>
                     <div class="contact-item">${member.email}</div>
                 </div>
@@ -368,88 +307,89 @@
                 <div class="skills-section">
                     <div class="section-title">
                         Skills
-                    <button data-type="Skills" class="edit-btn"><img src="${pageContext.request.contextPath}/images/Edit Vector.svg" alt="Edit Profile" style="padding-left: 20px;"></button>
                     </div>
                     <div class="skills-list">
-                        <div class="skill-tag">Graphic Design</div>
-                        <div class="skill-tag">HTML / CSS</div>
-                        <div class="skill-tag">HTML / CSS</div>
-                        <div class="skill-tag">Graphic Design</div>
+                        <div class="skill-tag">${profile.skills}</div>
+                
                     </div>
                 </div>
             </div>
 
             <div class="content">
                 <div class="content-section">
-                    <h2>${profile.occupation}
-                    	<button data-type="title" class="edit-btn"><img src="${pageContext.request.contextPath}/images/Edit Vector blue.svg" alt="Edit Profile" style="padding-left: 20px;">                
-                    </h2>
+                    <h2>Occupation:</h2>
+                    <p>${profile.occupation}</p>
+                </div>
+                <div class="content-section">
+                    <h2>Description:</h2>
                     <p>${profile.profileDescription}</p>
                 </div>
-
                 <div class="content-section">
                     <h2>Experience:</h2>
-                    <!-- Content for recent jobs will go here -->
                     <p>${profile.experience}</p>
                 </div>
-
                 <div class="content-section">
                     <h2>Achievements:</h2>
-                    <!-- Content for reviews will go here -->
-                     <p>${profile.achievements}</p>
+                    <p>${profile.achievements}</p>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Edit Profile Form -->
+    <div class="edit-form-container" id="profile">
+        <h1>Edit Your Profile</h1>
+        <form method="post" action="updateProfile" enctype="multipart/form-data" class="edit-form">
+        	<div class="form-row">
+        	 <div class="input-group">
+                    <label for="profilepicture">Upload Profile Picture</label>
+                    <input type="file" id="profilepicture" name="profilepicture" accept="image/*" >
+                </div>
+               
+                <div class="input-group">
+                    <label for="Achievements">Occupation</label>
+                    <input type="text" id="Occupation" name="Occupation" value="${profile.occupation}">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="Experience">Email</label>
+                    <input type="text" id="email" name="email" value="${member.email}">
+                </div>
+                <div class="input-group">
+                    <label for="Achievements">Contact Number</label>
+                    <input type="text" id="phonenumber" name="phonenumber" value="${member.phonenumber}">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="Experience">Experience</label>
+                    <input type="text" id="Experience" name="Experience" value="${profile.experience}">
+                </div>
+                <div class="input-group">
+                    <label for="Achievements">Achievements</label>
+                    <input type="text" id="Achievements" name="Achievements" value="${profile.achievements}">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="input-group">
+                    <label for="Skills">Skills</label>
+                    <input type="text" id="Skills" name="Skills" value="${profile.skills}">
+                </div>
+                <div class="input-group">
+                    <label for="Skills">Description</label>
+                    <input type="text" id="Description" name="Description" value="${profile.profileDescription}">
+                    
+                </div>
+               
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="submit-btn" name="registerbutton">Submit</button>
+            </div>
+        </form>
+    </div>
 </body>
-
-<div class = "edit-name-popup">
-	<div class = "popup-background"></div>
-	<div class="popup-inner">
-		<h2>Change your name</h2>
-		<p>Change your name to something good and professional</p>
-		<input type="text" id="edit-name-input" name="edit-fname">
-		<div class="action-btn-grp">
-			<button type="submit" class="save-btn">Save</button>
-			<button type="button" class="discard-btn" >Discard</button>
-		</div>
-	</div>
-	
-</div>
-
-<script>
-	function showPopup() {
-		popup.classList.add('visible');
-	}
-	
-	function hidePopup() {
-		popup.classList.remoev('visible');
-	}
-
-	document.querySelectorAll('.edit-btn').forEach(button => {
-		button.addEventListener('click', function() {
-			const type = this.dataset.type;
-			const popup = document.querySelector('.edit-name-popup');
-			const header = popup.querySelector('h2');
-			
-			if (type === 'name') {
-				header.textContent = 'Change your name';
-			} else if (type === 'contact') {
-				header.textContent = 'Change your contact'; 
-			} else if (type === 'title') {
-				header.textContent = 'Change your title';
-			} else if (type === 'skills') {
-				header.textContent = 'Change your skills';
-			}
-			
-			popup.style.display = 'flex';
-			
-		})
-	})
-	
-	document.querySelector('.discard-btn').addEventListener('click', () => {
-		document.querySelector('.edit-name-popup').style.display = 'none';
-	});
-</script>
-
 </html>

@@ -1,25 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    pageEncoding="UTF-8"%>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Register your account</title>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/register.css" />
-</head>
-<body>
-	<c:if test="${not empty alertMessage}">
-    	<script>
-     	   alert("${alertMessage}");
-   	 	</script>
-	</c:if>
-	<div class="login-box">
-		<h2>Registration Form</h2>
-	<!-- Submit form to processLogin.jsp -->
-    	<form action="register" method="post">
 		    <div class="maincontainer">
 		        <div class="container1">
 		            <label for="firstname">First Name:</label>
@@ -56,8 +37,3 @@
 		    </div>
 
     		<button type="submit" class="register-button" name="registerbutton">Submit</button>
-</form>
-
-	</div>
-</body>
-</html>

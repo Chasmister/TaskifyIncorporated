@@ -45,11 +45,16 @@ public class Profilepage extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
+	 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	        String popupAction = request.getParameter("popupAction");
 
-		
-	}
+	        if ("show".equals(popupAction)) {
+	            request.setAttribute("showEditPopup", true);
+	        }
+
+	        // Set other necessary data (user/member/profile) here...
+
+	        request.getRequestDispatcher("/WEB-INF/pages/profiletest.jsp").forward(request, response);
+	    }
 
 }
