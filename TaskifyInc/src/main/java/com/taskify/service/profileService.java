@@ -19,6 +19,7 @@ public class profileService {
         }
     }
 
+    // Create profile (no changes needed here, already handles displayPicture well)
     public int createProfile(profileModel profile, int userId, int memberId) throws SQLException, ClassNotFoundException {
         String profileSql = "INSERT INTO profiles (profile_Occupation, Profile_Description, Display_Picture, profile_Skills, Achievements, Experience) " +
                             "VALUES (?, ?, ?, ?, ?, ?)";
@@ -31,7 +32,7 @@ public class profileService {
             // Set parameters for profile insertion
             profilePs.setString(1, profile.getOccupation());
             profilePs.setString(2, profile.getProfileDescription());
-            profilePs.setString(3, profile.getDisplayPicture());
+            profilePs.setString(3, profile.getDisplayPicture()); // We use the displayPicture from the model
             profilePs.setString(4, profile.getSkills());
             profilePs.setString(5, profile.getAchievements());
             profilePs.setString(6, profile.getExperience());
@@ -42,7 +43,7 @@ public class profileService {
                 try (ResultSet rs = profilePs.getGeneratedKeys()) {
                     if (rs.next()) {
                         int profileId = rs.getInt(1); // Auto-generated profileId
-                        profile.setProfileId(profileId); // ✅ Set it on the model
+                        profile.setProfileId(profileId); // Set it on the model
 
                         // Now insert into the mapping table
                         try (PreparedStatement mappingPs = conn.prepareStatement(mappingSql)) {
@@ -63,6 +64,7 @@ public class profileService {
         return -1; // Error
     }
 
+    // Retrieve profile by userId (No changes needed here)
     public profileModel getProfileById(int userId) throws SQLException, ClassNotFoundException {
         String findProfileIdSql = "SELECT profile_id FROM users_members_profiles WHERE user_id = ?";
         String getProfileSql = "SELECT * FROM profiles WHERE profile_id = ?";
@@ -71,19 +73,19 @@ public class profileService {
         try (Connection conn = TaskifyDBconfig.getDbConnection();
              PreparedStatement findProfileStmt = conn.prepareStatement(findProfileIdSql)) {
 
-            // Step 1: Get profile_id from junction table
             findProfileStmt.setInt(1, userId);
             ResultSet rs1 = findProfileStmt.executeQuery();
+            System.out.println("worked 1");
 
             if (rs1.next()) {
                 int profileId = rs1.getInt("profile_id");
-
-                // Step 2: Use profile_id to get full profile details
+                System.out.println("worked 2");
                 try (PreparedStatement getProfileStmt = conn.prepareStatement(getProfileSql)) {
                     getProfileStmt.setInt(1, profileId);
                     ResultSet rs2 = getProfileStmt.executeQuery();
 
                     if (rs2.next()) {
+                    	 System.out.println("worked 3");
                         profile = new profileModel();
                         profile.setProfileId(rs2.getInt("profile_id"));
                         profile.setOccupation(rs2.getString("profile_occupation"));
@@ -101,25 +103,49 @@ public class profileService {
     }
 
     public boolean updateProfile(profileModel profile) throws SQLException, ClassNotFoundException {
-        String sql = "UPDATE profiles SET profile_occupation = ?, profile_description = ?, display_picture = ?, achievements = ?, experience = ? WHERE profile_id = ?";
+        // First, get the current profile from the database using profileId
+        String getCurrentDisplayPicSql = "SELECT display_picture FROM profiles WHERE profile_id = ?";
+        
+        String currentDisplayPicture = null;
+        try (Connection conn = TaskifyDBconfig.getDbConnection();
+             PreparedStatement stmtGetCurrentPic = conn.prepareStatement(getCurrentDisplayPicSql)) {
+
+            stmtGetCurrentPic.setInt(1, profile.getProfileId());
+            ResultSet rs = stmtGetCurrentPic.executeQuery();
+
+            if (rs.next()) {
+                currentDisplayPicture = rs.getString("display_picture");
+            }
+        }
+
+        // Now, check if a new display picture is provided; otherwise, use the old one.
+        String newDisplayPicture = profile.getDisplayPicture();
+        if (newDisplayPicture == null || newDisplayPicture.isEmpty() || newDisplayPicture.equals("default.png")) {
+            // If no new display picture, retain the old one
+            profile.setDisplayPicture(currentDisplayPicture);
+        }
+
+        // Proceed with the update using the correct display picture
+        String sqlUpdateProfile = "UPDATE profiles SET profile_occupation = ?, profile_description = ?, display_picture = ?, achievements = ?, experience = ? WHERE profile_id = ?";
 
         try (Connection conn = TaskifyDBconfig.getDbConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmtUpdateProfile = conn.prepareStatement(sqlUpdateProfile)) {
 
-            stmt.setString(1, profile.getOccupation());
-            stmt.setString(2, profile.getProfileDescription());
-            stmt.setString(3, profile.getDisplayPicture());
-            stmt.setString(4, profile.getAchievements());
-            stmt.setString(5, profile.getExperience());
-            stmt.setInt(6, profile.getProfileId());
+            stmtUpdateProfile.setString(1, profile.getOccupation());
+            stmtUpdateProfile.setString(2, profile.getProfileDescription());
+            stmtUpdateProfile.setString(3, profile.getDisplayPicture()); // Use the correct display picture
+            stmtUpdateProfile.setString(4, profile.getAchievements());
+            stmtUpdateProfile.setString(5, profile.getExperience());
+            stmtUpdateProfile.setInt(6, profile.getProfileId()); // Use the profile_id from the model
 
-            System.out.println("Updating profile with ID: " + profile.getProfileId());
-
-            int rowsUpdated = stmt.executeUpdate();
-            return rowsUpdated > 0;
+            int rowsUpdated = stmtUpdateProfile.executeUpdate();
+            return rowsUpdated > 0; // Return true if update was successful
         }
     }
 
+
+
+    // Update User method (no changes needed here)
     public boolean updateUser(userModel user) throws SQLException, ClassNotFoundException {
         String sql = "UPDATE users SET user_name = ? WHERE user_id = ?";
 
@@ -128,18 +154,17 @@ public class profileService {
 
             stmt.setString(1, user.getusername());
             stmt.setInt(2, user.getuserid());
-          
-            
-            System.out.println(user.getusername());
 
+            System.out.println(user.getusername());
             System.out.println("Updating user with ID: " + user.getuserid());
 
             int rowsUpdated = stmt.executeUpdate();
-           
-            return rowsUpdated<0;
+
+            return rowsUpdated > 0; // Return true if update was successful
         }
     }
 
+    // Update member info method (no changes needed here)
     public boolean updateMemberInfo(memberModel member) throws SQLException, ClassNotFoundException {
         String sql = "UPDATE members SET member_email = ?, member_contactnumber = ? WHERE member_id = ?";
 
@@ -148,17 +173,12 @@ public class profileService {
 
             stmt.setString(1, member.getEmail());
             stmt.setString(2, member.getPhonenumber());
-            System.out.println(member.getPhonenumber());
             stmt.setInt(3, member.getId());
-            System.out.println(stmt);
-       
+
+            System.out.println("Updating member with ID: " + member.getId());
+
             int rowsUpdated = stmt.executeUpdate();
-            
-            return rowsUpdated > 0;
-          
+            return rowsUpdated > 0; // Return true if update was successful
         }
     }
-    
-
 }
-

@@ -49,60 +49,54 @@ public class UpdateProfile extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    try {
-	        profileService = new profileService(); 
+	        profileService = new profileService();
 
-	       
-
-	        // 🔑 Get the original profile, member, and user from session (must contain profileId, userId, memberId)
 	        HttpSession session = request.getSession(false);
-	        profileModel sessionProfile = (profileModel) session.getAttribute("profile");
-	        
-	        
-	      // userModel sessionUser = (userModel) session.getAttribute("user");
-	        
-	        memberModel sessionMember = (memberModel) session.getAttribute("member");
-	        memberModel member = RequestModelExtractorUtil.extractMemberinfo(request, sessionMember);
-	        
-	      
-	        // Extract the updated profile, member, and user data from the request
-	        profileModel profile = RequestModelExtractorUtil.extractProfileModel(request);
-	        //userModel user = RequestModelExtractorUtil.extractUserInfo(request,sessionUser);
-	      
-
-	        if (sessionProfile == null || sessionMember == null) {
-	            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "No user, member, or profile found in session.");
+	        if (session == null) {
+	            response.sendRedirect("login.jsp");
 	            return;
 	        }
 
-	        // ✅ Set the profileId, memberId, and userId on the respective models to be updated
-	        profile.setProfileId(sessionProfile.getProfileId());
-	        member.setId(sessionMember.getId()); // Assuming member ID is needed for updating
-	        //user.setuser_ID(sessionUser.getuserid()); // Assuming user ID is needed for updating
+	        profileModel sessionProfile = (profileModel) session.getAttribute("profile");
+	        memberModel sessionMember = (memberModel) session.getAttribute("member");
 
-	        // Update the profile, member, and user in the database
-	        boolean profileUpdated = profileService.updateProfile(profile);
-	        boolean memberUpdated = profileService.updateMemberInfo(member);
-	        
+	        profileModel profile = RequestModelExtractorUtil.extractProfileModel(request);
+	        memberModel member = RequestModelExtractorUtil.extractMemberinfo(request);
 
-	        if (profileUpdated || memberUpdated) {
-	            // 🔁 Refresh session with updated profile, member, and user
-	            if (profileUpdated) {
-	                session.setAttribute("profile", profile);
-	            }
-	            if (memberUpdated) {
-	                session.setAttribute("member", member);
-	            }
-	           
+	        if (sessionProfile == null || sessionMember == null) {
+	            request.setAttribute("errorMessage", "Session expired. Please log in again.");
+	            request.getRequestDispatcher("/WEB-INF/pages/profiletest.jsp").forward(request, response);
+	            return;
 	        }
 
-	        request.setAttribute("updateSuccess", true); // Indicate that the update was successful
-	        request.getRequestDispatcher("/WEB-INF/pages/profiletest.jsp").forward(request, response);
+	        profile.setProfileId(sessionProfile.getProfileId());
+	        member.setId(sessionMember.getId());
 
-	    } catch (SQLException | ClassNotFoundException e) {
+	        boolean profileUpdated = profileService.updateProfile(profile);
+	        boolean memberUpdated = profileService.updateMemberInfo(member);
+
+	        if (profileUpdated || memberUpdated) {
+	            if (profileUpdated) session.setAttribute("profile", profile);
+	            if (memberUpdated) session.setAttribute("member", member);
+	            request.setAttribute("updateSuccess", true);
+	        }
+
+	    } catch (SQLException sqlEx) {
+	        if (sqlEx.getMessage().contains("Data too long")) {
+	            request.setAttribute("errorMessage", "One of the fields has too much data. Please shorten the input.");
+	        } else {
+	            request.setAttribute("errorMessage", "A database error occurred: " + sqlEx.getMessage());
+	        }
+	        sqlEx.printStackTrace();
+	    } catch (Exception e) {
+	        request.setAttribute("errorMessage", "An unexpected error occurred: " + e.getMessage());
 	        e.printStackTrace();
-	        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Profile update failed.");
 	    }
+
+	    // Always forward to the JSP so it shows messages
+	    request.getRequestDispatcher("/WEB-INF/pages/profiletest.jsp").forward(request, response);
 	}
+
 
 
 

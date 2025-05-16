@@ -69,6 +69,8 @@ public class TaskifyRegistrationController extends HttpServlet {
 			session.setAttribute("user", userModelDetails);
 			session.setAttribute("member", memberModelDetails);
 			
+			request.setAttribute("user", userModelDetails);
+			request.setAttribute("member", memberModelDetails);
 			
 
 			if (isAdded == null) {

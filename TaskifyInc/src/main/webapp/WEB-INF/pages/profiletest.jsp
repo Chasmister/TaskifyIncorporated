@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -277,7 +280,16 @@
 </head>
 
 <body>
+  
     <jsp:include page="NewHeader.jsp"/>
+
+    <%-- TEMP: Test if error message is set correctly --%>
+    <%
+        request.setAttribute("errorMessage", "Test error: something went wrong.");
+    %>
+    <p style="color: red;"><%= request.getAttribute("errorMessage") %></p>
+
+ 
 
     <div class="profile-header">
         <div class="profile-pic">

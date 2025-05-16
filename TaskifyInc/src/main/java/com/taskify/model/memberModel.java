@@ -12,7 +12,7 @@ public class memberModel {
     private String email;
     private String phonenumber;
     private String password;
-	private int User_ID;
+	
 
     // Constructor
     public memberModel( String firstName, String lastName, LocalDate dob, String gender,
@@ -25,7 +25,7 @@ public class memberModel {
         this.gender = gender;
         this.email = email;
         this.phonenumber = phonenumber;
-        this.User_ID=-1;
+        
     }
     
 
@@ -106,11 +106,5 @@ public class memberModel {
         this.password = password;
     }
     
-    public void setUser_ID(int userid) {
-    	this.User_ID=userid;
-    	
-    }
-    public int getUser_ID() {
-    	return this.User_ID;
-    }
+    
 }
