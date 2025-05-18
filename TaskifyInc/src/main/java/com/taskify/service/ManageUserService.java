@@ -30,7 +30,7 @@ public class ManageUserService {
             		);
             	
             	member.setId(rs.getInt("Member_ID")); 
-            	
+            	member.setUser_ID(rs.getInt("User_ID"));
 
             	users.add(member);
             }
@@ -76,7 +76,7 @@ public class ManageUserService {
                     rs.getString("Member_ContactNumber")
                 );
                 member.setId(rs.getInt("Member_ID"));
-               
+                member.setUser_ID(rs.getInt("User_ID"));
             }
 
         } catch (Exception e) {
