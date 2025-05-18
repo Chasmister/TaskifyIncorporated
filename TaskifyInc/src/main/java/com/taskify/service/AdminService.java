@@ -26,17 +26,15 @@ public class AdminService {
     }
 
     public void insertAdmin(AdminModel admin) throws Exception {
-        String insertAdminSQL = "INSERT INTO admins (User_ID, First_Name, Last_Name, Email, Password) VALUES (?, ?, ?, ?, ?)";
+    	String insertAdminSQL = "INSERT INTO `admins`(`Admin_FirstName`, `Admin_LastName`, `Admin_Email`) VALUES (?, ?, ?)";
 
-        try (Connection conn = TaskifyDBconfig.getDbConnection();
-             PreparedStatement stmt = conn.prepareStatement(insertAdminSQL)) {
-            stmt.setInt(1, admin.getUserId());
-            stmt.setString(2, admin.getFirstName());
-            stmt.setString(3, admin.getLastName());
-            stmt.setString(4, admin.getEmail());
-            stmt.setString(5, admin.getPassword());
+    	try (Connection conn = TaskifyDBconfig.getDbConnection();
+    	     PreparedStatement stmt = conn.prepareStatement(insertAdminSQL)) {
+    	    stmt.setString(1, admin.getFirstName());
+    	    stmt.setString(2, admin.getLastName());
+    	    stmt.setString(3, admin.getEmail());
 
-            stmt.executeUpdate();
-        }
+    	    stmt.executeUpdate();
+    	}
     }
 }
