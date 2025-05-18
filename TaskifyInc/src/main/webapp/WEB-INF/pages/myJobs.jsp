@@ -577,75 +577,9 @@
                 </div>
             </div>
             
-            <!-- Applications container (hidden by default) -->
-            <div class="applications-container">
-                <div class="applications-header">
-                    <div class="applications-title">Applicants (15)</div>
-                </div>
-                
-                <!-- Sample Applicant -->
-                <div class="applicant-card">
-                    <div class="applicant-info">
-                        <div class="applicant-pic">
-                            <img src="/api/placeholder/40/40" alt="Applicant Photo">
-                        </div>
-                        <div class="applicant-details">
-                            <h4>John Smith</h4>
-                            <p>Senior Designer at Creative Agency</p>
-                            <div class="applicant-skills">
-                                <span class="skill-tag">Figma</span>
-                                <span class="skill-tag">Adobe XD</span>
-                                <span class="skill-tag">Sketch</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="applicant-actions">
-                        <span class="application-date">Applied 2 days ago</span>
-                        <button class="action-btn view-btn">View</button>
-                        <button class="action-btn accept-btn">Accept</button>
-                        <button class="action-btn reject-btn">Reject</button>
-                    </div>
-                </div>
-            </div>
+          
             
-            <!-- Additional job cards can be added here -->
-            <div class="job-card">
-                <img src="/api/placeholder/60/60" alt="Company Logo" class="company-logo">
-                
-                <div class="job-details">
-                    <h3 class="job-title">Frontend Developer</h3>
-                    <p class="job-company">WebTech Solutions</p>
-                    <div class="job-meta">
-                        <span class="meta-tag">On-site</span>
-                        <span class="meta-tag">$35/hr</span>
-                        <span class="meta-tag">June 1, 2025 - December 1, 2025</span>
-                    </div>
-                </div>
-                <div class="job-status">
-                    <div class="status-badge status-active">Active</div>
-                    <p class="applications-counter">8 Applications</p>
-                    <button class="toggle-applications">View Applicants</button>
-                </div>
-            </div>
             
-            <div class="job-card">
-                <img src="/api/placeholder/60/60" alt="Company Logo" class="company-logo">
-                
-                <div class="job-details">
-                    <h3 class="job-title">Content Writer</h3>
-                    <p class="job-company">MediaPulse</p>
-                    <div class="job-meta">
-                        <span class="meta-tag">Remote</span>
-                        <span class="meta-tag">$20/hr</span>
-                        <span class="meta-tag">May 10, 2025 - July 10, 2025</span>
-                    </div>
-                </div>
-                <div class="job-status">
-                    <div class="status-badge status-expired">Expired</div>
-                    <p class="applications-counter">0 Applications</p>
-                    <button class="toggle-applications">View Applicants</button>
-                </div>
-            </div>
         </div>
     </div>
     
