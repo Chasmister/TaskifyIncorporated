@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taskify - My Jobs</title>
+    <title>Taskify - Job Applications</title>
     <style>
         /* Scrollbar Styling */
         ::-webkit-scrollbar {
@@ -532,15 +532,7 @@
                 <div class="profile-stats">3 Active Jobs</div>
             </div>
             
-            <div class="guide-section">
-                <h4>Posting Tips</h4>
-                <ul>
-                    <li>Write clear job descriptions</li>
-                    <li>Include specific requirements</li>
-                    <li>Set competitive compensation</li>
-                    <li>Respond to applicants promptly</li>
-                </ul>
-            </div>
+           
         </div>
         
         <!-- Scrollable Content Area -->
@@ -566,7 +558,7 @@
             <!-- Job Cards List -->
            
 				    <div class="job-card">
-				     <c:forEach var="job" items="${jobList}">
+				     <c:forEach var="job" items="${ApplicationList}">
 				        <img class="company-logo" src="${pageContext.request.contextPath}/logos/${job.companyPicture}" alt="Logo">
 				        <div class="job-details">
 				            <div class="job-title">${job.jobName}</div>
@@ -584,8 +576,7 @@
 				        <div class="job-status">
 				            <span class="status-badge status-active">Active</span>
 				            <span class="applications-counter">0 Applicants</span>
-				           <a href="${pageContext.request.contextPath}/ApplicationList?jobId=${job.jobId}" class="toggle-applications">View Applicants</a>
-
+				            <button class="toggle-applications">View Applicants</button>
 				        </div>
 				        </c:forEach>
 				    </div>

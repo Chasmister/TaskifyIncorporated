@@ -86,7 +86,8 @@ public class TaskifyRegistrationController extends HttpServlet {
 			    request.getSession().setAttribute("user", userModelDetails);
 			    request.getSession().setAttribute("member",   memberModelDetails);
 
-			    request.getRequestDispatcher("/WEB-INF/pages/BuildProfile.jsp").forward(request, response);
+			    handleSuccess(request,response,"user registered successfully, Now build your profile","BuildProfile");
+			    //request.getRequestDispatcher("/WEB-INF/pages/BuildProfile.jsp").forward(request, response);
 			} else {
 			    handleError(request, response, "Could not register your account. User already exists!");
 			}
@@ -166,23 +167,21 @@ public class TaskifyRegistrationController extends HttpServlet {
 
 	
 	 
-	    private void handleSuccess(HttpServletRequest req, HttpServletResponse resp, String message, String redirectPage)
-				throws ServletException, IOException {
-			req.setAttribute("alertMessage", message);
-			req.getRequestDispatcher(redirectPage).forward(req, resp);
-		}
+	private void handleSuccess(HttpServletRequest req, HttpServletResponse resp, String message, String redirectPage)
+	        throws ServletException, IOException {
+	    req.setAttribute("message", message); // The message to be displayed
+	    req.setAttribute("redirectUrl", redirectPage); // Where to redirect after success
+	    req.setAttribute("messageType", "success"); // Message type for success
+	    req.getRequestDispatcher("/WEB-INF/pages/message.jsp").forward(req, resp); // Forward to message.jsp
+	}
 
-		private void handleError(HttpServletRequest req, HttpServletResponse resp, String message)
-				throws ServletException, IOException {
-			
-			req.setAttribute("firstName", req.getParameter("firstName"));
-			req.setAttribute("lastName", req.getParameter("lastName"));
-			req.setAttribute("username", req.getParameter("username"));
-			req.setAttribute("dob", req.getParameter("dob"));
-			req.setAttribute("gender", req.getParameter("gender"));
-			req.setAttribute("email", req.getParameter("email"));
-			req.setAttribute("phoneNumber", req.getParameter("phoneNumber"));
-			req.setAttribute("alertMessage", message);
-			req.getRequestDispatcher("/WEB-INF/pages/newRegister.jsp").forward(req, resp);
-		}
+
+	private void handleError(HttpServletRequest req, HttpServletResponse resp, String message)
+	        throws ServletException, IOException {
+	    req.setAttribute("message", message); // The error message
+	    req.setAttribute("redirectUrl", "register"); // Stay on the registration page
+	    req.setAttribute("messageType", "error"); // Message type for error
+	    req.getRequestDispatcher("/WEB-INF/pages/message.jsp").forward(req, resp); // Forward to message.jsp
+	}
+
 }

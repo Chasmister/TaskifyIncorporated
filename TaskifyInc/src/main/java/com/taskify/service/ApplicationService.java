@@ -10,6 +10,7 @@ import java.util.List;
 import com.taskify.config.TaskifyDBconfig;
 import com.taskify.model.ApplicationModel;
 import com.taskify.model.JobModel;
+import com.taskify.model.profileModel;
 import com.taskify.model.userModel;
 
 public class ApplicationService {
@@ -22,7 +23,89 @@ public class ApplicationService {
 	        ex.printStackTrace();
 	    }
 	}
-	
+	public List<ApplicationModel> getMyApplications(int userid, int jobid) throws SQLException, ClassNotFoundException {
+	    List<ApplicationModel> applicationList = new ArrayList<>();
+	    
+	    // Check if the database connection is available
+	    if (dbConn == null) {
+	        System.err.println("Database connection is not available.");
+	        return applicationList;
+	    }
+
+	    // Query to get application IDs related to the user and job
+	    String findIdQuery = "SELECT application_ID FROM users_members_jobs_applications WHERE user_ID=? AND job_ID=?";
+	    
+	    try (PreparedStatement stmt = dbConn.prepareStatement(findIdQuery)) {
+	        stmt.setInt(1, userid);
+	        stmt.setInt(2, jobid);
+	        
+	        try (ResultSet rs = stmt.executeQuery()) {
+	            while (rs.next()) {
+	                int applicationId = rs.getInt("application_ID");
+
+	                // Fetch application details
+	                String getApplicationsQuery = "SELECT * FROM applications WHERE application_ID=?";
+	                try (PreparedStatement stmt2 = dbConn.prepareStatement(getApplicationsQuery)) {
+	                    stmt2.setInt(1, applicationId);
+	                    
+	                    try (ResultSet rs2 = stmt2.executeQuery()) {
+	                        if (rs2.next()) {
+	                            String applicationStatus = rs2.getString("application_Status");
+
+	                            // Fetch user details (e.g., username, etc.)
+	                            String getUserQuery = "SELECT * FROM users WHERE user_ID=?";
+	                            userModel user = null;
+	                            try (PreparedStatement stmt3 = dbConn.prepareStatement(getUserQuery)) {
+	                                stmt3.setInt(1, userid);
+	                                
+	                                try (ResultSet rs3 = stmt3.executeQuery()) {
+	                                    if (rs3.next()) {
+	                                        String username = rs3.getString("username");
+	                                        String profilePicture = rs3.getString("profile_picture");
+	                                        // Create the userModel object
+	                                        user = new userModel(username, rs3.getString("password"));
+	                                        user.setuser_ID(rs3.getInt("user_ID"));
+	                                        // Set user type (you can use the appropriate field from your DB)
+	                                        user.setusertype(rs3.getString("usertype"));
+	                                    }
+	                                }
+	                            }
+
+	                            // Fetch profile details for the user
+	                            String getProfileQuery = "SELECT * FROM profiles WHERE user_ID=?";
+	                            profileModel profile = null;
+	                            try (PreparedStatement stmt4 = dbConn.prepareStatement(getProfileQuery)) {
+	                                stmt4.setInt(1, userid);
+	                                
+	                                try (ResultSet rs4 = stmt4.executeQuery()) {
+	                                    if (rs4.next()) {
+	                                        String occupation = rs4.getString("occupation");
+	                                        String profileDescription = rs4.getString("profile_description");
+	                                        String skills = rs4.getString("skills");
+	                                        String displayPicture = rs4.getString("display_picture");
+	                                        String achievements = rs4.getString("achievements");
+	                                        String experience = rs4.getString("experience");
+	                                        
+	                                        // Create the profileModel object using the fetched profile data
+	                                        profile = new profileModel(occupation, profileDescription, displayPicture, skills, achievements, experience);
+	                                    }
+	                                }
+	                            }
+
+	                            // Create and add ApplicationModel with user and profile data
+	                            ApplicationModel myApplication = new ApplicationModel(applicationId, applicationStatus, user, profile);
+	                            applicationList.add(myApplication);
+	                        }
+	                    }
+	                }
+	            }
+	        }
+	    }
+
+	    return applicationList;
+	}
+
+
 	public List<ApplicationModel> getMyApplications(userModel userdata) throws SQLException, ClassNotFoundException {
 	    List<ApplicationModel> applicationList = new ArrayList<>();
 	    if (dbConn == null) {

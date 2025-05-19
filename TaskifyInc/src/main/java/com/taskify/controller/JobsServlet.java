@@ -23,8 +23,16 @@ public class JobsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            List<JobModel> jobList = jobService.getAllJobs();
-            HttpSession session = request.getSession(false);
+        	 HttpSession session = request.getSession(false);
+            if (session == null || session.getAttribute("User_ID") == null) {
+                response.sendRedirect("login.jsp");
+                return;
+            }
+
+            int userId = (int) session.getAttribute("User_ID");
+          
+            List<JobModel> jobList = jobService.getAllJobs(userId);
+
             userModel user = (userModel) session.getAttribute("user");
 
             request.setAttribute("jobList", jobList);

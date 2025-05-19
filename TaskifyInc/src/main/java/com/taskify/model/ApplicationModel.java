@@ -4,6 +4,8 @@ public class ApplicationModel {
     private int application_Id;
     private String application_Status;
     private JobModel job;
+    private userModel user;
+    private profileModel profile;
 
     // Constructor
     public ApplicationModel(int application_Id, String application_Status) {
@@ -15,6 +17,13 @@ public class ApplicationModel {
         this.application_Id = application_Id;
         this.application_Status = application_Status;
         this.job=job;
+    }
+    
+    public ApplicationModel(int application_Id, String application_Status,userModel user,profileModel profile) {
+        this.application_Id = application_Id;
+        this.application_Status = application_Status;
+        this.user=user;
+        this.profile=profile;
     }
 
     // Getter for application_Id
@@ -42,6 +51,13 @@ public class ApplicationModel {
 
     public void setJob(JobModel job) {
         this.job = job;
+    }
+    
+    public userModel getUser() {
+    	return user;
+    }
+    public profileModel getProfile() {
+    	return profile;
     }
 
 }

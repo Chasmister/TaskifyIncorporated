@@ -82,7 +82,8 @@ public class Addjobs extends HttpServlet {
             if (isJobAdded) {
                 // If the job is added successfully, redirect or forward to a confirmation page
                 request.setAttribute("message", "Job successfully added!");
-                request.getRequestDispatcher("/WEB-INF/pages/myJobs.jsp").forward(request, response);
+                response.sendRedirect(request.getContextPath() + "/myJobs");
+
             } else {
                 // If the job wasn't added successfully, show an error message
                 request.setAttribute("error", "Failed to post job.");

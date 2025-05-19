@@ -118,7 +118,10 @@ public class taskifyLoginService {
                     return true;
                 } else {
                     System.out.println("Password doesn't match.");
+                    return false;
                 }
+            }else {
+            	return false;
             }
         } catch (SQLException e) {
             e.printStackTrace();

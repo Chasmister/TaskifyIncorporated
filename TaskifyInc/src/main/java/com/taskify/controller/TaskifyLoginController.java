@@ -60,14 +60,16 @@ public class TaskifyLoginController extends HttpServlet {
 
             // Verify the user credentials for login
             boolean loggedin = taskifyLoginService.verifyuser(userModelDetails);
-            
-            if (loggedin) {
+            System.out.println(loggedin);            
+            if (loggedin==true) {
                 // Set session timeout to 100 minutes (6000 seconds)
                 HttpSession session = request.getSession();  // Get the session object
                 session.setMaxInactiveInterval(100 * 60);  // 100 minutes = 6000 seconds
 
                 // Save the user details and member information in the session
                 SessionUtil.setAttribute(request, "user", userModelDetails);
+                SessionUtil.setAttribute(request,"User_ID", userModelDetails.getuserID());
+
 
                 int userId = userModelDetails.getuserid();
                 memberModel memberInfo = taskifyLoginService.getuserinfo(userId);
@@ -80,25 +82,39 @@ public class TaskifyLoginController extends HttpServlet {
 
                 // Store user type in session and cookie
                 if ("NON-ADMIN".equals(memberUserType)) {
-                    CookieUtil.addCookie(response, "userType", "NON-ADMIN", 30 * 60);  // Set cookie for 30 minutes
+                    CookieUtil.addCookie(response, "userType", "NON-ADMIN", 30 * 60);
                     session.setAttribute("userType", "NON-ADMIN");
-                    System.out.println("User logged in as NON-ADMIN");
+
+                    // ✅ Show message page with OK button
+                    request.setAttribute("message", "Login successful!");
+                    request.setAttribute("redirectUrl", "home"); // use your actual redirect path
+                    request.setAttribute("messageType", "success");
                     request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request, response);
 
                 } else if ("ADMIN".equals(memberUserType)) {
-                    CookieUtil.addCookie(response, "userType", "ADMIN", 30 * 60);  // Set cookie for 30 minutes
+                    CookieUtil.addCookie(response, "userType", "ADMIN", 30 * 60);
                     session.setAttribute("userType", "ADMIN");
-                    System.out.println("User logged in as ADMIN");
+
+                    request.setAttribute("message", "Welcome Admin!");
+                    request.setAttribute("redirectUrl", "admindashboard");
+                    request.setAttribute("messageType", "success");
                     request.getRequestDispatcher("/WEB-INF/pages/admindashboard.jsp").forward(request, response);
 
                 } else {
-                    System.out.println("ERROR: Invalid user type");
-                    request.getRequestDispatcher("/WEB-INF/pages/newLoginTest.jsp").forward(request, response);
+                    request.setAttribute("message", "Invalid user type.");
+                    request.setAttribute("redirectUrl", "login");
+                    request.setAttribute("messageType", "error");
+                    request.getRequestDispatcher("/WEB-INF/pages/message.jsp").forward(request, response);
                 }
+
                 
             } else {
+            	
+            	request.setAttribute("message", "Incorrect login details, try again.");
+                request.setAttribute("redirectUrl", "login");
+                request.setAttribute("messageType", "error");
                 // If login fails, stay on the login page and show an error message
-                request.getRequestDispatcher("/WEB-INF/pages/newLoginTest.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/pages/message.jsp").forward(request, response);
             }
 
         } catch (Exception e) {
