@@ -70,9 +70,10 @@ public class AddAdminController extends HttpServlet {
             }
 
             AdminService adminService = new AdminService();
-            int userId = adminService.insertUser(username, password); // Create user
-            AdminModel newAdmin = new AdminModel(userId, firstName, lastName, email, password); // Create admin
-            adminService.insertAdmin(newAdmin); // Insert into admins table
+            int userId = adminService.insertUser(username, password); // insersts into users table
+            AdminModel newAdmin = new AdminModel(userId, firstName, lastName, email, password); // create admin
+            int adminId = adminService.insertAdmin(newAdmin); // insert into admin table
+            adminService.insertUserAdminLink(userId, adminId); //inserts into users_admin table
 
             response.sendRedirect(request.getContextPath() + "/admindashboard");
         } catch (Exception e) {

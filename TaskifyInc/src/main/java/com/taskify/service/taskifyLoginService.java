@@ -53,14 +53,7 @@ public class taskifyLoginService {
         return currentuser;
     }
     public memberModel getuserinfo(int userid) {
-        String getuserQuery = 
-        		"""
-        		SELECT m.*, um.user_id 
-        FROM members m
-        JOIN users_members um ON m.Member_ID = um.member_id
-        WHERE um.user_id = ?
-    """;
-        		
+        String getuserQuery = "SELECT * FROM members WHERE User_ID=?";
         memberModel currentUser = null;  // Initialize the currentUser to be returned
 
         try (PreparedStatement userinfostmt = dbConn.prepareStatement(getuserQuery)) {

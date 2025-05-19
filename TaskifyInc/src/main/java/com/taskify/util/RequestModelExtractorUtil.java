@@ -57,17 +57,14 @@ public class RequestModelExtractorUtil {
 
         // Set the primary key (auto-incremented Member_ID) and the User_ID
         member.setId(rs.getInt("Member_ID"));        // Member's primary key
-       // Links to the User table
+        member.setUser_ID(rs.getInt("User_ID"));     // Links to the User table
 
         return member;
     }
-    public static memberModel extractMemberinfo(HttpServletRequest request) {
-        memberModel existingMember = (memberModel) request.getSession().getAttribute("member");
-
-
+    public static memberModel extractMemberinfo(HttpServletRequest req, memberModel existingMember) {
         // Extracting the email and contact number from the request
-        String email = request.getParameter("email");
-        String contactNumber = request.getParameter("phonenumber");
+        String email = req.getParameter("email");
+        String contactNumber = req.getParameter("phonenumber");
 
         // Preserve the existing values for the other fields (firstName, lastName, dob, gender)
         String firstName = existingMember.getFirstName();
@@ -86,8 +83,7 @@ public class RequestModelExtractorUtil {
         // Return the updated member object
         return existingMember;
     }
-    public static userModel extractUserInfo(HttpServletRequest req) {
-    	 userModel existingUser = (userModel) req.getSession().getAttribute("user");
+    public static userModel extractUserInfo(HttpServletRequest req, userModel existingUser) {
         // Extract username from request
         String userName = req.getParameter("username");
 

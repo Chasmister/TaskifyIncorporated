@@ -8,7 +8,6 @@ public class AdminModel {
     private String email;
     private String password;
 
-    // Constructor
     public AdminModel(int userId, String firstName, String lastName, String email, String password) {
         this.userId = userId;
         this.firstName = firstName;
@@ -17,10 +16,10 @@ public class AdminModel {
         this.password = password;
     }
 
-    // Getters and setters
     public int getUserId() { return userId; }
     public String getFirstName() { return firstName; }
     public String getLastName() { return lastName; }
     public String getEmail() { return email; }
     public String getPassword() { return password; }
 }
+

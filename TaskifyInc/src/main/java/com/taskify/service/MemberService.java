@@ -34,7 +34,7 @@ public class MemberService {
 
                 member.setId(rs.getInt("id"));
                 member.setPassword(rs.getString("password"));
-                
+                member.setUser_ID(rs.getInt("User_ID"));
             }
 
         } catch (SQLException | ClassNotFoundException e) {
