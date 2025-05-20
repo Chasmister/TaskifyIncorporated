@@ -28,35 +28,27 @@ public class ApplicationList extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Get user ID and job ID from request parameters or session (for example)
-    	HttpSession session = request.getSession();
-    	Integer userId = (Integer) session.getAttribute("userId");
-    	Integer jobId = Integer.parseInt(request.getParameter("jobId"));
-
-
-        if (userId == null || jobId == null) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User not logged in or job not selected.");
-            return;
-        }
-
         try {
-            // Call the service to get the application list
+            Integer jobId = Integer.parseInt(request.getParameter("jobId"));
+            
+            if (jobId == null) {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Job not selected.");
+                return;
+            }
+
             ApplicationService applicationService = new ApplicationService();
-            List<ApplicationModel> applicationList = applicationService.getMyApplications(userId, jobId);
+            List<ApplicationModel> applicationList = applicationService.getApplicationsForJob(jobId);
 
-            // Set the application list as an attribute in the request
             request.setAttribute("applicationList", applicationList);
-            System.out.println("yessurrrrr");
-
-            // Forward the request to the JSP page
             request.getRequestDispatcher("/WEB-INF/pages/ApplicationList.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unable to retrieve applications.");
         }
-        
-        
     }
+
+        
+    
 
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

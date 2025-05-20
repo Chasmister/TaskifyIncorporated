@@ -23,87 +23,101 @@ public class ApplicationService {
 	        ex.printStackTrace();
 	    }
 	}
-	public List<ApplicationModel> getMyApplications(int userid, int jobid) throws SQLException, ClassNotFoundException {
+	public List<ApplicationModel> getApplicationsForJob(int jobid) throws SQLException, ClassNotFoundException {
 	    List<ApplicationModel> applicationList = new ArrayList<>();
-	    
-	    // Check if the database connection is available
+
 	    if (dbConn == null) {
 	        System.err.println("Database connection is not available.");
 	        return applicationList;
 	    }
 
-	    // Query to get application IDs related to the user and job
-	    String findIdQuery = "SELECT application_ID FROM users_members_jobs_applications WHERE user_ID=? AND job_ID=?";
-	    
+	    String findIdQuery = "SELECT application_ID, user_ID FROM users_members_jobs_applications WHERE job_ID=?";
+
 	    try (PreparedStatement stmt = dbConn.prepareStatement(findIdQuery)) {
-	        stmt.setInt(1, userid);
-	        stmt.setInt(2, jobid);
-	        
+	        stmt.setInt(1, jobid);
+	        System.out.println("Executing: " + stmt);
+
 	        try (ResultSet rs = stmt.executeQuery()) {
 	            while (rs.next()) {
 	                int applicationId = rs.getInt("application_ID");
+	                int applicantUserId = rs.getInt("user_ID");
 
 	                // Fetch application details
-	                String getApplicationsQuery = "SELECT * FROM applications WHERE application_ID=?";
+	                String getApplicationsQuery = "SELECT application_Status FROM applications WHERE application_ID=?";
+	                String applicationStatus = null;
+
 	                try (PreparedStatement stmt2 = dbConn.prepareStatement(getApplicationsQuery)) {
 	                    stmt2.setInt(1, applicationId);
-	                    
 	                    try (ResultSet rs2 = stmt2.executeQuery()) {
 	                        if (rs2.next()) {
-	                            String applicationStatus = rs2.getString("application_Status");
-
-	                            // Fetch user details (e.g., username, etc.)
-	                            String getUserQuery = "SELECT * FROM users WHERE user_ID=?";
-	                            userModel user = null;
-	                            try (PreparedStatement stmt3 = dbConn.prepareStatement(getUserQuery)) {
-	                                stmt3.setInt(1, userid);
-	                                
-	                                try (ResultSet rs3 = stmt3.executeQuery()) {
-	                                    if (rs3.next()) {
-	                                        String username = rs3.getString("username");
-	                                        String profilePicture = rs3.getString("profile_picture");
-	                                        // Create the userModel object
-	                                        user = new userModel(username, rs3.getString("password"));
-	                                        user.setuser_ID(rs3.getInt("user_ID"));
-	                                        // Set user type (you can use the appropriate field from your DB)
-	                                        user.setusertype(rs3.getString("usertype"));
-	                                    }
-	                                }
-	                            }
-
-	                            // Fetch profile details for the user
-	                            String getProfileQuery = "SELECT * FROM profiles WHERE user_ID=?";
-	                            profileModel profile = null;
-	                            try (PreparedStatement stmt4 = dbConn.prepareStatement(getProfileQuery)) {
-	                                stmt4.setInt(1, userid);
-	                                
-	                                try (ResultSet rs4 = stmt4.executeQuery()) {
-	                                    if (rs4.next()) {
-	                                        String occupation = rs4.getString("occupation");
-	                                        String profileDescription = rs4.getString("profile_description");
-	                                        String skills = rs4.getString("skills");
-	                                        String displayPicture = rs4.getString("display_picture");
-	                                        String achievements = rs4.getString("achievements");
-	                                        String experience = rs4.getString("experience");
-	                                        
-	                                        // Create the profileModel object using the fetched profile data
-	                                        profile = new profileModel(occupation, profileDescription, displayPicture, skills, achievements, experience);
-	                                    }
-	                                }
-	                            }
-
-	                            // Create and add ApplicationModel with user and profile data
-	                            ApplicationModel myApplication = new ApplicationModel(applicationId, applicationStatus, user, profile);
-	                            applicationList.add(myApplication);
+	                            applicationStatus = rs2.getString("application_Status");
 	                        }
 	                    }
+	                }
+
+	                // Fetch user details
+	                userModel user = null;
+	                String getUserQuery = "SELECT * FROM users WHERE user_ID=?";
+	                try (PreparedStatement stmt3 = dbConn.prepareStatement(getUserQuery)) {
+	                    stmt3.setInt(1, applicantUserId);
+	                    try (ResultSet rs3 = stmt3.executeQuery()) {
+	                        if (rs3.next()) {
+	                            String username = rs3.getString("User_Name");
+	                            String password = rs3.getString("User_Password");
+	                           
+	                            user = new userModel(username, password);
+	                            user.setuser_ID(applicantUserId);
+	                 
+	                        }
+	                    }
+	                }
+
+	                // Fetch profile details
+	                profileModel profile = null;
+
+	             // First, get the profile ID from users_members_profiles for the given applicantUserId
+	             String getProfileIdQuery = "SELECT profile_id FROM users_members_profiles WHERE user_id = ?";
+	             try (PreparedStatement stmtProfileId = dbConn.prepareStatement(getProfileIdQuery)) {
+	                 stmtProfileId.setInt(1, applicantUserId);
+	                 try (ResultSet rsProfileId = stmtProfileId.executeQuery()) {
+	                     if (rsProfileId.next()) {
+	                         int profileId = rsProfileId.getInt("profile_id");
+
+	                         // Now use the profileId to get the profile details from profiles table
+	                         String getProfileQuery = "SELECT * FROM profiles WHERE Profile_ID = ?";
+	                         try (PreparedStatement stmtProfile = dbConn.prepareStatement(getProfileQuery)) {
+	                             stmtProfile.setInt(1, profileId);
+	                             try (ResultSet rsProfile = stmtProfile.executeQuery()) {
+	                                 if (rsProfile.next()) {
+	                                     String occupation = rsProfile.getString("Profile_Occupation");
+	                                     String profileDescription = rsProfile.getString("Profile_Description");
+	                                     String displayPicture = rsProfile.getString("Display_Picture");
+	                                     String skills = rsProfile.getString("Profile_skills");
+	                                     String achievements = rsProfile.getString("Achievements");
+	                                     String experience = rsProfile.getString("Experience");
+	                                     
+	                                     profile = new profileModel(occupation, profileDescription, displayPicture, skills, achievements, experience);
+	                                 }
+	                             }
+	                         }
+	                     }
+	                 }
+	             }
+
+
+	                // Add to list
+	                if (user != null && profile != null && applicationStatus != null) {
+	                    ApplicationModel application = new ApplicationModel(applicationId, applicationStatus, user, profile);
+	                    applicationList.add(application);
 	                }
 	            }
 	        }
 	    }
 
+	    System.out.println("Total applications fetched: " + applicationList.size());
 	    return applicationList;
 	}
+
 
 
 	public List<ApplicationModel> getMyApplications(userModel userdata) throws SQLException, ClassNotFoundException {
@@ -132,27 +146,62 @@ public class ApplicationService {
 
 	                            // Fetch job details
 	                            String getJobQuery = "SELECT * FROM jobs WHERE job_ID=?";
+	                            JobModel job = null;
 	                            try (PreparedStatement stmt3 = dbConn.prepareStatement(getJobQuery)) {
 	                                stmt3.setInt(1, jobId);
 	                                try (ResultSet rs3 = stmt3.executeQuery()) {
 	                                    if (rs3.next()) {
-	                                        JobModel job = new JobModel(
-	                                        		rs3.getInt("job_ID"),
-	                                        	    rs3.getString("job_Name"),
-	                                        	    rs3.getString("job_Description"),
-	                                        	    rs3.getDate("Start_Date"),      // java.sql.Date, assuming DB column is DATE
-	                                        	    rs3.getDate("End_Date"),
-	                                        	    rs3.getDouble("Salary"),       // assuming DB column is DOUBLE or DECIMAL
-	                                        	    rs3.getString("Skills_Required"),
-	                                        	    rs3.getString("Company_Picture")   //
+	                                        job = new JobModel(
+	                                            rs3.getInt("job_ID"),
+	                                            rs3.getString("job_Name"),
+	                                            rs3.getString("job_Description"),
+	                                            rs3.getDate("Start_Date"),
+	                                            rs3.getDate("End_Date"),
+	                                            rs3.getDouble("Salary"),
+	                                            rs3.getString("Skills_Required"),
+	                                            rs3.getString("Company_Picture")
 	                                        );
-
-	                                        // Add enriched application model
-	                                        ApplicationModel myApplication = new ApplicationModel(applicationId, applicationStatus, job);
-	                                        applicationList.add(myApplication);
 	                                    }
 	                                }
 	                            }
+
+	                            // Fetch profile_ID from users_members_profiles
+	                            String getProfileIdQuery = "SELECT profile_ID FROM users_members_profiles WHERE user_ID=?";
+	                            int profileId = -1;
+	                            try (PreparedStatement stmt4 = dbConn.prepareStatement(getProfileIdQuery)) {
+	                                stmt4.setInt(1, userdata.getuserid());
+	                                try (ResultSet rs4 = stmt4.executeQuery()) {
+	                                    if (rs4.next()) {
+	                                        profileId = rs4.getInt("profile_ID");
+	                                    }
+	                                }
+	                            }
+
+	                            // Fetch profile details
+	                            profileModel profile = null;
+	                            if (profileId != -1) {
+	                                String getProfileQuery = "SELECT * FROM profiles WHERE profile_ID=?";
+	                                try (PreparedStatement stmt5 = dbConn.prepareStatement(getProfileQuery)) {
+	                                    stmt5.setInt(1, profileId);
+	                                    try (ResultSet rs5 = stmt5.executeQuery()) {
+	                                        if (rs5.next()) {
+	                                            profile = new profileModel(
+	                                                rs5.getString("occupation"),
+	                                                rs5.getString("profile_description"),
+	                                                rs5.getString("display_picture"),
+	                                                rs5.getString("skills"),
+	                                                rs5.getString("achievements"),
+	                                                rs5.getString("experience")
+	                                            );
+	                                        }
+	                                    }
+	                                }
+	                            }
+
+	                            // Add application model with job and profile
+	                            ApplicationModel myApplication = new ApplicationModel(applicationId, applicationStatus, job);
+	                            myApplication.setProfile(profile); // assuming ApplicationModel supports this
+	                            applicationList.add(myApplication);
 	                        }
 	                    }
 	                }
@@ -162,6 +211,7 @@ public class ApplicationService {
 
 	    return applicationList;
 	}
+
 	
 	public ApplicationModel newApplication(int memberId, int userId, int jobId) throws SQLException {
 	    if (dbConn == null) {

@@ -529,11 +529,34 @@
         <!-- Scrollable Content Area -->
         <div class="content-area">
           
-				    
-<%-- You can include applicant list here later --%>
+			<c:if test="${not empty applicationList}">
+    <c:forEach var="application" items="${applicationList}">
+        <div class="applicant-card">
+            <div class="applicant-info">
+                <div class="applicant-pic">
+                    <img src="${pageContext.request.contextPath}/images/${application.profile.displayPicture}" alt="Profile Picture">
+                </div>
+                <div class="applicant-details">
+                    <h4>${application.user.username}</h4>
+                    <p>${application.profile.profileDescription}</p>
+                    <div class="applicant-skills">
+                        <span class="skill-tag">${application.application_Status}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="applicant-actions">
+                <span class="application-date">Application ID: ${application.application_Id}</span>
+                <button class="action-btn view-btn">View</button>
+                <button class="action-btn accept-btn">Accept</button>
+                <button class="action-btn reject-btn">Reject</button>
+            </div>
+        </div>
+    </c:forEach>
+</c:if>
+<c:if test="${empty applicationList}">
+    <p>No applications found.</p>
+</c:if>
 
-            
-            
           
             
             

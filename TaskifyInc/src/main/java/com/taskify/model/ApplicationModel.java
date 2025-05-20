@@ -60,4 +60,9 @@ public class ApplicationModel {
     	return profile;
     }
 
+	public void setProfile(profileModel profile2) {
+		// TODO Auto-generated method stub
+	 this.profile=profile2;
+	}
+
 }
