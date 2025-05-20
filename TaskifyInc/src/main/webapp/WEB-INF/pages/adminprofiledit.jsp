@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,49 +34,27 @@
           </div>
 
       <!-- Profile Edit Form -->
-      <form action="updateProfile" method="post" class="edit-profile-form">
+
+      
+      <form action="${pageContext.request.contextPath}/updateAdminProfile" method="post" class="edit-profile-form">
         <div class="form-group">
           <label for="firstname"><i class="fa-solid fa-user"></i> First Name:</label>
-          <input type="text" id="firstname" name="firstName" value="Niraj" required>
+          <input type="text" name="firstName" value="${admin.firstName}" />
         </div>
 
         <div class="form-group">
           <label for="lastname"><i class="fa-solid fa-user"></i> Last Name:</label>
-          <input type="text" id="lastname" name="lastName" value="Gurung" required>
+          <input type="text" name="lastName" value="${admin.lastName}">
         </div>
 
         <div class="form-group">
           <label for="email"><i class="fa-solid fa-envelope"></i> Email:</label>
-          <input type="email" id="email" name="email" value="NirajGurung@example.com" required>
+          <input type="text" name="email" value="${admin.email}">
         </div>
+        <input type="hidden" name="userId" value="${admin.userId}" />
+        
 
-        <div class="form-group">
-          <label for="phone"><i class="fa-solid fa-phone"></i> Phone Number:</label>
-          <input type="text" id="phone" name="phoneNumber" value="9841415253" required>
-        </div>
-
-        <div class="form-group">
-          <label for="dob"><i class="fa-solid fa-calendar-days"></i> Date of Birth:</label>
-          <input type="date" id="dob" name="dob" value="1990-01-01" required>
-        </div>
-
-        <div class="form-group">
-          <label for="gender"><i class="fa-solid fa-venus-mars"></i> Gender:</label>
-          <select id="gender" name="gender" required>
-            <option value="Male" selected>Male</option>
-            <option value="Female">Female</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="password"><i class="fa-solid fa-lock"></i> New Password:</label>
-          <input type="password" id="password" name="password" placeholder="Leave blank to keep current password">
-        </div>
-
-        <div class="form-group">
-          <label for="retypepassword"><i class="fa-solid fa-key"></i> Retype Password:</label>
-          <input type="password" id="retypepassword" name="retypePassword">
-        </div>
+     <!-- Profile Edit Form -->
 
         <button type="submit" class="register-button" name="updateProfileButton">
           <i class="fa-solid fa-floppy-disk"></i> Update Profile
