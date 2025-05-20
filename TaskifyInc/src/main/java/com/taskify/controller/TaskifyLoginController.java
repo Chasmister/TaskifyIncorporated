@@ -6,6 +6,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.sql.ResultSet;
 
@@ -58,60 +60,7 @@ public class TaskifyLoginController extends HttpServlet {
 			
 			//verify the user for login
 			
-			boolean loggedin=taskifyLoginService.verifyuser(userModelDetails);
-			//System.out.println(loggedin);
-			if(loggedin==true) {
-				// Set the session timeout to 100 minutes (6000 seconds)
-	            request.getSession().setMaxInactiveInterval(100 * 60); // 100 minutes = 6000 seconds
-	            
-				SessionUtil.setAttribute(request, "user", userModelDetails);
-				
-				int userid=userModelDetails.getuserid();
-				
-				memberModel memberinfo=taskifyLoginService.getuserinfo(userid);
-				
-				SessionUtil.setAttribute(request,"member",memberinfo);
-				
-
-				
-				String memberuser=taskifyLoginService.checkusertype(userModelDetails);
-				
-				profileModel profile = new profileService().getProfileById(userid);  // Assuming you have this method
-				SessionUtil.setAttribute(request, "profile", profile);
-				
-				
-				
-
-				if(memberuser.equals("NON-ADMIN")) {
-					CookieUtil.addCookie(response, "userType", "NON-ADMIN", 30*60);
-					
-					request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request, response);
-					
-				}else if(memberuser.equals("ADMIN")){
-					CookieUtil.addCookie(response, "userType", "ADMIN", 30*60);
-					
-					request.getRequestDispatcher("/WEB-INF/pages/admindashboard.jsp").forward(request, response);
-						
-				}else {
-					System.out.println("ERROR");
-				}
-				
-			}else {
-				request.getRequestDispatcher("/WEB-INF/pages/newLoginTest.jsp").forward(request, response);
-				
-			}
-		
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-	
-
-<<<<<<< HEAD
-            // Verify the user credentials for login
+			//to change
             boolean loggedin = taskifyLoginService.verifyuser(userModelDetails);
             System.out.println(loggedin);            
             if (loggedin==true) {
@@ -143,7 +92,6 @@ public class TaskifyLoginController extends HttpServlet {
                     request.setAttribute("redirectUrl", "home"); // use your actual redirect path
                     request.setAttribute("messageType", "success");
                     request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request, response);
-
                 } else if ("ADMIN".equals(memberUserType)) {
                     CookieUtil.addCookie(response, "userType", "ADMIN", 30 * 60);
                     session.setAttribute("userType", "ADMIN");
@@ -174,8 +122,11 @@ public class TaskifyLoginController extends HttpServlet {
             // Handle any exceptions here
             e.printStackTrace();
         }
-    }
-=======
+    
+	}
 	
->>>>>>> branch 'main' of https://github.com/Chasmister/TaskifyIncorporated.git
+
+
+    
+
 }
