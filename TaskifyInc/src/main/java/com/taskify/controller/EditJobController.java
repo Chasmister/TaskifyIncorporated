@@ -15,7 +15,7 @@ public class EditJobController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int jobId = Integer.parseInt(request.getParameter("jobId"));
-        JobModel job = jobService.getJobById(jobId);
+        JobModel job = jobService.getJobModelById(jobId);
         request.setAttribute("job", job);
         request.getRequestDispatcher("/WEB-INF/pages/editjob.jsp").forward(request, response);
     }

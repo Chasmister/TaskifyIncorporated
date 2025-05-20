@@ -82,6 +82,29 @@ public class jobService {
         }
         return jobList;
     }
+    public JobModel getJobModelById(int jobId) {
+        String query = "SELECT * FROM jobs WHERE Job_ID=?";
+        try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
+            stmt.setInt(1, jobId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new JobModel(
+                            rs.getInt("Job_ID"),
+                            rs.getString("Job_Name"),
+                            rs.getString("Job_Description"),
+                            rs.getDate("Start_Date"),
+                            rs.getDate("End_Date"),
+                            rs.getDouble("Salary"),
+                            rs.getString("Skills_Required"),
+                            rs.getString("Company_Picture")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     // Method to retrieve all jobs from the database
     public List<JobModel> getAllJobs(int userid) throws SQLException, ClassNotFoundException {
         List<JobModel> jobList = new ArrayList<>();
