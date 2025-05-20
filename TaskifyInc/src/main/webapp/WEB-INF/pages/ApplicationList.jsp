@@ -534,11 +534,12 @@
         <div class="applicant-card">
             <div class="applicant-info">
                 <div class="applicant-pic">
-                    <img src="${pageContext.request.contextPath}/images/${application.profile.displayPicture}" alt="Profile Picture">
+                    <img src="${pageContext.request.contextPath}/images/logos/${application.profile.displayPicture}" alt="Profile Picture">
                 </div>
                 <div class="applicant-details">
                     <h4>${application.user.username}</h4>
                     <p>${application.profile.profileDescription}</p>
+                     <p>${application.profile.achievements}</p>
                     <div class="applicant-skills">
                         <span class="skill-tag">${application.application_Status}</span>
                     </div>
@@ -546,7 +547,7 @@
             </div>
             <div class="applicant-actions">
                 <span class="application-date">Application ID: ${application.application_Id}</span>
-                <button class="action-btn view-btn">View</button>
+               
                 <button class="action-btn accept-btn">Accept</button>
                 <button class="action-btn reject-btn">Reject</button>
             </div>
