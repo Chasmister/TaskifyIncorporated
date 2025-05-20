@@ -53,6 +53,32 @@ public class AdminService {
             stmt.executeUpdate();
         }
     }
+    
+    public AdminModel getAdminByUserId(int userId) throws Exception {
+        String sql = "SELECT * FROM admins a " +
+                     "JOIN users_admins ua ON a.Admin_ID = ua.Admin_ID " +
+                     "WHERE ua.User_ID = ?";
 
+        try (Connection conn = TaskifyDBconfig.getDbConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                AdminModel admin = new AdminModel(
+                    userId,
+                    rs.getString("Admin_FirstName"),
+                    rs.getString("Admin_LastName"),
+                    rs.getString("Admin_Email"),
+                    "" // leave password blank or fetch if needed
+                );
+                return admin;
+            }
+        }
+        throw new Exception("Admin not found for user ID: " + userId);
+    }
+
+    
+    
 
 }

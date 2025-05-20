@@ -9,7 +9,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
+import com.taskify.model.AdminModel;
 import com.taskify.model.JobModel;
+import com.taskify.service.AdminService;
 import com.taskify.service.jobService;
 
 ;
@@ -34,17 +36,29 @@ public class adminprofileditcontroller extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-           
+            //  Get user ID from session
+            Integer userId = (Integer) request.getSession().getAttribute("User_ID");
             
-            // Forward to jobpage.jsp where the jobs will be displayed
+            if (userId != null) {
+                // get admin details from service
+                AdminService adminService = new AdminService();
+                AdminModel admin = adminService.getAdminByUserId(userId);
+
+                // Set admin data in request
+                request.setAttribute("admin", admin);
+            }
+
+            // 4. Forward to JSP
             request.getRequestDispatcher("/WEB-INF/pages/adminprofiledit.jsp").forward(request, response);
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
 
 	/**
