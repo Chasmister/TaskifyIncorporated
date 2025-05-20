@@ -36,23 +36,25 @@
       <!-- Profile Edit Form -->
 
       
-      <form action="updateProfile" method="post" class="edit-profile-form">
+      <form action="${pageContext.request.contextPath}/updateAdminProfile" method="post" class="edit-profile-form">
         <div class="form-group">
           <label for="firstname"><i class="fa-solid fa-user"></i> First Name:</label>
-          <input type="text" id="firstname" name="firstName" value="${admin.firstName}">
+          <input type="text" name="firstName" value="${admin.firstName}" />
         </div>
 
         <div class="form-group">
           <label for="lastname"><i class="fa-solid fa-user"></i> Last Name:</label>
-          <input type="text" id="firstname" name="firstName" value="${admin.lastName}">
+          <input type="text" name="lastName" value="${admin.lastName}">
         </div>
 
         <div class="form-group">
           <label for="email"><i class="fa-solid fa-envelope"></i> Email:</label>
-          <input type="text" id="firstname" name="firstName" value="${admin.email}">
+          <input type="text" name="email" value="${admin.email}">
         </div>
+        <input type="hidden" name="userId" value="${admin.userId}" />
+        
 
-     
+     <!-- Profile Edit Form -->
 
         <button type="submit" class="register-button" name="updateProfileButton">
           <i class="fa-solid fa-floppy-disk"></i> Update Profile

@@ -55,22 +55,25 @@ public class AdminService {
     }
     
     public AdminModel getAdminByUserId(int userId) throws Exception {
-        String sql = "SELECT * FROM admins a " +
+        String sql = "SELECT a.Admin_ID, ua.User_ID, a.Admin_FirstName, a.Admin_LastName, a.Admin_Email, u.User_Password " +
+                     "FROM admins a " +
                      "JOIN users_admins ua ON a.Admin_ID = ua.Admin_ID " +
+                     "JOIN users u ON ua.User_ID = u.User_ID " +
                      "WHERE ua.User_ID = ?";
 
         try (Connection conn = TaskifyDBconfig.getDbConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
+
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
                 AdminModel admin = new AdminModel(
-                    userId,
+                    rs.getInt("User_ID"),
                     rs.getString("Admin_FirstName"),
                     rs.getString("Admin_LastName"),
                     rs.getString("Admin_Email"),
-                    "" // leave password blank or fetch if needed
+                    rs.getString("User_Password")
                 );
                 return admin;
             }
@@ -78,7 +81,27 @@ public class AdminService {
         throw new Exception("Admin not found for user ID: " + userId);
     }
 
+ 
     
+
+    public boolean updateAdminProfile(AdminModel admin) throws Exception {
+    	String sql = "UPDATE admins SET Admin_FirstName = ?, Admin_LastName = ?, Admin_Email = ? " +
+                "WHERE Admin_ID = (SELECT Admin_ID FROM users_admins WHERE User_ID = ?)";
+
+        try (Connection conn = TaskifyDBconfig.getDbConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, admin.getFirstName());
+            stmt.setString(2, admin.getLastName());
+            stmt.setString(3, admin.getEmail());
+            stmt.setInt(4, admin.getUserId());
+
+            int rows = stmt.executeUpdate();
+            return rows > 0;
+        }
+    }
+
+
     
 
 }
