@@ -524,62 +524,11 @@
     
     <div class="container">
         <!-- Fixed Profile Sidebar -->
-        <div class="profile-sidebar">
-            <div class="profile-section">
-                <img src="${pageContext.request.contextPath}/images/${profile.displayPicture}" alt="Profile Photo" class="profile-photo">
-                <h2 class="profile-name">${member.firstName} ${member.lastName}</h2>
-                <p class="profile-title">${profile.occupation}</p>
-                <div class="profile-stats">3 Active Jobs</div>
-            </div>
-            
-           
-        </div>
+       
         
         <!-- Scrollable Content Area -->
         <div class="content-area">
-            <div class="content-header">
-                <h1 class="content-title">My Jobs</h1>
-            </div>
-            
-            <div class="filter-tabs">
-                <div class="filter-tab active">All</div>
-                <div class="filter-tab">Active</div>
-                <div class="filter-tab">Expired</div>
-                <div class="filter-tab">Draft</div>
-            </div>
-            
-            <div class="actions-row">
-                <div class="search-bar">
-                    <input type="text" class="search-input" placeholder="Search your jobs...">
-                </div>
-                <button class="create-job-btn">+ Create New Job</button>
-            </div>
-            
-            <!-- Job Cards List -->
-           
-				    <div class="job-card">
-				     <c:forEach var="job" items="${ApplicationList}">
-				        <img class="company-logo" src="${pageContext.request.contextPath}/logos/${job.companyPicture}" alt="Logo">
-				        <div class="job-details">
-				            <div class="job-title">${job.jobName}</div>
-				            <div class="job-company">${job.jobDescription}</div>
-				            <div class="job-meta">
-				                <span class="meta-tag">Salary: $${job.salary}</span>
-				                <span class="meta-tag"></span>
-				            
-				                <span class="meta-tag">Start: ${job.startDate}</span>
-				                <c:if test="${job.endDate != null}">
-				                    <span class="meta-tag">End: ${job.endDate}</span>
-				                </c:if>
-				            </div>
-				        </div>
-				        <div class="job-status">
-				            <span class="status-badge status-active">Active</span>
-				            <span class="applications-counter">0 Applicants</span>
-				            <button class="toggle-applications">View Applicants</button>
-				        </div>
-				        </c:forEach>
-				    </div>
+          
 				    
 <%-- You can include applicant list here later --%>
 

@@ -584,8 +584,8 @@
 				        </div>
 				        <div class="job-status">
 				            <span class="status-badge status-active">Active</span>
-				            <span class="applications-counter">0 Applicants</span>
-				           <a href="${pageContext.request.contextPath}/ApplicationList?jobId=${job.jobId}" class="toggle-applications">View Applicants</a>
+				            <span class="applications-counter">${job.jobId} Applicants</span>
+				          <a href="${pageContext.request.contextPath}/ApplicationList?jobId=${job.jobId}" class="toggle-applications">View Applicants</a>
 
 				        </div>
 				        </div>

@@ -83,9 +83,11 @@ public class TaskifyRegistrationController extends HttpServlet {
 			    // Set session attributes if needed
 			    request.getSession().setAttribute("user", userModelDetails);
 			    request.getSession().setAttribute("member",   memberModelDetails);
+			    
+			 
 
-			    handleSuccess(request,response,"user registered successfully, Now build your profile","BuildProfile");
-			    //request.getRequestDispatcher("/WEB-INF/pages/BuildProfile.jsp").forward(request, response);
+			    //handleSuccess(request,response,"user registered successfully, Now build your profile","BuildProfile");
+			    request.getRequestDispatcher("/WEB-INF/pages/BuildProfile.jsp").forward(request, response);
 			} else {
 			    handleError(request, response, "Could not register your account. User already exists!");
 			}

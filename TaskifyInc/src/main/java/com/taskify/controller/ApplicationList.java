@@ -54,7 +54,7 @@ public class ApplicationList extends HttpServlet {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unable to retrieve applications.");
         }
-        request.getRequestDispatcher("/WEB-INF/views/applicationList.jsp").forward(request, response);
+        
         
     }
 
