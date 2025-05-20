@@ -1,50 +1,48 @@
 package com.taskify.model;
 
 public class ApplicationModel {
-    private int application_Id;
-    private String application_Status;
+    private int applicationId;
+    private String applicationStatus;
     private JobModel job;
     private userModel user;
     private profileModel profile;
 
-    // Constructor
-    public ApplicationModel(int application_Id, String application_Status) {
-        this.application_Id = application_Id;
-        this.application_Status = application_Status;
-    }
-    
-    public ApplicationModel(int application_Id, String application_Status,JobModel job) {
-        this.application_Id = application_Id;
-        this.application_Status = application_Status;
-        this.job=job;
-    }
-    
-    public ApplicationModel(int application_Id, String application_Status,userModel user,profileModel profile) {
-        this.application_Id = application_Id;
-        this.application_Status = application_Status;
-        this.user=user;
-        this.profile=profile;
+    // Constructors
+    public ApplicationModel(int applicationId, String applicationStatus) {
+        this.applicationId = applicationId;
+        this.applicationStatus = applicationStatus;
     }
 
-    // Getter for application_Id
-    public int getApplication_Id() {
-        return application_Id;
+    public ApplicationModel(int applicationId, String applicationStatus, JobModel job) {
+        this.applicationId = applicationId;
+        this.applicationStatus = applicationStatus;
+        this.job = job;
     }
 
-    // Setter for application_Id
-    public void setApplication_Id(int application_Id) {
-        this.application_Id = application_Id;
+    public ApplicationModel(int applicationId, String applicationStatus, userModel user, profileModel profile) {
+        this.applicationId = applicationId;
+        this.applicationStatus = applicationStatus;
+        this.user = user;
+        this.profile = profile;
     }
 
-    // Getter for application_Status
-    public String getApplication_Status() {
-        return application_Status;
+    // Getter and Setter
+    public int getApplicationId() {
+        return applicationId;
     }
 
-    // Setter for application_Status
-    public void setApplication_Status(String application_Status) {
-        this.application_Status = application_Status;
+    public void setApplicationId(int applicationId) {
+        this.applicationId = applicationId;
     }
+
+    public String getApplicationStatus() {
+        return applicationStatus;
+    }
+
+    public void setApplicationStatus(String applicationStatus) {
+        this.applicationStatus = applicationStatus;
+    }
+
     public JobModel getJob() {
         return job;
     }
@@ -52,17 +50,22 @@ public class ApplicationModel {
     public void setJob(JobModel job) {
         this.job = job;
     }
-    
+
     public userModel getUser() {
-    	return user;
+        return user;
     }
+
+    public void setUser(userModel user) {
+        this.user = user;
+    }
+
     public profileModel getProfile() {
-    	return profile;
+        return profile;
     }
 
-	public void setProfile(profileModel profile2) {
-		// TODO Auto-generated method stub
-	 this.profile=profile2;
-	}
-
+    public void setProfile(profileModel profile) {
+        this.profile = profile;
+    }
 }
+
+

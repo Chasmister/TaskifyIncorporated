@@ -222,6 +222,28 @@ public class ApplicationService {
 
 	    return applicationList;
 	}
+	
+	public boolean handleApplications(int application_Id, String status) {
+	    if (dbConn == null) {
+	        System.err.println("Database connection is not available.");
+	        return false;
+	    }
+
+	    String updateQuery = "UPDATE applications SET application_status = ? WHERE application_id = ?";
+
+	    try (PreparedStatement stmt = dbConn.prepareStatement(updateQuery)) {
+	        stmt.setString(1, status);
+	        stmt.setInt(2, application_Id);
+	        System.out.println(stmt);
+
+	        int rowsUpdated = stmt.executeUpdate();
+	        return rowsUpdated > 0; // return true if at least one row was updated
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+
 
 	
 	public ApplicationModel newApplication(int memberId, int userId, int jobId) throws SQLException {

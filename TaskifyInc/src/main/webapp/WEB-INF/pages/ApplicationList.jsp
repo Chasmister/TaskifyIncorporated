@@ -541,15 +541,31 @@
                     <p>${application.profile.profileDescription}</p>
                      <p>${application.profile.achievements}</p>
                     <div class="applicant-skills">
-                        <span class="skill-tag">${application.application_Status}</span>
+                        <span class="skill-tag">${application.applicationStatus}</span>
                     </div>
                 </div>
             </div>
             <div class="applicant-actions">
-                <span class="application-date">Application ID: ${application.application_Id}</span>
-               
-                <button class="action-btn accept-btn">Accept</button>
-                <button class="action-btn reject-btn">Reject</button>
+             <span class="application-date">Application ID: ${application.applicationId}</span>
+<form action="ApplicationList" method="post" style="display:inline;">
+           
+	              
+	           <c:if test="${application.applicationStatus == 'Pending'}">
+			   	 
+			    	    <input type="hidden" name="applicationId" value="${application.applicationId}" />
+			    	    <button type="submit" name="status" value="accepted" class="action-btn accept-btn">Accept</button>
+			   		     <button type="submit" name="status" value="rejected" class="action-btn reject-btn">Reject</button>
+			 	   
+				</c:if>
+
+	            <c:if test="${application.applicationStatus =='Accepted'}">
+	            	<span>Accepted</span>
+	            </c:if>
+	             <c:if test="${application.applicationStatus =='Rejected'}">
+	            	<span>rejected</span>
+	            </c:if>
+	            
+             </form>
             </div>
         </div>
     </c:forEach>
