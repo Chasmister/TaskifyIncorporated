@@ -53,37 +53,50 @@ public class taskifyLoginService {
         return currentuser;
     }
     public memberModel getuserinfo(int userid) {
-        String getuserQuery = "SELECT * FROM members WHERE User_ID=?";
+        String getuserQuery = "SELECT Member_ID FROM users_members WHERE User_ID=?";
+        String getMemberinfo = "SELECT * FROM members WHERE Member_ID=?";
         memberModel currentUser = null;  // Initialize the currentUser to be returned
 
-        try (PreparedStatement userinfostmt = dbConn.prepareStatement(getuserQuery)) {
-            // Set the parameter for the query
+        try (PreparedStatement userinfostmt = dbConn.prepareStatement(getuserQuery);
+             PreparedStatement memberinfostmt = dbConn.prepareStatement(getMemberinfo)) {
+            // Set the parameter for the query to get Member_ID
             userinfostmt.setInt(1, userid);  // Use setInt for integer type
-            System.out.println(userid);
-            
+            System.out.println("User ID: " + userid);
+
             // Execute the query and get the ResultSet
             ResultSet userinfo = userinfostmt.executeQuery();
-            
+
             if (userinfo.next()) {
-                // Extract the data from the ResultSet and populate the memberModel
-                String firstName = userinfo.getString("Member_FirstName");
-                String lastName = userinfo.getString("Member_LastName");
-                LocalDate dob = userinfo.getDate("Member_DOB").toLocalDate();  
-                String gender = userinfo.getString("Member_Gender");
-                String email = userinfo.getString("Member_Email");
-                String phonenumber = userinfo.getString("Member_ContactNumber");
-                
-                // Populate the memberModel object with extracted data
-                currentUser = new memberModel(firstName, lastName, dob, gender, email, phonenumber);
-                
-               
-                currentUser.setId(userinfo.getInt("Member_ID"));
+                // Extract the Member_ID from the first query
+                int memberId = userinfo.getInt("Member_ID");
+
+                // Set the parameter for the memberinfostmt query
+                memberinfostmt.setInt(1, memberId);  // Use the Member_ID retrieved earlier
+
+                // Execute the second query to get member info
+                ResultSet memberinfo = memberinfostmt.executeQuery();
+
+                if (memberinfo.next()) {
+                    // Extract the data from the ResultSet and populate the memberModel
+                    String firstName = memberinfo.getString("Member_FirstName");
+                    String lastName = memberinfo.getString("Member_LastName");
+                    LocalDate dob = memberinfo.getDate("Member_DOB").toLocalDate();
+                    String gender = memberinfo.getString("Member_Gender");
+                    String email = memberinfo.getString("Member_Email");
+                    String phonenumber = memberinfo.getString("Member_ContactNumber");
+
+                    // Populate the memberModel object with extracted data
+                    currentUser = new memberModel(firstName, lastName, dob, gender, email, phonenumber);
+
+                    // Set the Member_ID for the member model
+                    currentUser.setId(memberinfo.getInt("Member_ID"));
+                }
             }
         } catch (SQLException e) {
             System.err.println("Error during database operation: " + e.getMessage());
             e.printStackTrace();
         }
-        
+
         return currentUser;  // Return the populated memberModel object
     }
 

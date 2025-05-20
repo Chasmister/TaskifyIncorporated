@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
 import java.io.IOException;
@@ -22,6 +23,7 @@ import com.taskify.util.ImageUtil;
 @WebServlet(asyncSupported = true, urlPatterns = { "/addjobs" })
 public class Addjobs extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    HttpSession HttpSession;
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -45,6 +47,7 @@ public class Addjobs extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+        	
             // 1. Get form data
             String jobTitle = request.getParameter("jobTitle");
             String companyName = request.getParameter("companyName");
@@ -59,7 +62,29 @@ public class Addjobs extends HttpServlet {
             if (endDateStr != null && !endDateStr.isEmpty()) {
                 endDate = Date.valueOf(endDateStr);
             }
+         
+            // Get the session and check if it's valid
+            HttpSession session = request.getSession(false);  // false means it won't create a new session if one doesn't exist
+            
+            if (session == null) {
+                // No session exists, redirect to login page
+                response.sendRedirect(request.getContextPath() + "/login");
+                return;
+            }
+            System.out.println(session);
+            // Get user info from session
+            Integer userid = (Integer) session.getAttribute("User_ID");
+            Integer memberid = (Integer) session.getAttribute("Member_ID");
+            System.out.println(userid);
+            System.out.println(memberid);
+            System.out.println("here its working hai");
+            if (userid == null || memberid == null) {
+                // Session does not have the necessary attributes, redirect to login page
+                response.sendRedirect(request.getContextPath() + "/login");
+                return;
+            }
 
+            // Get other form data
             String skills = request.getParameter("skills");  // Should be comma-separated
             
             // 2. Handle image upload using ImageUtil
@@ -74,16 +99,15 @@ public class Addjobs extends HttpServlet {
 
             // 3. Create JobModel object
             JobModel job = new JobModel(0, jobTitle, jobDescription, startDate, endDate, salary, skills, imageName);
-
+            System.out.println("its working till here");
             // 4. Use the service to add the job
             jobService jobService = new jobService();
-            boolean isJobAdded = jobService.registerJob(job);
+            boolean isJobAdded = jobService.registerJob(job, userid, memberid);
 
             if (isJobAdded) {
-                // If the job is added successfully, redirect or forward to a confirmation page
+                // If the job is added successfully, redirect to myJobs page
                 request.setAttribute("message", "Job successfully added!");
                 response.sendRedirect(request.getContextPath() + "/myJobs");
-
             } else {
                 // If the job wasn't added successfully, show an error message
                 request.setAttribute("error", "Failed to post job.");
@@ -96,4 +120,5 @@ public class Addjobs extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/pages/addjobs.jsp").forward(request, response);
         }
     }
+
 }

@@ -565,9 +565,10 @@
             
             <!-- Job Cards List -->
            
-				    <div class="job-card">
+				   
 				     <c:forEach var="job" items="${jobList}">
-				        <img class="company-logo" src="${pageContext.request.contextPath}/logos/${job.companyPicture}" alt="Logo">
+				      <div class="job-card">
+				        <img src="${pageContext.request.contextPath}/images/logos/${job.companyPicture}" alt="${job.jobName} Logo" class="company-logo">
 				        <div class="job-details">
 				            <div class="job-title">${job.jobName}</div>
 				            <div class="job-company">${job.jobDescription}</div>
@@ -587,8 +588,9 @@
 				           <a href="${pageContext.request.contextPath}/ApplicationList?jobId=${job.jobId}" class="toggle-applications">View Applicants</a>
 
 				        </div>
-				        </c:forEach>
-				    </div>
+				        </div>
+			        </c:forEach>
+				    
 				    
 <%-- You can include applicant list here later --%>
 

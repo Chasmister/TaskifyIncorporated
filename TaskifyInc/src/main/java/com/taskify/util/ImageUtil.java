@@ -98,6 +98,6 @@ public class ImageUtil {
 	}
 	
 	public String getSavePath(String saveFolder) {
-		return "C:/Users/Manas/git/TaskifyIncorporatedPrimary/TaskifyInc/src/main/webapp/images/"+saveFolder+"/";
+		return "C:/Users/Manas/git/TaskifyIncorporated/TaskifyInc/src/main/webapp/images/"+saveFolder+"/";
 	}
 }

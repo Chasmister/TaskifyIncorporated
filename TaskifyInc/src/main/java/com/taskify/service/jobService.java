@@ -56,13 +56,14 @@ public class jobService {
         }
         return jobList;
     }
-    public JobModel getJobById(int jobId) {
+    public List<JobModel> getJobById(int jobId) {
+    	List<JobModel> jobList = new ArrayList<>();
         String query = "SELECT * FROM jobs WHERE Job_ID=?";
         try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
             stmt.setInt(1, jobId);
             try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return new JobModel(
+                while (rs.next()) {
+                	JobModel job=new JobModel(
                             rs.getInt("Job_ID"),
                             rs.getString("Job_Name"),
                             rs.getString("Job_Description"),
@@ -72,12 +73,14 @@ public class jobService {
                             rs.getString("Skills_Required"),
                             rs.getString("Company_Picture")
                     );
+                	  jobList.add(job);
+                	
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return jobList;
     }
     // Method to retrieve all jobs from the database
     public List<JobModel> getAllJobs(int userid) throws SQLException, ClassNotFoundException {
@@ -93,8 +96,10 @@ public class jobService {
         try (PreparedStatement stmt1=dbConn.prepareStatement(userinfoQuery);
         		PreparedStatement stmt = dbConn.prepareStatement(selectQuery);) {
         	stmt1.setInt(1, userid);
+        	System.out.println(userid);
         	ResultSet rs1 = stmt1.executeQuery();
             while (rs1.next()) {
+            	System.out.println("Works");
             	int currentjobid=rs1.getInt("Job_ID");
             	stmt.setInt(1,currentjobid);
             	ResultSet rs=stmt.executeQuery();
@@ -120,17 +125,20 @@ public class jobService {
     }
 
     // Method to register a new job in the database
-    public Boolean registerJob(JobModel jobModel) {
+    public Boolean registerJob(JobModel jobModel, int userId, int memberId) {
         if (dbConn == null) {
             System.err.println("Database connection is not available.");
             return false;
         }
 
-        // Insert query to insert a job into the database
-        String insertQuery = "INSERT INTO jobs (Job_Name, Job_Description, Start_Date, End_Date, Salary, Skills_Required, Company_Picture) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-        try (PreparedStatement stmt = dbConn.prepareStatement(insertQuery)) {
+        // Insert query to insert a job into the jobs table
+        String insertJobQuery = "INSERT INTO jobs (Job_Name, Job_Description, Start_Date, End_Date, Salary, Skills_Required, Company_Picture) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        // Insert query for inserting into users_members_jobs
+        String insertUsersJobsQuery = "INSERT INTO users_members_jobs (User_ID, Job_ID, Member_ID) VALUES (?, ?, ?)";
+        System.out.println("this shit is working");
+        try (PreparedStatement stmt = dbConn.prepareStatement(insertJobQuery, PreparedStatement.RETURN_GENERATED_KEYS)) {
             // Setting values in the prepared statement from jobModel
+        	System.out.println(jobModel.getJobName());
             stmt.setString(1, jobModel.getJobName());
             stmt.setString(2, jobModel.getJobDescription());
             stmt.setDate(3, jobModel.getStartDate());
@@ -143,7 +151,31 @@ public class jobService {
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("Job registered successfully!");
-                return true;
+
+                // Retrieve the generated Job_ID from the jobs table
+                ResultSet generatedKeys = stmt.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    int jobId = generatedKeys.getInt(1); // Get the generated Job_ID
+
+                    // Now, insert into the users_members_jobs table
+                    try (PreparedStatement stmt2 = dbConn.prepareStatement(insertUsersJobsQuery)) {
+                        stmt2.setInt(1, userId); // User_ID from session or method argument
+                        stmt2.setInt(2, jobId); // Generated Job_ID
+                        stmt2.setInt(3, memberId); // Member_ID from session or method argument
+
+                        // Execute the insert into users_members_jobs
+                        int rowsAffected2 = stmt2.executeUpdate();
+                        if (rowsAffected2 > 0) {
+                            System.out.println("Job successfully registered to the user.");
+                            return true;
+                        } else {
+                            System.err.println("Failed to associate job with the user.");
+                        }
+                    } catch (SQLException e) {
+                        System.err.println("Error during insert into users_members_jobs: " + e.getMessage());
+                        e.printStackTrace();
+                    }
+                }
             } else {
                 System.err.println("Failed to register job.");
             }
@@ -153,6 +185,7 @@ public class jobService {
         }
         return false;
     }
+
     
     public boolean deleteJobById(int jobId) {
         if (dbConn == null) return false;

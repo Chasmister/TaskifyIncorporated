@@ -76,6 +76,7 @@ public class TaskifyLoginController extends HttpServlet {
                 int userId = userModelDetails.getuserid();
                 memberModel memberInfo = taskifyLoginService.getuserinfo(userId);
                 SessionUtil.setAttribute(request, "member", memberInfo);
+                SessionUtil.setAttribute(request, "Member_ID", memberInfo.getId());
 
                 // Retrieve user type and profile
                 String memberUserType = taskifyLoginService.checkusertype(userModelDetails);

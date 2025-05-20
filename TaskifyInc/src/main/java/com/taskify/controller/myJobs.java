@@ -34,7 +34,7 @@ public class myJobs extends HttpServlet {
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        System.out.println("hello world");
+       
 
         if (session == null || session.getAttribute("User_ID") == null) {
             response.sendRedirect("login.jsp");

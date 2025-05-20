@@ -101,22 +101,34 @@ public class profileService {
     }
 
     public boolean updateProfile(profileModel profile) throws SQLException, ClassNotFoundException {
-        String sql = "UPDATE profiles SET profile_occupation = ?, profile_description = ?, display_picture = ?, achievements = ?, experience = ? WHERE profile_id = ?";
+        String selectSql = "SELECT display_picture FROM profiles WHERE profile_id = ?";
+        String updateSql = "UPDATE profiles SET profile_occupation = ?, profile_description = ?, display_picture = ?, achievements = ?, experience = ? WHERE profile_id = ?";
 
-        try (Connection conn = TaskifyDBconfig.getDbConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = TaskifyDBconfig.getDbConnection()) {
 
-            stmt.setString(1, profile.getOccupation());
-            stmt.setString(2, profile.getProfileDescription());
-            stmt.setString(3, profile.getDisplayPicture());
-            stmt.setString(4, profile.getAchievements());
-            stmt.setString(5, profile.getExperience());
-            stmt.setInt(6, profile.getProfileId());
+            // Step 1: If display_picture is null, fetch the existing one from DB
+            if (profile.getDisplayPicture().equals("download.png") || profile.getDisplayPicture().isEmpty()) {
+                try (PreparedStatement selectStmt = conn.prepareStatement(selectSql)) {
+                    selectStmt.setInt(1, profile.getProfileId());
+                    ResultSet rs = selectStmt.executeQuery();
+                    if (rs.next()) {
+                        profile.setDisplayPicture(rs.getString("display_picture"));
+                    }
+                }
+            }
 
-            System.out.println("Updating profile with ID: " + profile.getProfileId());
+            // Step 2: Update the profile
+            try (PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
+                updateStmt.setString(1, profile.getOccupation());
+                updateStmt.setString(2, profile.getProfileDescription());
+                updateStmt.setString(3, profile.getDisplayPicture()); // Now this has either new or existing picture
+                updateStmt.setString(4, profile.getAchievements());
+                updateStmt.setString(5, profile.getExperience());
+                updateStmt.setInt(6, profile.getProfileId());
 
-            int rowsUpdated = stmt.executeUpdate();
-            return rowsUpdated > 0;
+                int rowsUpdated = updateStmt.executeUpdate();
+                return rowsUpdated > 0;
+            }
         }
     }
 
