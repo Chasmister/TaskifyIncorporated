@@ -31,7 +31,7 @@
       <img src="${pageContext.request.contextPath}/images/spiked hair.png" alt="profile" />
     </div>
 
-    <form action="${pageContext.request.contextPath}/editjob" method="post" class="edit-profile-form">
+    <form action="${pageContext.request.contextPath}/managejobs" method="post" class="edit-profile-form">
       <input type="hidden" name="jobId" value="${job.jobId}"/>
 
       <div class="form-group">
@@ -65,7 +65,7 @@
       </div>
 
       <button type="submit" class="register-button" name="updateJobBtn">
-        <i class="fa-solid fa-floppy-disk"></i> Update Job
+        <i class="fa-solid fa-arrow-left"></i> Go Back
       </button>
     </form>
   </div>

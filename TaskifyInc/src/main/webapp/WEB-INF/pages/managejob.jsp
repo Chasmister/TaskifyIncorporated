@@ -55,7 +55,7 @@
 			  <form action="${pageContext.request.contextPath}/editjob" method="get">
 			    <input type="hidden" name="jobId" value="${job.jobId}" />
 			    <button class="action-btn" type="submit">
-			      <i class="fas fa-edit"></i> Edit
+			      <i class="fas fa-eye"></i> View
 			    </button>
 			  </form>
               
