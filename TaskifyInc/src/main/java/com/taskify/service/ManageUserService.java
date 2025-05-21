@@ -42,18 +42,37 @@ public class ManageUserService {
     }
     
     public void deleteUserById(int memberId) {
-        String query = "DELETE FROM members WHERE Member_ID = ?";
+        String deleteProfilesQuery = "DELETE FROM users_members_profiles WHERE Member_ID = ?";
+        String deleteUserMemberQuery = "DELETE FROM users_members WHERE Member_ID = ?";
+        String deleteMemberQuery = "DELETE FROM members WHERE Member_ID = ?";
 
-        try (Connection conn = TaskifyDBconfig.getDbConnection();
-             PreparedStatement ps = conn.prepareStatement(query)) {
+        try (Connection conn = TaskifyDBconfig.getDbConnection()) {
+            conn.setAutoCommit(false); // Start transaction
 
-            ps.setInt(1, memberId);
-            ps.executeUpdate();
+            // Delete from users_members_profiles
+            try (PreparedStatement ps1 = conn.prepareStatement(deleteProfilesQuery)) {
+                ps1.setInt(1, memberId);
+                ps1.executeUpdate();
+            }
 
+            // Delete from users_members
+            try (PreparedStatement ps2 = conn.prepareStatement(deleteUserMemberQuery)) {
+                ps2.setInt(1, memberId);
+                ps2.executeUpdate();
+            }
+
+            // Delete from members
+            try (PreparedStatement ps3 = conn.prepareStatement(deleteMemberQuery)) {
+                ps3.setInt(1, memberId);
+                ps3.executeUpdate();
+            }
+            conn.commit(); // Commit transaction
+            
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
+
     
     public memberModel getMemberById(int memberId) {
         memberModel member = null;

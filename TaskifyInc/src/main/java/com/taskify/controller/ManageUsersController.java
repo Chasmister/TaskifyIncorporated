@@ -75,10 +75,13 @@ public class ManageUsersController extends HttpServlet {
             int memberId = Integer.parseInt(request.getParameter("memberId"));
             ManageUserService manageUserService = new ManageUserService();
             manageUserService.deleteUserById(memberId);
+            request.setAttribute("message", "User Deleted Sucessfully");
+            request.setAttribute("redirectUrl", "manageuser"); // redirect path
+            request.setAttribute("messageType", "Sucess");
+            request.getRequestDispatcher("/WEB-INF/pages/message.jsp").forward(request, response);
         }
 
-        // Redirect back to refresh the user list
-        response.sendRedirect(request.getContextPath() + "/manageuser");
+        
     }
 
 
