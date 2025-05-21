@@ -19,6 +19,13 @@ public class AdminModel {
         this.email = email;
         this.password = password;
     }
+    public AdminModel( String firstName, String lastName, String email) {
+        
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        
+    }
 
     // Getters
     public int getAdminId() { return adminId; }

@@ -75,7 +75,6 @@
             min-height: 80vh;
             margin-top: 0;
         }
-
         .profile-sidebar {
             width: 25%;
             min-width: 280px;
@@ -452,7 +451,21 @@
             background-color: #EEF2FF;
             color: #2747E8;
         }
+		.profile-pic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 20px;
+            margin-left:10px;
+            background-color: #ddd;
+        }
 
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
         .accept-btn {
             background-color: #E0FFE5;
             color: #4CAF50;
@@ -465,6 +478,9 @@
 
         .show-applications {
             display: block;
+        }
+        .large{
+        	display:flex;
         }
 
         @media (max-width: 992px) {
@@ -521,16 +537,24 @@
 <body>
     <!-- Include newHeader.jsp -->
     <%@ include file="NewHeader.jsp" %>
-    
+    <div class="large">
     <div class="container">
+        <!-- Fixed Profile Sidebar -->
+      <div class="profilecontainer">
         <!-- Fixed Profile Sidebar -->
         <div class="profile-sidebar">
             <div class="profile-section">
-                <img src="${pageContext.request.contextPath}/images/${profile.displayPicture}" alt="Profile Photo" class="profile-photo">
-                <h2 class="profile-name">${member.firstName} ${member.lastName}</h2>
-                <p class="profile-title">${profile.occupation}</p>
-                <div class="profile-stats">3 Active Jobs</div>
+                <div class="profile-pic">
+              <img src="${pageContext.request.contextPath}/images/logos/${profile.displayPicture}" alt="ProfilePicture">
+              
             </div>
+               <h2 class="profile-name">${member.firstName} ${member.lastName}</h2>
+                <p class="profile-title">${profile.occupation}</p>
+                <div class="profile-stats">${member.email}</div>
+            </div>
+           
+            
+           
             
             <div class="guide-section">
                 <h4>Posting Tips</h4>
@@ -541,6 +565,8 @@
                     <li>Respond to applicants promptly</li>
                 </ul>
             </div>
+        </div>
+        </div>
         </div>
         
         <!-- Scrollable Content Area -->
@@ -606,7 +632,7 @@
             
             
         </div>
-    </div>
+    
     
     
 </body>

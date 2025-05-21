@@ -215,7 +215,7 @@
         .search-input {
             width: 100%;
             padding: 10px 15px;
-            border: none;
+     			   border: solid 1px black;
             border-radius: 5px;
             font-size: 14px;
             background-color: #FFFEFB;
@@ -325,6 +325,38 @@
             cursor: pointer;
             transition: 0.2s;
         }
+         .profile-pic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 20px;
+            margin-left:140px;
+            background-color: #ddd;
+        }
+
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .actions-row form {
+        	display: flex;
+        	gap: 10px;
+        }
+        .large{
+        	display:flex;
+        }
+        
+        .actions-row button {
+        	background-color: #010101;
+        	font-size: 14px;
+        	padding: 0.5rem;
+        	font-family: 'Jetbrains Mono', sans-serif;
+        	font-weight: 500;
+        	border-radius: 4px;
+        	color: #FFFCEC;
+        
 
         .apply-btn:hover {
             background-color: #333;
@@ -376,102 +408,101 @@
     <!-- Include newHeader.jsp -->
     <%@ include file="NewHeader.jsp" %>
     
-    <div class="container">
-        <!-- Fixed Profile Sidebar -->
-        <div class="profile-sidebar">
-            <div class="profile-section">
-                <img src="${pageContext.request.contextPath}/images/${profile.displayPicture}" alt="Profile Photo" class="profile-photo">
-                <h2 class="profile-name">${member.firstName} ${member.lastName}</h2>
-                <p class="profile-title">${profile.occupation}</p>
-                <div class="profile-stats">3 Active Applications</div>
-            </div>
-            
-            <div class="guide-section">
-                <h4>Application Tips</h4>
-                <ul>
-                    <li>Tailor your resume for each job</li>
-                    <li>Research companies before applying</li>
-                    <li>Follow up after applying</li>
-                    <li>Prepare for potential interviews</li>
-                </ul>
-            </div>
-        </div>
-        
-        <!-- Content wrapper with clean top header and card container -->
-        <div class="content-wrapper">
-            <!-- Clean header section without background -->
-            <div class="header-section">
-                <div class="content-header">
-                    <h1 class="content-title">Jobs For You</h1>
-                </div>
-                
-                <div class="filter-tabs">
-                    <div class="filter-tab active">ALL Jobs</div>
-                    <div class="filter-tab">Remote</div>
-                    <div class="filter-tab">On-site</div>
-                    <div class="filter-tab">Hybrid</div>
-                </div>
-                
-                <div class="actions-row">
-					<form method="get" action="jobs">
-                    	<input type="text" name="keyword" class="search-input" placeholder="Search your jobs...">
-                		<button type="submit">Search</button>
-                	</form>                 
-                </div>
-            </div>
-            
-            <!-- Job cards container -->
-            <div class="cards-container">
-                <!-- Job Cards List -->
-                <c:forEach var="job" items="${jobList}">
-                    <div class="job-card">
-                        <c:if test="${not empty job.companyPicture}">
-                            <img src="${pageContext.request.contextPath}/images/logos/${job.companyPicture}" alt="${job.jobName} Logo" class="company-logo">
-                        </c:if>
-                        <c:if test="${empty job.companyPicture}">
-                            <img src="/api/placeholder/60/60" alt="Company Logo" class="company-logo">
-                        </c:if>
-                        
-                        <div class="job-details">
-                            <h3 class="job-title">${job.jobName}</h3>
-                            <div class="job-meta">
-                                <span class="meta-tag">Salary: ${job.salary}</span>
-                                <span class="meta-tag">Start: ${job.startDate}</span>
-                                <span class="meta-tag">End: ${job.endDate}</span>
-                            </div>
-                            
-                            <div class="job-description">
-                                <p>${job.jobDescription}</p>
-                            </div>
-                            
-                            <div class="skills-container">
-                                <c:forEach var="skill" items="${fn:split(job.skillsRequired, ',')}">
-                                    <span class="skill">${skill.trim()}</span>
-                                </c:forEach>
-                            </div>
-                        </div>
-                        
-                        <div class="job-status">
-                            <form action="${pageContext.request.contextPath}/jobs" method="post">
-                                <input type="hidden" name="jobId" value="${job.jobId}" />
-                                <input type="hidden" name="memberid" value="${member.id}" />
-                                <input type="hidden" name="userid" value="${user.userID}" />
-                                <button type="submit" class="apply-btn">Apply Now</button>
-                            </form>
-                        </div>
-                    </div>
-                </c:forEach>
-                
-                <!-- If no jobs are available, show a message -->
-                <c:if test="${empty jobList}">
-                    <div style="text-align: center; padding: 40px 0;">
-                        <h3>No jobs available at the moment</h3>
-                        <p>Check back soon for new opportunities</p>
-                    </div>
-                </c:if>
-            </div>
-        </div>
-    </div>
+	    <div class="container">
+	        <!-- Fixed Profile Sidebar -->
+	        <div class="profile-sidebar">
+	            <div class="profile-section">
+	            <div class="profile-pic">
+	              <img src="${pageContext.request.contextPath}/images/logos/${profile.displayPicture}" alt="ProfilePicture">
+	              
+	            </div>
+	               <h2 class="profile-name">${member.firstName} ${member.lastName}</h2>
+	                <p class="profile-title">${profile.occupation}</p>
+	                <div class="profile-stats">${member.email}</div>
+	            </div>
+	            
+	            <div class="guide-section">
+	                <h4>Application Tips</h4>
+	                <ul>
+	                    <li>Tailor your resume for each job</li>
+	                    <li>Research companies before applying</li>
+	                    <li>Follow up after applying</li>
+	                    <li>Prepare for potential interviews</li>
+	                </ul>
+	            </div>
+	        </div>
+	        
+	        <!-- Content wrapper with clean top header and card container -->
+	        <div class="content-wrapper">
+	            <!-- Clean header section without background -->
+	            <div class="header-section">
+	                <div class="content-header">
+	                    <h1 class="content-title">Jobs For You</h1>
+	                </div>
+	                
+	              
+	                
+	                <div class="actions-row">
+						<form method="get" action="jobs">
+	                    	<input type="text" name="keyword" class="search-input" placeholder="Search your jobs...">
+	                		<button type="submit">Search</button>
+	                	</form>                 
+	                </div>
+	            </div>
+	            
+	            <!-- Job cards container -->
+	            <div class="cards-container">
+	                <!-- Job Cards List -->
+	                <c:forEach var="job" items="${jobList}">
+	                    <div class="job-card">
+	                        <c:if test="${not empty job.companyPicture}">
+	                            <img src="${pageContext.request.contextPath}/images/logos/${job.companyPicture}" alt="${job.jobName} Logo" class="company-logo">
+	                        </c:if>
+	                        <c:if test="${empty job.companyPicture}">
+	                            <img src="/api/placeholder/60/60" alt="Company Logo" class="company-logo">
+	                        </c:if>
+	                        
+	                        <div class="job-details">
+	                            <h3 class="job-title">${job.jobName}</h3>
+	                            <div class="job-meta">
+	                                <span class="meta-tag">Salary: ${job.salary}</span>
+	                                <span class="meta-tag">Start: ${job.startDate}</span>
+	                                <span class="meta-tag">End: ${job.endDate}</span>
+	                            </div>
+	                            
+	                            <div class="job-description">
+	                                <p>${job.jobDescription}</p>
+	                            </div>
+	                            
+	                            <div class="skills-container">
+	                                <c:forEach var="skill" items="${fn:split(job.skillsRequired, ',')}">
+	                                    <span class="skill">${skill.trim()}</span>
+	                                </c:forEach>
+	                            </div>
+	                        </div>
+	                        
+	                        <div class="job-status">
+	                            <form action="${pageContext.request.contextPath}/jobs" method="post">
+	                                <input type="hidden" name="jobId" value="${job.jobId}" />
+	                                <input type="hidden" name="memberid" value="${member.id}" />
+	                                <input type="hidden" name="userid" value="${user.userID}" />
+	                                <button type="submit" class="apply-btn">Apply Now</button>
+	                            </form>
+	                        </div>
+	                    </div>
+	                </c:forEach>
+	                
+	                <!-- If no jobs are available, show a message -->
+	                <c:if test="${empty jobList}">
+	                    <div style="text-align: center; padding: 40px 0;">
+	                        <h3>No jobs available at the moment</h3>
+	                        <p>Check back soon for new opportunities</p>
+	                    </div>
+	                </c:if>
+	            </div>
+	        </div>
+	        </div>
+
     
     <script>
         // For tab functionality

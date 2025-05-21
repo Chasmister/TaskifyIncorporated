@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.ResultSet;
 
+import com.taskify.model.AdminModel;
 import com.taskify.model.memberModel;
 import com.taskify.model.profileModel;
 import com.taskify.model.userModel;
@@ -74,17 +75,23 @@ public class TaskifyLoginController extends HttpServlet {
 
 
                 int userId = userModelDetails.getuserid();
-                memberModel memberInfo = taskifyLoginService.getuserinfo(userId);
-                SessionUtil.setAttribute(request, "member", memberInfo);
-                SessionUtil.setAttribute(request, "Member_ID", memberInfo.getId());
+                
+                //checking user type
+                String usertype=taskifyLoginService.checkusertype(userModelDetails);
+              
+               
 
                 // Retrieve user type and profile
                 String memberUserType = taskifyLoginService.checkusertype(userModelDetails);
-                profileModel profile = new profileService().getProfileById(userId);
-                SessionUtil.setAttribute(request, "profile", profile);
+                
 
                 // Store user type in session and cookie
                 if ("NON-ADMIN".equals(memberUserType)) {
+                	 memberModel memberInfo = taskifyLoginService.getuserinfo(userId);
+                	 profileModel profile = new profileService().getProfileById(userId);
+                     SessionUtil.setAttribute(request, "profile", profile);
+                     SessionUtil.setAttribute(request, "member", memberInfo);
+                     SessionUtil.setAttribute(request, "Member_ID", memberInfo.getId());
                     CookieUtil.addCookie(response, "userType", "NON-ADMIN", 30 * 60);
                     session.setAttribute("userType", "NON-ADMIN");
 
@@ -94,6 +101,7 @@ public class TaskifyLoginController extends HttpServlet {
                     request.setAttribute("messageType", "success");
                     request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request, response);
                 } else if ("ADMIN".equals(memberUserType)) {
+                	AdminModel memberInfo = taskifyLoginService.getadmininfo(userId);
                     CookieUtil.addCookie(response, "userType", "ADMIN", 30 * 60);
                     session.setAttribute("userType", "ADMIN");
 

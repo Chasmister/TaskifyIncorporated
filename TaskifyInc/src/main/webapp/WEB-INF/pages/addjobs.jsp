@@ -178,7 +178,21 @@
             color: #070707;
             text-transform: uppercase;
         }
-        
+          .profile-pic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 20px;
+            margin-left:10px;
+            background-color: #ddd;
+        }
+
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
         .form-control {
             width: 100%;
             padding: 12px;
@@ -349,13 +363,18 @@
     	<div class="line2"></div>
         <div class="sidebar">
             <!-- Profile section -->
+	<div class="profilecontainer">
+        <!-- Fixed Profile Sidebar -->
+        <div class="profile-sidebar">
             <div class="profile-section">
-                <div class="profile-background"></div>
-                <img src="<%=request.getContextPath()%>/images/profile.jpg"  class="profile-pic" alt="Profile Picture">
-                <h3 class="profile-name">Dorothy Smith</h3>
-                <h4 class="profile-title">Software Engineer</h4>
-                <br>
-                <div class="employer-status">3 Active Job Postings</div>
+                <div class="profile-pic">
+              <img src="${pageContext.request.contextPath}/images/logos/${profile.displayPicture}" alt="ProfilePicture">
+              
+            </div>
+               <h2 class="profile-name">${member.firstName} ${member.lastName}</h2>
+                <p class="profile-title">${profile.occupation}</p>
+                <div class="profile-stats">${member.email}</div>
+            </div>
             </div>
             
             <!-- Guide section -->
@@ -369,6 +388,8 @@
                 </ul>
             </div>
         </div>
+        </div>
+        
         
         <div class="main-content">
          <h2 class="form-title">Add jobs</h2>
@@ -380,10 +401,7 @@
                         <input type="text" class="form-control" id="job-title" name="jobTitle" placeholder="e.g. Senior UI/UX Designer" required>
                     </div>
                     
-                    <div class="form-group">
-                        <label class="form-label" for="company-name">Company Name *</label>
-                        <input type="text" class="form-control" id="company-name" name="companyName" placeholder="e.g. Netflix Inc." required>
-                    </div>
+                   
                     
                     <div class="form-group">
                         <label class="form-label" for="company-logo">Company Logo</label>
@@ -394,15 +412,7 @@
                         <div id="file-name" style="margin-top: 5px; font-size: 14px; color: #666;"></div>
                     </div>
                     
-                    <div class="form-group">
-                        <label class="form-label">Job Type *</label>
-                        <div class="job-type-options">
-                            <div class="job-type-option" data-value="remote">Remote</div>
-                            <div class="job-type-option" data-value="onsite">On-site</div>
-                            <div class="job-type-option selected" data-value="hybrid">Hybrid</div>
-                        </div>
-                        <input type="hidden" name="jobType" id="job-type-input" value="hybrid">
-                    </div>
+                    
                     
                     <div class="form-row">
                         <div class="form-column">
@@ -410,10 +420,7 @@
                             <input type="number" class="form-control" id="salary" name="salary" placeholder="e.g. 25" required>
                         </div>
                         
-                        <div class="form-column">
-                            <label class="form-label" for="location">Location</label>
-                            <input type="text" class="form-control" id="location" name="location" placeholder="e.g. New York, NY">
-                        </div>
+                       
                     </div>
                     
                     <div class="form-row">
@@ -435,28 +442,14 @@
                     
                     <div class="form-group">
                         <label class="form-label">Required Skills</label>
-                        <div class="skills-container">
-                            <div class="skill-tag">
-                                <span>HTML</span>
-                                <button type="button">&times;</button>
-                            </div>
-                            <div class="skill-tag">
-                                <span>CSS</span>
-                                <button type="button">&times;</button>
-                            </div>
-                            <div class="skill-tag">
-                                <span>JavaScript</span>
-                                <button type="button">&times;</button>
-                            </div>
-                            <button type="button" class="add-skill-btn">+ Add Skill</button>
-                        </div>
-                        <input type="hidden" name="skills" id="skills-input" value="HTML,CSS,JavaScript">
+  	`					<textarea class="form-control" id="job-description" name="skills" placeholder="Enter the required skills" required></textarea>
                     </div>
+                      
                     
                     <div class="submit-section">
                         <button type="button" class="cancel-btn">Cancel</button>
                         <div>
-                            <button type="button" class="preview-btn">Preview</button>
+                          
                             <button type="submit" class="post-btn">Post Job</button>
                         </div>
                     </div>
