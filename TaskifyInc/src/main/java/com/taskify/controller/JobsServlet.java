@@ -1,5 +1,6 @@
 package com.taskify.controller;
 
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -31,8 +32,8 @@ public class JobsServlet extends HttpServlet {
 
             int userId = (int) session.getAttribute("User_ID");
             String keyword = request.getParameter("keyword");
-            List<JobModel> jobList;
-          
+           
+            List<JobModel> jobList = jobService.getAllJobs(userId);
             if(keyword != null && !keyword.trim().isEmpty()) {
             	System.out.println("Searching all jobs with keyword: " + keyword);
             	jobList = jobService.searchAllJobs(keyword);
@@ -71,8 +72,15 @@ public class JobsServlet extends HttpServlet {
                 request.setAttribute("jobList", jobList);
                 request.setAttribute("user", user);
                 request.setAttribute("member", memberService.getMemberById(memberId));
+                
+                
+                request.setAttribute("message", "Successful Application");
+                request.setAttribute("redirectUrl", "myApplications");
+                request.setAttribute("messageType", "success");
+                request.getRequestDispatcher("/WEB-INF/pages/message.jsp").forward(request, response);
+           
 
-                request.getRequestDispatcher("/WEB-INF/pages/jobpage2.jsp").forward(request, response);
+                
             } else {
                 response.sendRedirect("login.jsp");
             }

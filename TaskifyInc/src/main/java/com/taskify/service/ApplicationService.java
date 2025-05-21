@@ -1,5 +1,6 @@
 package com.taskify.service;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -193,12 +194,12 @@ public class ApplicationService {
 	                                    try (ResultSet rs5 = stmt5.executeQuery()) {
 	                                        if (rs5.next()) {
 	                                            profile = new profileModel(
-	                                                rs5.getString("occupation"),
-	                                                rs5.getString("profile_description"),
-	                                                rs5.getString("display_picture"),
-	                                                rs5.getString("skills"),
-	                                                rs5.getString("achievements"),
-	                                                rs5.getString("experience")
+	                                                rs5.getString("Profile_Occupation"),
+	                                                rs5.getString("Profile_Description"),
+	                                                rs5.getString("Display_Picture"),
+	                                                rs5.getString("Profile_Skills"),
+	                                                rs5.getString("Achievements"),
+	                                                rs5.getString("Experience")
 	                                            );
 	                                        }
 	                                    }

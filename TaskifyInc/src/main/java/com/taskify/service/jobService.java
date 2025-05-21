@@ -1,5 +1,6 @@
 package com.taskify.service;
 
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -105,6 +106,7 @@ public class jobService {
         }
         return null;
     }
+    
     // Method to retrieve all jobs from the database
     public List<JobModel> getAllJobs(int userid) throws SQLException, ClassNotFoundException {
         List<JobModel> jobList = new ArrayList<>();
@@ -113,21 +115,40 @@ public class jobService {
             System.err.println("Database connection is not available.");
             return jobList;
         }
-        String userinfoQuery="SELECT Job_ID FROM Users_members_jobs WHERE User_ID!=?";
-        String selectQuery = "SELECT * FROM jobs WHERE Job_ID=?"; // Update to match your table schema
 
-        try (PreparedStatement stmt1=dbConn.prepareStatement(userinfoQuery);
-        		PreparedStatement stmt = dbConn.prepareStatement(selectQuery);) {
-        	stmt1.setInt(1, userid);
-        	System.out.println(userid);
-        	ResultSet rs1 = stmt1.executeQuery();
+        String userinfoQuery = "SELECT Job_ID FROM Users_members_jobs WHERE User_ID!=?";
+        String selectQuery = "SELECT * FROM jobs WHERE Job_ID=?";
+        String checkIfAppliedQuery = "SELECT COUNT(*) FROM users_members_jobs_applications WHERE User_ID=? AND Job_ID=?";
+
+        try (
+            PreparedStatement stmt1 = dbConn.prepareStatement(userinfoQuery);
+            PreparedStatement stmt = dbConn.prepareStatement(selectQuery);
+            PreparedStatement checkIfAppliedStmt = dbConn.prepareStatement(checkIfAppliedQuery)
+        ) {
+            stmt1.setInt(1, userid);
+            System.out.println("User ID: " + userid);
+            ResultSet rs1 = stmt1.executeQuery();
+
             while (rs1.next()) {
-            	System.out.println("Works");
-            	int currentjobid=rs1.getInt("Job_ID");
-            	stmt.setInt(1,currentjobid);
-            	ResultSet rs=stmt.executeQuery();
-            	if(rs.next()) {
-            		// Fetching job data from ResultSet
+                int currentJobId = rs1.getInt("Job_ID");
+
+                // Check if the user has already applied for this job
+                checkIfAppliedStmt.setInt(1, userid);
+                checkIfAppliedStmt.setInt(2, currentJobId);
+                ResultSet appliedResult = checkIfAppliedStmt.executeQuery();
+                if (appliedResult.next()) {
+                    int applicationCount = appliedResult.getInt(1);
+                    if (applicationCount > 0) {
+                        // Skip this job if the user has already applied
+                        continue;
+                    }
+                }
+
+                // If not applied, retrieve the job details
+                stmt.setInt(1, currentJobId);
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+                    // Fetching job data from ResultSet
                     int jobId = rs.getInt("Job_ID");
                     String jobName = rs.getString("Job_Name");
                     String jobDescription = rs.getString("Job_Description");
@@ -140,14 +161,12 @@ public class jobService {
                     // Creating jobModel instance and adding it to jobList
                     JobModel job = new JobModel(jobId, jobName, jobDescription, startDate, endDate, salary, skillsRequired, companyPicture);
                     jobList.add(job);
-            	}
-                
+                }
             }
         }
         return jobList;
     }
-    
-    
+
 
     // Method to register a new job in the database
     public Boolean registerJob(JobModel jobModel, int userId, int memberId) {
@@ -289,8 +308,6 @@ public class jobService {
 
         return myjobList;
     }
-    
-    
     public List<JobModel> searchUserJobs(int userId, String keyword) {
         List<JobModel> myjobList = new ArrayList<>();
 
