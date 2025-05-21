@@ -1,6 +1,7 @@
 package com.taskify.model;
 
 import java.sql.Date;
+import java.util.List;
 
 public class JobModel {
 
@@ -12,8 +13,8 @@ public class JobModel {
     private double salary;
     private String skillsRequired;
     private String companyPicture;
-
-    // Constructor
+    private List<ApplicationModel> ApplicationList;
+     // Constructor
     public JobModel(int jobId, String jobName, String jobDescription, Date startDate, Date endDate, double salary, String skillsRequired, String companyPicture) {
         this.jobId = jobId;
         this.jobName = jobName;
@@ -24,6 +25,19 @@ public class JobModel {
         this.skillsRequired = skillsRequired;
         this.companyPicture = companyPicture;
     }
+    
+    public JobModel(int jobId, String jobName, String jobDescription, Date startDate, Date endDate, double salary, String skillsRequired, String companyPicture, List<ApplicationModel> applicationList) {
+        this.jobId = jobId;
+        this.jobName = jobName;
+        this.jobDescription = jobDescription;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.salary = salary;
+        this.skillsRequired = skillsRequired;
+        this.companyPicture = companyPicture;
+        this.ApplicationList = applicationList;  // Set applications here
+    }
+
 
     // Getters and Setters
     public int getJobId() {
@@ -88,6 +102,10 @@ public class JobModel {
 
     public void setCompanyPicture(String companyPicture) {
         this.companyPicture = companyPicture;
+    }
+    
+    public void setList(List<ApplicationModel> ApplicationList) {
+    	this.ApplicationList=ApplicationList;
     }
 
     // Optional: Override toString() for better output display

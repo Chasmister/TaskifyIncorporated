@@ -584,9 +584,14 @@
 				        </div>
 				        <div class="job-status">
 				            <span class="status-badge status-active">Active</span>
-				            <span class="applications-counter">${job.jobId} Applicants</span>
-				          <a href="${pageContext.request.contextPath}/ApplicationList?jobId=${job.jobId}" class="toggle-applications">View Applicants</a>
+				          
+				           <form method="POST" action="${pageContext.request.contextPath}/ApplicationList">
+							    <input type="hidden" name="jobId" value="${job.jobId}" />
+							    
+							   <button type="submit" class="toggle-applications" onclick="console.log('Form submitted');">View Applicants</button>
+							</form>
 
+				        
 				        </div>
 				        </div>
 			        </c:forEach>

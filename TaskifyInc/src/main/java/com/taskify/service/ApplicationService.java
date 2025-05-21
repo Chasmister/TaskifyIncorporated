@@ -35,7 +35,7 @@ public class ApplicationService {
 
 	    try (PreparedStatement stmt = dbConn.prepareStatement(findIdQuery)) {
 	        stmt.setInt(1, jobid);
-	        System.out.println("Executing: " + stmt);
+	  
 
 	        try (ResultSet rs = stmt.executeQuery()) {
 	            while (rs.next()) {
@@ -60,8 +60,7 @@ public class ApplicationService {
 	                String getUserQuery = "SELECT * FROM users WHERE user_ID=?";
 	                try (PreparedStatement stmt3 = dbConn.prepareStatement(getUserQuery)) {
 	                    stmt3.setInt(1, applicantUserId);
-	                    System.out.print("the user id: ");
-	                    System.out.println(applicantUserId);
+	                   
 	                    try (ResultSet rs3 = stmt3.executeQuery()) {
 	                        if (rs3.next()) {
 	                            String username = rs3.getString("User_Name");
@@ -82,7 +81,7 @@ public class ApplicationService {
 	             try (PreparedStatement stmtProfileId = dbConn.prepareStatement(getProfileIdQuery)) {
 	                 stmtProfileId.setInt(1, applicantUserId);
 	                 try (ResultSet rsProfileId = stmtProfileId.executeQuery()) {
-	                	 System.out.println("lolol");
+	                	
 	                     if (rsProfileId.next()) {
 	                         int profileId = rsProfileId.getInt("profile_id");
 	                         
@@ -91,11 +90,10 @@ public class ApplicationService {
 	                         String getProfileQuery = "SELECT * FROM profiles WHERE Profile_ID = ?";
 	                         try (PreparedStatement stmtProfile = dbConn.prepareStatement(getProfileQuery)) {
 	                             stmtProfile.setInt(1, profileId);
-	                             System.out.println("the current profile id is");
-	                             System.out.println(profileId);
+	                          
 	                             try (ResultSet rsProfile = stmtProfile.executeQuery()) {
 	                                 if (rsProfile.next()) {
-	                                	 System.out.println(".next() is running");
+	                                
 	                                     String occupation = rsProfile.getString("Profile_Occupation");
 	                                     String profileDescription = rsProfile.getString("Profile_Description");
 	                                     String displayPicture = rsProfile.getString("Display_Picture");
@@ -113,9 +111,7 @@ public class ApplicationService {
 
 
 	                // Add to list
-	             	System.out.println(user);
-	             	System.out.println(applicationStatus);
-	             	System.out.println(profile);
+	             
 	             
 	                if (user != null && profile != null && applicationStatus != null) {
 	                    ApplicationModel application = new ApplicationModel(applicationId, applicationStatus, user, profile);
@@ -234,7 +230,7 @@ public class ApplicationService {
 	    try (PreparedStatement stmt = dbConn.prepareStatement(updateQuery)) {
 	        stmt.setString(1, status);
 	        stmt.setInt(2, application_Id);
-	        System.out.println(stmt);
+	       
 
 	        int rowsUpdated = stmt.executeUpdate();
 	        return rowsUpdated > 0; // return true if at least one row was updated

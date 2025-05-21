@@ -48,6 +48,8 @@ public class myJobs extends HttpServlet {
         // Get job list for this user
         jobService jobService = new jobService();
         List<JobModel> myJobList = jobService.getJobsByUserId(userId);
+       
+       
         
 
         // Set the job list as a request attribute

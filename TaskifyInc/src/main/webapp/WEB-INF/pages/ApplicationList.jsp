@@ -547,22 +547,27 @@
             </div>
             <div class="applicant-actions">
              <span class="application-date">Application ID: ${application.applicationId}</span>
-<form action="ApplicationList" method="post" style="display:inline;">
-           
-	              
-	           <c:if test="${application.applicationStatus == 'Pending'}">
-			   	 
-			    	    <input type="hidden" name="applicationId" value="${application.applicationId}" />
-			    	    <button type="submit" name="status" value="accepted" class="action-btn accept-btn">Accept</button>
-			   		     <button type="submit" name="status" value="rejected" class="action-btn reject-btn">Reject</button>
-			 	   
+				<form action="ApplicationList" method="post" style="display:inline;">
+				           
+					              
+					       <c:if test="${application.applicationStatus == 'Pending'}">
+				    <form method="POST" action="${pageContext.request.contextPath}/ApplicationList">
+				        <!-- Hidden inputs for jobId and applicationId -->
+				        <input type="hidden" name="jobId" value="${job.jobId}" />
+				        <input type="hidden" name="applicationId" value="${application.applicationId}" />
+				        
+				        <!-- Submit buttons for accepting or rejecting -->
+				        <button type="submit" name="status" value="Accepted" class="action-btn accept-btn">Accept</button>
+				        <button type="submit" name="status" value="Rejected" class="action-btn reject-btn">Reject</button>
+				    </form>
 				</c:if>
+
 
 	            <c:if test="${application.applicationStatus =='Accepted'}">
 	            	<span>Accepted</span>
 	            </c:if>
 	             <c:if test="${application.applicationStatus =='Rejected'}">
-	            	<span>rejected</span>
+	            	<span>Rejected</span>
 	            </c:if>
 	            
              </form>
