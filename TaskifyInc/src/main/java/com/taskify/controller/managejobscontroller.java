@@ -56,7 +56,10 @@ public class managejobscontroller extends HttpServlet {
                     int jobId = Integer.parseInt(jobIdStr);
                     boolean deleted = jobService.deleteJobById(jobId);
                     if (deleted) {
-                        System.out.println("Job deleted successfully.");
+                    	request.setAttribute("message", "Job deleted Sucessfully!");
+                        request.setAttribute("redirectUrl", "managejobs"); // redirect path
+                        request.setAttribute("messageType", "success");
+                        request.getRequestDispatcher("/WEB-INF/pages/message.jsp").forward(request, response);
                     } else {
                         System.out.println("Failed to delete job.");
                     }
