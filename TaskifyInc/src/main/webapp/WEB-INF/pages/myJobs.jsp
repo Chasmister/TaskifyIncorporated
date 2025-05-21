@@ -457,7 +457,7 @@
             border-radius: 50%;
             overflow: hidden;
             margin-right: 20px;
-            margin-left:10px;
+            margin-left:70px;
             background-color: #ddd;
         }
 

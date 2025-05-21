@@ -326,12 +326,14 @@ header, .navbar {
         <!-- Fixed Profile Sidebar -->
         <div class="profile-sidebar">
             <div class="profile-section">
-                <img src="${pageContext.request.contextPath}/images/${profile.displayPicture}" alt="Profile Photo" class="profile-photo">
-                <h2 class="profile-name">${member.firstName} ${member.lastName}</h2>
-                <p class="profile-title">${profile.occupation}</p>
-                <div class="profile-stats">5 Active Applications</div>
+                <div class="profile-pic">
+              <img src="${pageContext.request.contextPath}/images/logos/${profile.displayPicture}" alt="ProfilePicture">
+              
             </div>
-            
+               <h2 class="profile-name">${member.firstName} ${member.lastName}</h2>
+                <p class="profile-title">${profile.occupation}</p>
+                <div class="profile-stats">${member.email}</div>
+            </div>
             <div class="guide-section">
                 <h4>Application Tips</h4>
                 <ul>
