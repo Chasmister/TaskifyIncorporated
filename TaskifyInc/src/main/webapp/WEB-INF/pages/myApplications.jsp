@@ -372,7 +372,7 @@ header, .navbar {
                         </div>
                     </div>
                     <div>
-                        <div class="application-status status-pending">${app.application_Status}</div>
+                        <div class="application-status status-pending">${app.applicationStatus}</div>
                         <p class="application-date">Applied 2 days ago</p>
                     </div>
                 </div>
