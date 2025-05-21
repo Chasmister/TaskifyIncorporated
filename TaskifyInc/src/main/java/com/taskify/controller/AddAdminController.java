@@ -13,6 +13,7 @@ import com.taskify.model.AdminModel;
 import com.taskify.model.JobModel;
 import com.taskify.service.AdminService;
 import com.taskify.service.jobService;
+import com.taskify.util.PasswordUtil;
 import com.taskify.util.ValidationUtil;
 
 ;
@@ -85,6 +86,7 @@ public class AddAdminController extends HttpServlet {
                 request.setAttribute("redirectUrl", "AddAdmin"); // redirect path
                 request.setAttribute("messageType", "error");
                 request.getRequestDispatcher("/WEB-INF/pages/message.jsp").forward(request, response);
+                return;
     		}
     			
     		if (!ValidationUtil.isValidEmail(email)) {
@@ -92,6 +94,7 @@ public class AddAdminController extends HttpServlet {
                 request.setAttribute("redirectUrl", "AddAdmin"); // redirect path
                 request.setAttribute("messageType", "error");
                 request.getRequestDispatcher("/WEB-INF/pages/message.jsp").forward(request, response);
+                return;
     		}
 
     			
@@ -100,6 +103,7 @@ public class AddAdminController extends HttpServlet {
                 request.setAttribute("redirectUrl", "AddAdmin"); // redirect path
                 request.setAttribute("messageType", "error");
                 request.getRequestDispatcher("/WEB-INF/pages/message.jsp").forward(request, response);
+                return;
     		}
     			
     		if (!ValidationUtil.doPasswordsMatch(password, retypePassword)) {
@@ -107,13 +111,23 @@ public class AddAdminController extends HttpServlet {
                 request.setAttribute("redirectUrl", "AddAdmin"); // redirect path
                 request.setAttribute("messageType", "error");
                 request.getRequestDispatcher("/WEB-INF/pages/message.jsp").forward(request, response);
+                return;
     		}
 
-            AdminService adminService = new AdminService();
-            int userId = adminService.insertUser(username, password); // insersts into users table
-            AdminModel newAdmin = new AdminModel(userId, firstName, lastName, email, password); // create admin
-            int adminId = adminService.insertAdmin(newAdmin); // insert into admin table
-            adminService.insertUserAdminLink(userId, adminId); //inserts into users_admin table
+    		AdminService adminService = new AdminService();
+
+    		// Insert into users table
+    		String encryptedPassword = PasswordUtil.encrypt(username, password);
+    		int userId = adminService.insertUser(username, encryptedPassword);
+
+    		//  Create AdminModel object with encrypted password
+    		AdminModel newAdmin = new AdminModel(userId, firstName, lastName, email, encryptedPassword);
+
+    		// Insert into admin table
+    		int adminId = adminService.insertAdmin(newAdmin);
+
+    		// Link user and admin
+    		adminService.insertUserAdminLink(userId, adminId);
             
             
             request.setAttribute("message", "New Admin added!");
