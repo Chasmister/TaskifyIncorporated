@@ -84,6 +84,48 @@ public class ManageUserService {
 
         return member;
     }
+    
+    public List<memberModel> searchUsersAdmin(String keyword) {
+        List<memberModel> users = new ArrayList<>();
+
+        boolean hasKeyword = keyword != null && !keyword.trim().isEmpty();
+        String query = hasKeyword
+        		? "SELECT * FROM members WHERE LOWER(Member_FirstName) LIKE ? OR LOWER(Member_LastName) LIKE ?"
+        		: "SELECT * FROM members";
+
+        try (Connection connection = TaskifyDBconfig.getDbConnection();
+             PreparedStatement ps = connection.prepareStatement(query)){
+        	
+        		if(hasKeyword) {
+        			String likeKeyword = "%" + keyword.toLowerCase() + "%";
+        			ps.setString(1, likeKeyword);
+        			ps.setString(2, likeKeyword);
+        		}
+        		
+        		try(ResultSet rs = ps.executeQuery()) {
+
+		            while (rs.next()) {
+		            	memberModel member = new memberModel(
+		            		    rs.getString("Member_FirstName"),
+		            		    rs.getString("Member_LastName"),
+		            		    rs.getDate("Member_DOB").toLocalDate(),
+		            		    rs.getString("Member_Gender"),
+		            		    rs.getString("Member_Email"),
+		            		    rs.getString("Member_ContactNumber")
+		            		);
+		            	
+		            	member.setId(rs.getInt("Member_ID")); 
+		
+		            	users.add(member);
+		            }
+        		}
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace(); 
+        }
+        System.out.println("Fetching users from ManageUserService...");
+        return users;
+    }
 
     public void updateUser(int memberId, String firstName, String lastName, String email, String phone, String gender, LocalDate dob) {
         String query = "UPDATE members SET Member_FirstName = ?, Member_LastName = ?, Member_Email = ?, Member_ContactNumber = ?, Member_Gender = ?, Member_DOB = ? WHERE Member_ID = ?";

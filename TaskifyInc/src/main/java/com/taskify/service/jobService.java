@@ -146,6 +146,8 @@ public class jobService {
         }
         return jobList;
     }
+    
+    
 
     // Method to register a new job in the database
     public Boolean registerJob(JobModel jobModel, int userId, int memberId) {
@@ -286,6 +288,90 @@ public class jobService {
         }
 
         return myjobList;
+    }
+    
+    
+    public List<JobModel> searchUserJobs(int userId, String keyword) {
+        List<JobModel> myjobList = new ArrayList<>();
+
+        String jobIdQuery = "SELECT Job_ID FROM users_members_jobs WHERE User_ID=?";
+        String jobDetailsQuery = "SELECT * FROM jobs WHERE LOWER(Job_Name) LIKE ? AND Job_ID=?";
+
+        try (PreparedStatement stmt1 = dbConn.prepareStatement(jobIdQuery);
+             PreparedStatement stmt2 = dbConn.prepareStatement(jobDetailsQuery)) {
+        	
+        	String likeKeyword = "%" + keyword + "%";
+    		stmt1.setInt(1, userId);
+    		
+
+           
+            ResultSet rs1 = stmt1.executeQuery();
+
+            while (rs1.next()) {
+                int jobId = rs1.getInt("Job_ID");
+
+                stmt2.setString(1, likeKeyword);
+                stmt2.setInt(2,  jobId);
+                
+                try (ResultSet rs2 = stmt2.executeQuery()) {
+                    if (rs2.next()) {
+                        JobModel job = new JobModel(
+                            rs2.getInt("Job_ID"),
+                            rs2.getString("Job_Name"),
+                            rs2.getString("Job_Description"),
+                            rs2.getDate("Start_Date"),
+                            rs2.getDate("End_Date"),
+                            rs2.getDouble("Salary"),
+                            rs2.getString("Skills_Required"),
+                            rs2.getString("Company_Picture")
+                        );
+                        myjobList.add(job);
+                    }
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // Consider replacing with a logger
+        }
+
+        return myjobList;
+    }
+    
+    
+    public List<JobModel> searchAllJobs(String keyword) {
+        List<JobModel> jobList = new ArrayList<>();
+
+        String query= "SELECT * FROM jobs WHERE LOWER(Job_Name) LIKE ?";
+        
+
+        try (PreparedStatement stmt1 = dbConn.prepareStatement(query)) {
+        	
+        	String likeKeyword = "%" + keyword + "%";
+    		stmt1.setString(1, likeKeyword);
+    		
+
+           
+            try(ResultSet rs = stmt1.executeQuery()) {
+            	while (rs.next()) {
+                        JobModel job = new JobModel(
+                            rs.getInt("Job_ID"),
+                            rs.getString("Job_Name"),
+                            rs.getString("Job_Description"),
+                            rs.getDate("Start_Date"),
+                            rs.getDate("End_Date"),
+                            rs.getDouble("Salary"),
+                            rs.getString("Skills_Required"),
+                            rs.getString("Company_Picture")
+                        );
+                        jobList.add(job);
+                    }
+                }
+
+        } catch (SQLException e) {
+            e.printStackTrace(); // Consider replacing with a logger
+        }
+
+        return jobList;
     }
 
     

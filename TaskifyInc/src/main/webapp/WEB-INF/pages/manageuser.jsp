@@ -32,6 +32,11 @@
       </div>
       <img src="images/spiked hair.png" alt="profile" />
       </div>
+      
+      <form method="get" action="${pageContext.request.contextPath}/manageuser">
+	    <input type="text" name="keyword" placeholder="Search by name" value="${keyword}">
+	    <button type="submit">Search</button>
+	</form>
 
 
       <table>

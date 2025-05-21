@@ -39,9 +39,21 @@ public class ManageUsersController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             ManageUserService manageUserService = new ManageUserService();
+            
+            String keyword = request.getParameter("keyword");
             List<memberModel> userList = manageUserService.getAllUsers();
-
+            
+            if(keyword != null && !keyword.trim().isEmpty()) {
+            	userList = manageUserService.searchUsersAdmin(keyword);
+            	System.out.println("Search keyword; " + keyword);
+            } else {
+            	userList = manageUserService.getAllUsers();
+            	System.out.println("No keyword provided, fetching all users.");
+            }
+            
             request.setAttribute("members", userList);
+            request.setAttribute("keyword", keyword);
+
             System.out.println("User list size: " + userList.size());
             request.getRequestDispatcher("/WEB-INF/pages/manageuser.jsp").forward(request, response);
         } catch (Exception e) {

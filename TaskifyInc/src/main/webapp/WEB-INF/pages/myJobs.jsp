@@ -557,9 +557,10 @@
             </div>
             
             <div class="actions-row">
-                <div class="search-bar">
-                    <input type="text" class="search-input" placeholder="Search your jobs...">
-                </div>
+                <form method="get" action="${pageContext.request.contextPath}/myJobs">
+                    <input type="text" name="keyword" class="search-input" placeholder="Search your jobs...">
+                	<button type="submit">Search</button>
+                </form>
                 <button class="create-job-btn">+ Create New Job</button>
             </div>
             

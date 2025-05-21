@@ -42,12 +42,22 @@ public class myJobs extends HttpServlet {
         }
 
         int userId = (int) session.getAttribute("User_ID");
+        String keyword = request.getParameter("keyword");
         System.out.println("User ID: " + userId);
 
 
         // Get job list for this user
         jobService jobService = new jobService();
-        List<JobModel> myJobList = jobService.getJobsByUserId(userId);
+        List<JobModel> myJobList;
+        
+        if (keyword != null && !keyword.trim().isEmpty()) {
+        	System.out.println("Keyword received from request: " + keyword);
+        	System.out.println("Calling searchUserJobs() with userId: " + userId);
+            myJobList = jobService.searchUserJobs(userId, keyword);
+            
+        } else {
+            myJobList = jobService.getJobsByUserId(userId); // default job list
+        }
        
        
         

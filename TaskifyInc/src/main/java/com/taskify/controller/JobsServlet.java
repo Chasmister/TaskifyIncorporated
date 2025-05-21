@@ -30,8 +30,15 @@ public class JobsServlet extends HttpServlet {
             }
 
             int userId = (int) session.getAttribute("User_ID");
+            String keyword = request.getParameter("keyword");
+            List<JobModel> jobList;
           
-            List<JobModel> jobList = jobService.getAllJobs(userId);
+            if(keyword != null && !keyword.trim().isEmpty()) {
+            	System.out.println("Searching all jobs with keyword: " + keyword);
+            	jobList = jobService.searchAllJobs(keyword);
+            } else {
+            	jobList = jobService.getAllJobs();
+            }
 
             userModel user = (userModel) session.getAttribute("user");
 

@@ -413,9 +413,10 @@
                 </div>
                 
                 <div class="actions-row">
-                    <div class="search-bar">
-                        <input type="text" class="search-input" placeholder="Search for jobs, skills, or companies...">
-                    </div>
+					<form method="get" action="jobs">
+                    	<input type="text" name="keyword" class="search-input" placeholder="Search your jobs...">
+                		<button type="submit">Search</button>
+                	</form>                 
                 </div>
             </div>
             
