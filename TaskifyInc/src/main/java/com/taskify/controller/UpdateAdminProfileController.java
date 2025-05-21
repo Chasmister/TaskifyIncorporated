@@ -30,7 +30,7 @@ public class UpdateAdminProfileController extends HttpServlet {
 
             if (updated) {
                 request.setAttribute("message", "Profile updated successfully!");
-                request.setAttribute("redirectUrl", "admindashboard"); 
+                request.setAttribute("redirectUrl", "adminprofileedit"); 
                 request.setAttribute("messageType", "success");
                 System.out.print("updated");
             } else {
