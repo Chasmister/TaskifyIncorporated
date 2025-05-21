@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Taskify - Login</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/newLoginTest.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/fonts.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">

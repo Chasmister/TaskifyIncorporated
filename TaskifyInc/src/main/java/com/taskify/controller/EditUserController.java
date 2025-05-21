@@ -58,8 +58,11 @@ public class EditUserController extends HttpServlet {
 
         // ✅ Call the updated method with gender and dob included
         manageUserService.updateUser(memberId, firstName, lastName, email, phone, gender, dob);
-
-        response.sendRedirect(request.getContextPath() + "/manageuser");
+        
+        request.setAttribute("message", "User Details Updated!");
+        request.setAttribute("redirectUrl", "manageuser"); // redirect path
+        request.setAttribute("messageType", "success");
+        request.getRequestDispatcher("/WEB-INF/pages/message.jsp").forward(request, response);
     }
 
 

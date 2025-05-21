@@ -36,32 +36,32 @@
 
       <div class="form-group">
         <label for="jobName"><i class="fa-solid fa-briefcase"></i> Job Name:</label>
-        <input type="text" id="jobName" name="jobName" value="${job.jobName}" required>
+        <input type="text" id="jobName" name="jobName" value="${job.jobName}">
       </div>
 
       <div class="form-group">
         <label for="jobDescription"><i class="fa-solid fa-align-left"></i> Job Description:</label>
-        <input type="text" id="jobDescription" name="jobDescription" value="${job.jobDescription}" required>
+        <input type="text" id="jobDescription" name="jobDescription" value="${job.jobDescription}">
       </div>
 
       <div class="form-group">
         <label for="startDate"><i class="fa-solid fa-calendar-day"></i> Start Date:</label>
-        <input type="date" id="startDate" name="startDate" value="${job.startDate}" required>
+        <input type="date" id="startDate" name="startDate" value="${job.startDate}">
       </div>
 
       <div class="form-group">
         <label for="endDate"><i class="fa-solid fa-calendar-check"></i> End Date:</label>
-        <input type="date" id="endDate" name="endDate" value="${job.endDate}" required>
+        <input type="date" id="endDate" name="endDate" value="${job.endDate}">
       </div>
 
       <div class="form-group">
         <label for="salary"><i class="fa-solid fa-dollar-sign"></i> Salary:</label>
-        <input type="number" id="salary" name="salary" step="0.01" value="${job.salary}" required>
+        <input type="number" id="salary" name="salary" step="0.01" value="${job.salary}">
       </div>
 
       <div class="form-group">
         <label for="skillsRequired"><i class="fa-solid fa-code"></i> Skills Required:</label>
-        <input type="text" id="skillsRequired" name="skillsRequired" value="${job.skillsRequired}" required>
+        <input type="text" id="skillsRequired" name="skillsRequired" value="${job.skillsRequired}">
       </div>
 
       <button type="submit" class="register-button" name="updateJobBtn">

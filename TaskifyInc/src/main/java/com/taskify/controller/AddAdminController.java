@@ -13,6 +13,7 @@ import com.taskify.model.AdminModel;
 import com.taskify.model.JobModel;
 import com.taskify.service.AdminService;
 import com.taskify.service.jobService;
+import com.taskify.util.ValidationUtil;
 
 ;
 
@@ -56,26 +57,69 @@ public class AddAdminController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
-            String retypePassword = request.getParameter("retypePassword");
-            String firstName = request.getParameter("firstName");
-            String lastName = request.getParameter("lastName");
-            String email = request.getParameter("email");
+        	String username = request.getParameter("username");
+        	String password = request.getParameter("password");
+        	String retypePassword = request.getParameter("retypePassword");
+        	String firstName = request.getParameter("firstName");
+        	String lastName = request.getParameter("lastName");
+        	String email = request.getParameter("email");
 
-            if (!password.equals(retypePassword)) {
-                request.setAttribute("error", "Passwords do not match!");
-                request.getRequestDispatcher("/WEB-INF/pages/AddAdmin.jsp").forward(request, response);
-                return;
-            }
+        	// Validate fields
+        	if (ValidationUtil.isNullOrEmpty(username) ||
+        	    ValidationUtil.isNullOrEmpty(password) ||
+        	    ValidationUtil.isNullOrEmpty(retypePassword) ||
+        	    ValidationUtil.isNullOrEmpty(firstName) ||
+        	    ValidationUtil.isNullOrEmpty(lastName) ||
+        	    ValidationUtil.isNullOrEmpty(email)) {
+
+        	    request.setAttribute("message", "Please fill in all the fields.");
+        	    request.setAttribute("redirectUrl", "AddAdmin"); // your JSP or controller path
+        	    request.setAttribute("messageType", "error");
+        	    request.getRequestDispatcher("/WEB-INF/pages/message.jsp").forward(request, response);
+        	    return;
+        	}
+         
+            
+    		if (!ValidationUtil.isAlphanumericStartingWithLetter(username)) {
+    			request.setAttribute("message", "Username must start with a letter and contain only letters and numbers");
+                request.setAttribute("redirectUrl", "AddAdmin"); // redirect path
+                request.setAttribute("messageType", "error");
+                request.getRequestDispatcher("/WEB-INF/pages/message.jsp").forward(request, response);
+    		}
+    			
+    		if (!ValidationUtil.isValidEmail(email)) {
+    			request.setAttribute("message", "Invalid Email Format");
+                request.setAttribute("redirectUrl", "AddAdmin"); // redirect path
+                request.setAttribute("messageType", "error");
+                request.getRequestDispatcher("/WEB-INF/pages/message.jsp").forward(request, response);
+    		}
+
+    			
+    		if (!ValidationUtil.isValidPassword(password)) {
+    			request.setAttribute("message", "Password must be at least 8 characters long, with 1 uppercase letter, 1 number, and 1 symbol.");
+                request.setAttribute("redirectUrl", "AddAdmin"); // redirect path
+                request.setAttribute("messageType", "error");
+                request.getRequestDispatcher("/WEB-INF/pages/message.jsp").forward(request, response);
+    		}
+    			
+    		if (!ValidationUtil.doPasswordsMatch(password, retypePassword)) {
+    			request.setAttribute("message", "Passwords Do not Match");
+                request.setAttribute("redirectUrl", "AddAdmin"); // redirect path
+                request.setAttribute("messageType", "error");
+                request.getRequestDispatcher("/WEB-INF/pages/message.jsp").forward(request, response);
+    		}
 
             AdminService adminService = new AdminService();
             int userId = adminService.insertUser(username, password); // insersts into users table
             AdminModel newAdmin = new AdminModel(userId, firstName, lastName, email, password); // create admin
             int adminId = adminService.insertAdmin(newAdmin); // insert into admin table
             adminService.insertUserAdminLink(userId, adminId); //inserts into users_admin table
-
-            response.sendRedirect(request.getContextPath() + "/admindashboard");
+            
+            
+            request.setAttribute("message", "New Admin added!");
+            request.setAttribute("redirectUrl", "admindashboard"); // redirect path
+            request.setAttribute("messageType", "success");
+            request.getRequestDispatcher("/WEB-INF/pages/message.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("error", "Failed to add admin: " + e.getMessage());

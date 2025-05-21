@@ -36,27 +36,27 @@
 
       <div class="form-group">
         <label for="firstname"><i class="fa-solid fa-user"></i> First Name:</label>
-        <input type="text" id="firstname" name="firstName" value="${member.firstName}" required>
+        <input type="text" id="firstname" name="firstName" value="${member.firstName}">
       </div>
 
       <div class="form-group">
         <label for="lastname"><i class="fa-solid fa-user"></i> Last Name:</label>
-        <input type="text" id="lastname" name="lastName" value="${member.lastName}" required>
+        <input type="text" id="lastname" name="lastName" value="${member.lastName}">
       </div>
 
       <div class="form-group">
         <label for="email"><i class="fa-solid fa-envelope"></i> Email:</label>
-        <input type="email" id="email" name="email" value="${member.email}" required>
+        <input type="email" id="email" name="email" value="${member.email}">
       </div>
 
       <div class="form-group">
         <label for="phone"><i class="fa-solid fa-phone"></i> Phone Number:</label>
-        <input type="text" id="phone" name="phone" value="${member.phonenumber}" required>
+        <input type="text" id="phone" name="phone" value="${member.phonenumber}">
       </div>
 
       <div class="form-group">
         <label for="dob"><i class="fa-solid fa-calendar-days"></i> Date of Birth:</label>
-        <input type="date" id="dob" name="dob" value="${member.dob}" required>
+        <input type="date" id="dob" name="dob" value="${member.dob}">
       </div>
 
       <div class="form-group">
