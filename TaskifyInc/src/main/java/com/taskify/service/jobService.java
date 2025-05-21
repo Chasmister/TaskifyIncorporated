@@ -234,7 +234,8 @@ public class jobService {
     public boolean deleteJobById(int jobId) {
         if (dbConn == null) return false;
 
-        String deleteDependenciesQuery = "DELETE FROM users_members_jobs_applications WHERE Job_ID = ?";
+        // Correct child table name based on your error
+        String deleteDependenciesQuery = "DELETE FROM users_members_jobs WHERE Job_ID = ?";
         String deleteJobQuery = "DELETE FROM jobs WHERE Job_ID = ?";
 
         try {
@@ -254,20 +255,21 @@ public class jobService {
 
         } catch (SQLException e) {
             try {
-                dbConn.rollback(); // undo if any error
+                dbConn.rollback(); 
             } catch (SQLException rollbackEx) {
                 rollbackEx.printStackTrace();
             }
             e.printStackTrace();
         } finally {
             try {
-                dbConn.setAutoCommit(true); // reset autocommit
+                dbConn.setAutoCommit(true);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
         return false;
     }
+
     
     public List<JobModel> getJobsByUserId(int userID) {
         List<JobModel> myjobList = new ArrayList<>();
