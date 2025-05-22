@@ -53,7 +53,7 @@ public class UpdateProfile extends HttpServlet {
 
 	       
 
-	        // 🔑 Get the original profile, member, and user from session (must contain profileId, userId, memberId)
+	        //  Get the original profile, member, and user from session (must contain profileId, userId, memberId)
 	        HttpSession session = request.getSession(false);
 	        profileModel sessionProfile = (profileModel) session.getAttribute("profile");
 	        
@@ -74,7 +74,7 @@ public class UpdateProfile extends HttpServlet {
 	            return;
 	        }
 
-	        // ✅ Set the profileId, memberId, and userId on the respective models to be updated
+	        //  Set the profileId, memberId, and userId on the respective models to be updated
 	        profile.setProfileId(sessionProfile.getProfileId());
 	        member.setId(sessionMember.getId()); // Assuming member ID is needed for updating
 	        //user.setuser_ID(sessionUser.getuserid()); // Assuming user ID is needed for updating
@@ -85,7 +85,7 @@ public class UpdateProfile extends HttpServlet {
 	        
 
 	        if (profileUpdated || memberUpdated) {
-	            // 🔁 Refresh session with updated profile, member, and user
+	            // Refresh session with updated profile, member, and user
 	            if (profileUpdated) {
 	                session.setAttribute("profile", profile);
 	            }

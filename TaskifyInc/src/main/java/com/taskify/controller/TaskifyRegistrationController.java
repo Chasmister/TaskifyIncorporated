@@ -53,9 +53,7 @@ public class TaskifyRegistrationController extends HttpServlet {
 			System.out.println(validationMessage);
 			
 			if (validationMessage != null) {
-	
 				request.setAttribute("alertMessage", validationMessage);
-				
 				handleError(request, response, validationMessage);
 				return;
 			}
@@ -74,7 +72,7 @@ public class TaskifyRegistrationController extends HttpServlet {
 			if (isAdded == null) {
 			    handleError(request, response, "Our server is under maintenance. Please try again later!");
 			} else if (isAdded.containsKey("userId") && isAdded.containsKey("memberId")) {
-			    System.out.println("yo1");
+			    
 
 			    // Set the IDs in your model for future use
 			    userModelDetails.setuser_ID(isAdded.get("userId"));

@@ -575,12 +575,7 @@
                 <h1 class="content-title">My Jobs</h1>
             </div>
             
-            <div class="filter-tabs">
-                <div class="filter-tab active">All</div>
-                <div class="filter-tab">Active</div>
-                <div class="filter-tab">Expired</div>
-                <div class="filter-tab">Draft</div>
-            </div>
+          
             
             <div class="actions-row">
                 <form method="get" action="${pageContext.request.contextPath}/myJobs">
