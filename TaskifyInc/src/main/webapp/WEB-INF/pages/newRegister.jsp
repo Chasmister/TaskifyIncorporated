@@ -76,7 +76,7 @@
 	            </div>
 	            <button type="submit" class="submit-btn" name="registerbutton">Submit</button>
   			
-  				<a href="#" id="noAccount">Already have an account? Sign In</a>
+  				<a href="${pageContext.request.contextPath}/login" id="noAccount">Already have an account? Sign In</a>
   			</form>
   			
   			

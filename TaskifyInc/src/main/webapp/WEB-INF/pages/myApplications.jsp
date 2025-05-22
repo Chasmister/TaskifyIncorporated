@@ -71,25 +71,30 @@ header, .navbar {
 }
 
 .profile-sidebar {
-    width: 25%;
     min-width: 280px;
     margin-right: 2rem;
 }
 
 .profile-section {
-	margin-top:150px;
+	margin-top:100px;
     padding: 30px;
     margin-bottom: 20px;
     text-align: center;
 }
 
-.profile-photo {
-    width: 80px;
-    height: 80px;
+.profile-pic {
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid #fff;
     margin-bottom: 15px;
+}
+
+.profile-pic img {
+	width: 100%;
+	height: auto;
+	
 }
 
 .profile-name {

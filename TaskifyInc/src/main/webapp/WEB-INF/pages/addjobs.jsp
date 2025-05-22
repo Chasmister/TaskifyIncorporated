@@ -447,7 +447,7 @@
                       
                     
                     <div class="submit-section">
-                        <button type="button" class="cancel-btn">Cancel</button>
+                        <a href="${pageContext.request.contextPath}/profile"><button type="button" class="cancel-btn">Cancel</button></a>
                         <div>
                           
                             <button type="submit" class="post-btn">Post Job</button>

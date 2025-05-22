@@ -35,6 +35,25 @@ nav {
     text-decoration: none;
 }
 
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.logo-img {
+    height: 40px; /* Adjust as needed */
+    width: auto;
+}
+
+.logo-text {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #FFFCEC;
+    font-family: 'Manrope', sans-serif;
+}
+
 .navigation-section {
     display: flex;
     align-items: center;
@@ -46,12 +65,30 @@ nav {
     gap: 30px;
 }
 
+
 .nav-links a {
-	font-family: 'Jetbrains Mono', sans-serif;
+    position: relative;
+    display: inline-block;
+    font-family: 'Jetbrains Mono', sans-serif;
     text-decoration: none;
-    color: #FFFCEC;
+    color: #F3E9DC;
     font-weight: 600;
     letter-spacing: -0px;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: #FFFCEC;
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
 }
 
 .auth-buttons {
@@ -69,6 +106,25 @@ nav {
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
+}
+
+.auth-btn {
+	background-color: #F3E9DC;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: 'Jetbrains Mono', sans-serif;
+    text-decoration: none;
+    color: #001B2E;
+    cursor: pointer;
+    display: inline-flex;
+    transition: all 0.3s ease;
+}
+
+.auth-btn:hover {
+	background-color: #7A4419;
+	color: #F3E9DC;
 }
 
 .btn-primary {
@@ -119,8 +175,10 @@ nav {
 </head>
 <body>
 <nav>
-    <a href="#" class="logo">taskify</a>
-    
+    <a href="${pageContext.request.contextPath}/home" class="logo-container">
+    <img src="${pageContext.request.contextPath}/images/Taskify Logo.png" alt="Taskify Logo" class="logo-img">
+    <span class="logo-text">taskify</span>
+	</a>
     <div class="navigation-section">
         <div class="nav-links">
             <a href="${pageContext.request.contextPath}/home">Home</a>
@@ -140,12 +198,12 @@ nav {
         	userModel user=(userModel) session.getAttribute("user");
      		if(user==null){
         %>
-            <a href="${pageContext.request.contextPath}/login" class="btn btn-primary">Login -></a>
-            <a href="${pageContext.request.contextPath}/register" class="btn btn-secondary">Register</a>
+            <a href="${pageContext.request.contextPath}/login" class="auth-btn">Login -></a>
+            <a href="${pageContext.request.contextPath}/register" class="auth-btn">Register</a>
          <% 
      		}else{
          %>  
-         <a href="${pageContext.request.contextPath}/logout" class="btn btn-secondary">logout</a>
+         <a href="${pageContext.request.contextPath}/logout" class="auth-btn">logout</a>
         
 
        	<%
@@ -162,7 +220,7 @@ nav {
 // Mobile menu functionality
 const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
 mobileMenuBtn.addEventListener('click', () => {
-    alert('Mobile menu clicked - Add your mobile menu functionality here');
+    alert('Mobile menu clicked');
 });
 </script>
 </body>

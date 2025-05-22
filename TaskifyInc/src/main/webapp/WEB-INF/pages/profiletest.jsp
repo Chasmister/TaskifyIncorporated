@@ -88,6 +88,19 @@
             color: var(--primary-color);
             font-size: 18px;
         }
+        
+        #edit-button {
+        	font-family: 'Jetbrains Mono', sans-serif;
+        	font-weight: 600;
+        	background-color: #001B2E;
+        	color: #FFFCEC;
+        	padding: 0.5rem;
+        	width: 70%;
+        	border: none;
+        	border-radius: 5px;
+        	text-decoration: none;
+        	margin-top: 10px;
+        }
 
         .main-content {
             display: flex;
@@ -288,7 +301,7 @@
             <h1>${user.username}</h1>
             <p class="profile-fullname"><h2>${member.firstName} ${member.lastName}</h2></p>
        
-            <a href="#profile">Edit Profile</a>
+            <a href="#profile" id="edit-button">Edit Profile</a>
            </div>
       
     </div>

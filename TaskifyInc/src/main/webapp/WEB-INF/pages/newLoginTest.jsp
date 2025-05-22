@@ -38,7 +38,7 @@
 
     	<div class="right-panel">
 	  		<dotlottie-player
-			    src="https://lottie.host/46e02ad8-f7c0-42d4-8f21-a6f75f7a12a4/3kWmUTfc0l.lottie"
+			    src="https://lottie.host/f3b3bffd-a3ba-41a4-86f7-2ad3cd22d23d/mijVpW7WGG.lottie"
 			    background="transparent"
 			    speed="0.2"
 			    loop

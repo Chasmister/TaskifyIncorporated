@@ -14,7 +14,6 @@ body {
 	background-color: #FFFCEC;
 	color: #FFFCEC;
 	position: relative;
-	min-height: 1000vh;
 	overflow-x: hidden;
 }
 
@@ -36,6 +35,10 @@ body::before {
 	padding: 0 20px;
 	position: relative;
 	z-index: 1;
+}
+
+a {
+	text-decoration: none;
 }
 
 
@@ -66,6 +69,14 @@ body::before {
 	background: #EC9046;
 	background: linear-gradient(136deg,rgba(236, 144, 70, 1) 0%, rgba(122, 68, 25, 1) 61%);
 	color: #FFFCEC;
+	box-shadow: 14px 10px 32px 0px rgba(130,73,28,0.65);
+	transition: all 0.3s ease-in-out;
+}
+
+.btn-outline:hover {
+	background: #F3E9DC;
+	color: #7A4419;
+	box-shadow: 19px 15px 52px 0px rgba(130,73,28,0.85);
 }
 
 .btn-arrow {
@@ -163,7 +174,7 @@ body::before {
 }
 
 .floating-bubble {
-	background: url('../images/chat bubble.svg');
+	background: url('../images/floating bubble.png');
 	background-repeat: no-repeat;
 	background-size: contain;
 	position: relative;
@@ -175,6 +186,7 @@ body::before {
 	padding: 1.5rem 1.5rem;
 	line-height: 1.5rem;
 	animation: float 3s ease-in-out infinite;
+	
 }
 
 @keyframes float {
@@ -213,7 +225,7 @@ body::before {
 	font-size: 3.5rem;
 	letter-spacing: -3px;
 	text-align: center;
-	color: #294C60;
+	color: #001B2E;
 	margin-bottom: 80px;
 	font-weight: 700;
 }
@@ -316,7 +328,7 @@ body::before {
 
 
 .view-all a {
-  color: #294C60;
+  color: #001B2E;
   text-decoration: none;
   font-weight: 800;
   font-size: 2rem;
@@ -442,11 +454,57 @@ body::before {
   background-color: #1a35cc;
 }
 
+
+.endorsement-section {
+      padding: 2rem;
+      border-radius: 1rem;
+      overflow: hidden;
+      margin-top: 1.2rem;
+      margin-bottom: 8rem;
+    }
+
+    .endorsement-title {
+      font-size: 3.5rem;
+      font-weight: 800;
+      letter-spacing: -2.5px;
+      margin-bottom: 5rem;
+      text-align: center;
+      color: #001B2E;
+      
+    }
+
+    .marquee-container {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .marquee-track {
+      display: flex;
+      width: fit-content;
+      animation: slide 20s linear infinite;
+    }
+
+    .marquee-track img {
+      height: 60px;
+      margin: 0 2rem;
+      object-fit: contain;
+      filter: grayscale(100%);
+      transition: filter 0.3s ease;
+    }
+    
+    @keyframes slide {
+      0% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
 /* Hire Talent Section */
 .hire-talent-wrapper {
 	width: 100%;
 	margin-top: 50px;
-	margin-bottom: 50px;
 	width: 100vw; /* Full viewport width */
     left: 50%;
     right: 50%;
@@ -456,11 +514,12 @@ body::before {
 }
 
 .hire-talent {
-  background-color: #294C60;
+  background: #001B2E;
+background: linear-gradient(180deg,rgba(0, 27, 46, 1) 26%, rgba(0, 87, 148, 1) 80%);
   color: #FFFCEC;
   width: 100%;
   overflow: hidden;
-  height: 600px;
+  height: 700px;
   padding-top: 100px;
 }
 
@@ -493,7 +552,7 @@ body::before {
   color: #294C60;
   text-decoration: none;
   padding: 12px 24px;
-  border-radius: 30px;
+  border-radius: 8px;
   font-weight: 600;
   font-size: 1.2rem;
   transition: background-color 0.3s ease;
@@ -515,6 +574,62 @@ body::before {
   height: auto;
   mix-blend-mode: hard-light;
 }
+
+.UI-showcase {
+
+}
+
+.UI-showcase h1 {
+	color: #001B2E;
+	font-size: 3rem;
+	letter-spacing: -2.5px;
+	text-align: center;
+	margin-bottom: 2.8rem;
+}
+
+.functionality-cards {
+	display: flex;
+	gap: 2rem;
+	justify-content: center;
+}
+
+
+.Add_jobs {
+	padding: 2rem;
+	padding-left: 5rem;
+	background: linear-gradient(146deg,rgba(0, 0, 0, 1) 0%, rgba(0, 80, 126, 1) 65%, rgba(0, 162, 255, 1) 100%);
+	color: #F3E9DC;
+	border-radius: 10px;
+}
+
+.Add_jobs h2{
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.Add_jobs li {
+	margin-bottom: 1.3rem;
+	font-size: 1.3rem;
+}
+
+.View_jobs {
+	padding: 2rem;
+	padding-left: 5rem;
+	background: linear-gradient(146deg,rgba(0, 0, 0, 1) 0%, rgba(0, 80, 126, 1) 65%, rgba(0, 162, 255, 1) 100%);
+	color: #F3E9DC;
+	border-radius: 10px;
+}
+
+.View_jobs h2{
+	font-size: 2.5rem;
+	margin-bottom: 1rem;
+}
+
+.View_jobs li {
+	margin-bottom: 1.3rem;
+	font-size: 1.3rem;
+}
+
 
 
 

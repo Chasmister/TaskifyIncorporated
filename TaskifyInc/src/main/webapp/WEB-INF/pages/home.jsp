@@ -20,7 +20,7 @@
 			<section class="hero">
 				<div class="hero-content">
 					<h1>Hire top talent, find your next gig. </h1>
-					<a href="#" class = "btn btn-outline btn-arrow">
+					<a href="${pageContext.request.contextPath}/register" class = "btn btn-outline btn-arrow">
 						Register <span class="arrow">-></span>
 					</a>
 				</div>
@@ -42,147 +42,124 @@
 				<div class="category-grid">
 				
 					<!-- Red background cards -->
+					<a href="${pageContext.request.contextPath}/jobs?keyword=develop">
 					<div class="category-card red">
 						<div class="card-content">
 							<h3>WEB DEVELOPMENT</h3>
 							<div class="card-icon design-icon"></div>
 						</div>
 					</div>
+					</a>
 					
+					<a href="${pageContext.request.contextPath}/jobs?keyword=design">
 					<div class="category-card red">
 						<div class="card-content">
 							<h3>GRAPHIC DESIGN</h3>
 							<div class="card-icon dev-icon"></div>
 						</div>
 					</div>
+					</a>
 					
+					<a href="${pageContext.request.contextPath}/jobs?keyword=writ">
 					<div class="category-card red">
 						<div class="card-content">
 							<h3>BLOG WRITING</h3>
 							<div class="card-icon blog-icon"></div>
 						</div>
 					</div>
-					
+					</a>
 					
 					<!-- Blue background cards -->
 					
+					<a href="${pageContext.request.contextPath}/jobs?keyword=product">
 					<div class="category-card blue">
 						<div class="card-content">
 							<h3>PRODUCT DEVELOPMENT</h3>
 							<div class="card-icon dev-icon"></div>
 						</div>
 					</div>
+					</a>
 					
+					<a href="${pageContext.request.contextPath}/jobs?keyword=video">
 					<div class="category-card blue">
 						<div class="card-content">
 							<h3>VIDEO EDITING</h3>
 							<div class="card-icon video-editing-icon"></div>
 						</div>
 					</div>
+					</a>
 					
+					<a href="${pageContext.request.contextPath}/jobs?keyword=develop">
 					<div class="category-card blue">
 						<div class="card-content">
 							<h3>WEB DEVELOPMENT</h3>
 							<div class="card-icon design-icon"></div>
 						</div>
 					</div>
+					</a>
 					
 				</div>
 				
 				
 				<div class="view-all">
-      				<a href="#">View All</a>
+      				<a href="${pageContext.request.contextPath}/jobs">View All</a>
     			</div>
 				
 			</section>
 		</div>
 		
-		<div class="bestFreelancers-wrapper">
-			<section class="best-freelancers">
-		    	<h2>Our Best Freelancers</h2>
-		    
-		    	<div class="freelancers-grid">
-		      		<!-- Freelancer Card 1 -->
-		      		<div class="freelancer-card">
-		        		<div class="freelancer-info">
-		          			<div class="freelancer-img">
-		            			<img src="${pageContext.request.contextPath}/images/profile pic.png" alt="Freelancer profile">
-		          			</div>
-		          			<div class="freelancer-details">
-		            			<h3 class="freelancer-name">SUSAN PUDASAINI</h3>
-		            			<p class="freelancer-title">Roblox Dealer</p>
-		            			<p class="freelancer-reviews">400+ reviews</p>
-		          			</div>
-		        		</div>
-		        		<div class="freelancer-footer">
-		          			<p class="freelancer-rate">40$/hr</p>
-		          			<a href="#" class="profile-btn">VIEW PROFILE</a>
-		        		</div>
-		      		</div>
-		      
-		      <!-- Freelancer Card 2 -->
-		      		<div class="freelancer-card">
-		        		<div class="freelancer-info">
-		          			<div class="freelancer-img">
-		            			<img src="${pageContext.request.contextPath}/images/profile pic.png" alt="Freelancer profile">
-		          			</div>
-		          			<div class="freelancer-details">
-		            			<h3 class="freelancer-name">SUSAN PUDASAINI</h3>
-		            			<p class="freelancer-title">Roblox Dealer</p>
-		            			<p class="freelancer-reviews">400+ reviews</p>
-		          			</div>
-		        		</div>
-		        		<div class="freelancer-footer">
-		          			<p class="freelancer-rate">40$/hr</p>
-		          			<a href="#" class="profile-btn">VIEW PROFILE</a>
-		        		</div>
-		      		</div>
-		      
-		      <!-- Freelancer Card 3 -->
-		      		<div class="freelancer-card">
-		        		<div class="freelancer-info">
-		          			<div class="freelancer-img">
-		            			<img src="${pageContext.request.contextPath}/images/profile pic.png" alt="Freelancer profile">
-		          			</div>
-		          			<div class="freelancer-details">
-		            			<h3 class="freelancer-name">SUSAN PUDASAINI</h3>
-		            			<p class="freelancer-title">Roblox Dealer</p>
-		            			<p class="freelancer-reviews">400+ reviews</p>
-		          			</div>
-		        		</div>
-		        		<div class="freelancer-footer">
-		          			<p class="freelancer-rate">40$/hr</p>
-		          			<a href="#" class="profile-btn">VIEW PROFILE</a>
-		        		</div>
-		      		</div>
-		      		
-		      <!-- Freelancer Card 3 -->
-		      		<div class="freelancer-card">
-		        		<div class="freelancer-info">
-		          			<div class="freelancer-img">
-		            			<img src="${pageContext.request.contextPath}/images/profile pic.png" alt="Freelancer profile">
-		          			</div>
-		          			<div class="freelancer-details">
-		            			<h3 class="freelancer-name">SUSAN PUDASAINI</h3>
-		            			<p class="freelancer-title">Roblox Dealer</p>
-		            			<p class="freelancer-reviews">400+ reviews</p>
-		          			</div>
-		        		</div>
-		        		<div class="freelancer-footer">
-		          			<p class="freelancer-rate">40$/hr</p>
-		          			<a href="#" class="profile-btn">VIEW PROFILE</a>
-		        		</div>
-		      		</div>
-		    	</div>
-		  </section>
-		</div>
+	
+		
+		<div class="endorsement-section">
+		    <div class="endorsement-title">We are endorsed by</div>
+		    <div class="marquee-container">
+		      <div class="marquee-track">
+		        <!-- Repeating logos to create seamless scrolling -->
+		        <img src="${pageContext.request.contextPath}/images/logos_linkedin.png" alt="Logo 1">
+		        <img src="${pageContext.request.contextPath}/images/logos_upwork.png" alt="Logo 2">
+		        <img src="${pageContext.request.contextPath}/images/logos_fiverr.png" alt="Logo 3">
+		        <img src="${pageContext.request.contextPath}/images/logos_amazon.png" alt="Logo 4">
+		        <!-- Repeating same logos for smooth loop -->
+		        <img src="${pageContext.request.contextPath}/images/logos_linkedin.png" alt="Logo 1">
+		        <img src="${pageContext.request.contextPath}/images/logos_upwork.png" alt="Logo 2">
+		        <img src="${pageContext.request.contextPath}/images/logos_fiverr.png" alt="Logo 3">
+		        <img src="${pageContext.request.contextPath}/images/logos_amazon.png" alt="Logo 4">
+		      </div>
+		    </div>
+	 	 </div>
+	 	 
+	 	 <div class="UI-showcase">
+	 	 	<h1>Designed with intuitiveness in mind</h1>
+	 	 	<div class="functionality-cards">
+	 	 		<div class="Add_jobs">
+	 	 			<h2>Add jobs</h2>
+	 	 			<ul>
+	 	 				<li>Customizable job descriptions</li>
+	 	 				<li>Set proper deadlines and start times</li>
+	 	 				<li>Intuitive and easy to use User Interface</li>
+	 	 				<li>Only two clicks away</li>
+	 	 			</ul>
+	 	 		</div>
+	 	 		<div class="View_jobs">
+	 	 			<h2>Apply to jobs</h2>
+	 	 			<ul>
+	 	 				<li>Job Recommendations according to your preferences</li>
+	 	 				<li>Connect with clients easily</li>
+	 	 				<li>Easy to come back to, anytime</li>
+	 	 				<li>Cancel jobs, anytime</li>
+	 	 			</ul>
+	 	 		</div>
+	 	 	</div>
+	 	 </div>
+		
+		
 		
 		<div class="hire-talent-wrapper">
   			<div class="hire-talent">
     			<div class="talent-content-container">
     				<div class="talent-content">
       					<h2>Hire top talent for your needs</h2>
-     				 	<a href="#" class="hiring-hub-btn">Hiring Hub <span class="arrow">→</span></a>
+     				 	<a href="${pageContext.request.contextPath}/myApplications" class="hiring-hub-btn">Hiring Hub <span class="arrow">→</span></a>
     				</div>
     				<div class="handshake-image">
       					<img src="${pageContext.request.contextPath}/images/handshake 3.png" alt="Handshake">
@@ -194,7 +171,7 @@
 		
 	</div>
 	
-	
+<jsp:include page="newFooter.jsp"/>	
 	
 	
 	<script>
