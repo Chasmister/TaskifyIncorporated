@@ -356,14 +356,6 @@ header, .navbar {
                 <h1 class="content-title">My Applications</h1>
             </div>
             
-            <div class="filter-tabs">
-                <div class="filter-tab active">All</div>
-                <div class="filter-tab">Pending</div>
-                <div class="filter-tab">Interview</div>
-                <div class="filter-tab">Accepted</div>
-                <div class="filter-tab">Rejected</div>
-            </div>
-            
             <!-- Job Applications List -->
             <c:forEach var="app" items="${ApplicationList}">
                 <div class="job-card">
